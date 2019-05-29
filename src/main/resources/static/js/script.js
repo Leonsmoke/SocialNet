@@ -33,5 +33,23 @@ function checkTypeProfile(){
     }
 }
 
-
-
+function checkPageFriend(){
+    var text = $("#page-type").text();
+    var addBtns= document.getElementsByClassName("addFriendBtn");
+    var delBtns= document.getElementsByClassName("deleteFriendBtn");
+    if (text=="main" || text=="out"){
+        Array.from(addBtns).forEach((btn) => {
+            btn.style.visibility="hidden";
+        });
+        Array.from(delBtns).forEach((btn) => {
+            btn.style.visibility="visible";
+    });
+    } else {
+        Array.from(addBtns).forEach((btn) => {
+            btn.style.visibility="visible";
+    });
+        Array.from(delBtns).forEach((btn) => {
+            btn.style.visibility="hidden";
+    });
+    }
+}

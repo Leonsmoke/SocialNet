@@ -5,9 +5,9 @@
     <title>Friend's Page</title>
     <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
     <script src="//code.jquery.com/jquery-1.7.min.js"></script>
-    <script src="../js/script.js"></script>
+    <script th:src="@{/js/script.js}"></script>
 </head>
-<body onload='checkTypeProfile()'>
+<body onload="checkPageFriend()">
 
 <div class="page">
         <div class="menu" id="user">
@@ -35,6 +35,10 @@
 
 
     <div class="panel panel-primary">
+        <p id="page-type" th:type="hidden" th:text="${pageType}"></p>
+        <a href="/user/friends">Your friends</a>
+        <a href="/user/friends/in">Incoming request</a>
+        <a href="/user/friends/out">Outcoming request</a>
         <div class="panel-header">
             <h4>Friend list:</h4>
         </div>

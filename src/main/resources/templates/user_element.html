@@ -8,6 +8,10 @@
         <input type="hidden" name="ffl" value="1" />
         <input type="submit" class="deleteFriendBtn"  id = "deleteFriendBtn" value="Remove from friends"/>
     </form>
+    <form th:action="'/user/friends/add/'+${id}" method="get">
+        <input type="hidden" name="ffl" value="1" />
+        <input type="submit" class="addFriendBtn"  id = "addFriendBtn" value="Accept request"/>
+    </form>
 </div>
 
 <li class="search-user-container" th:fragment="searchUser(firstName,lastName,id)">

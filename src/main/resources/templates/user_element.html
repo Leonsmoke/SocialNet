@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div class="friend-container" th:fragment="userElement(firstName,lastName,id)">
+        <a class="friend-firstname" th:href="'/user/'+${id}" th:text="${firstName} + ' ' + ${lastName}"></a>
+    <form th:action="'/user/friends/delete/'+${id}" method="get">
+        <input type="hidden" name="ffl" value="1" />
+        <input type="submit" class="deleteFriendBtn"  id = "deleteFriendBtn" value="Remove from friends"/>
+    </form>
+</div>
+
+<li class="search-user-container" th:fragment="searchUser(firstName,lastName,id)">
+    <a th:href= "'/user/'+${id}" th:text="${firstName} + ' ' + ${lastName}">My profile</a>
+</li>
+
+<li class="dialog-row-container" th:fragment="dialogRow(firstName,lastName,id)">
+    <a th:href= "'/messages/dialog'+${id}" th:text="${firstName} + ' ' + ${lastName}"></a>
+</li>
+
+<li class="dialog-message-container" th:fragment="messageRow(textMessage,timeMessage)">
+    <a th:text="${timeMessage}"></a>
+    <a th:text="${textMessage}"></a>
+</li>
+
+</body>
+</html>

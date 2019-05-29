@@ -1,0 +1,84 @@
+body{
+    background-color: #C5DDE8;
+}
+a, a:hover{
+    text-decoration: none;
+    padding: 5px;
+    font: normal 100% 'century gothic';
+    color: darkslategray;
+}
+h1{
+    font: normal 170% 'century goyhic';
+    color: darkslategray;
+}
+h2{
+    font: normal 150% 'century gothic';
+    text-decoration: none;
+    color: darkslategray;
+}
+h3{
+    font: normal 130% 'century gothic';
+    text-decoration: none;
+    color: darkslategray;
+}
+h4{
+    font: normal 110% 'century gothic';
+    text-decoration: none;
+    color: darkslategray;
+    margin-bottom: auto;
+    
+}
+input[type="text"], input[type="password"], input[type="email"]{
+    padding: 5px;
+    border: solid 1px pink;
+    border-radius: 5px;
+    
+}
+.header{
+    padding: 25px;
+    border: solid pink 1px;
+    background: linear-gradient(45deg, #EECFBA, #b1d0de);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.incor_username{
+    color: red;
+}
+.sign-in, .sign-up, .register-btn{
+    padding: 4px;
+    background-color: white;
+    border: solid 1px pink;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 3px;
+    display: inline-block;
+    font: normal 80% 'century gothic';
+    width: 150px;
+}
+label{
+    font: normal 90% 'century gothic';
+    text-decoration: none;
+    color: darkslategray;
+    margin-bottom: auto;
+}
+span{
+    font: normal 140% 'century gothic';
+    text-decoration: none;
+    color: darkslategray;
+    margin-bottom: auto;
+}
+.menu ul li{
+    margin: 15px;
+    text-align: left;
+    list-style-type: none;
+    background-color: #b1d0de;
+    border-radius: 5px;
+}
+.tabs{   
+    background-color: #b1d0de;
+    border-radius: 10px;
+    float: left;
+    padding: 20px;
+    margin-right: 20px;
+    margin-top: auto;
+}

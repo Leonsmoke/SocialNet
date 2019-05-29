@@ -1,10 +1,10 @@
-package rgr.test_service.Security;
+package socialNet.Security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import rgr.test_service.Entity.UserEntity;
+import socialNet.Entity.UserEntity;
 
 public class SecurityUtils {
     private SecurityUtils() {

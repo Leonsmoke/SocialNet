@@ -1,4 +1,4 @@
-package rgr.test_service.Controller;
+package socialNet.Controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,17 +7,17 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import rgr.test_service.Entity.FriendList;
-import rgr.test_service.Entity.UserEntity;
-import rgr.test_service.Service.UserService;
-import rgr.test_service.View.UserView;
-import rgr.test_service.repos.FriendRepo;
-import rgr.test_service.repos.UserRepo;
+import socialNet.Entity.FriendList;
+import socialNet.Entity.UserEntity;
+import socialNet.Service.UserService;
+import socialNet.View.UserView;
+import socialNet.repos.FriendRepo;
+import socialNet.repos.UserRepo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static rgr.test_service.constant.pages.*;
+import static socialNet.constant.pages.*;
 
 @Controller
 @RequestMapping("/user")

@@ -1,4 +1,4 @@
-package rgr.test_service.Controller;
+package socialNet.Controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,17 +7,17 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import rgr.test_service.Entity.MessageEntity;
-import rgr.test_service.Entity.UserEntity;
-import rgr.test_service.repos.MessageRepo;
-import rgr.test_service.repos.UserRepo;
+import socialNet.Entity.MessageEntity;
+import socialNet.Entity.UserEntity;
+import socialNet.repos.MessageRepo;
+import socialNet.repos.UserRepo;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static rgr.test_service.constant.pages.DIALOG_PAGE;
-import static rgr.test_service.constant.pages.MESSAGE_PAGE;
+import static socialNet.constant.pages.DIALOG_PAGE;
+import static socialNet.constant.pages.MESSAGE_PAGE;
 
 @Controller
 @RequestMapping("/messages")

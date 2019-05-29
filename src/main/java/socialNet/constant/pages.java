@@ -1,4 +1,4 @@
-package rgr.test_service.constant;
+package socialNet.constant;
 
 public interface pages {
 

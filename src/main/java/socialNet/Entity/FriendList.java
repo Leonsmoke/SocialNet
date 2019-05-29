@@ -1,4 +1,4 @@
-package rgr.test_service.Entity;
+package socialNet.Entity;
 
 import javax.persistence.*;
 

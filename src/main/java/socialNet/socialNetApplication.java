@@ -1,13 +1,13 @@
-package rgr.test_service;
+package socialNet;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TestServiceApplication {
+public class socialNetApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TestServiceApplication.class, args);
+        SpringApplication.run(socialNetApplication.class, args);
     }
 
 }

@@ -1,4 +1,4 @@
-package rgr.test_service.Controller;
+package socialNet.Controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import rgr.test_service.Entity.Role;
-import rgr.test_service.Entity.UserEntity;
-import rgr.test_service.repos.UserRepo;
+import socialNet.Entity.Role;
+import socialNet.Entity.UserEntity;
+import socialNet.repos.UserRepo;
 
 import java.util.Collections;
 

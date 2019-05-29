@@ -1,7 +1,7 @@
-package rgr.test_service.repos;
+package socialNet.repos;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import rgr.test_service.Entity.FriendList;
+import socialNet.Entity.FriendList;
 
 import java.util.List;
 

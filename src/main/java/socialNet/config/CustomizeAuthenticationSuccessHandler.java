@@ -1,4 +1,4 @@
-package rgr.test_service.config;
+package socialNet.config;
 
 
 import org.springframework.security.core.Authentication;

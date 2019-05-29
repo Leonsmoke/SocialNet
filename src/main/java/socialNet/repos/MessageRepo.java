@@ -1,8 +1,8 @@
-package rgr.test_service.repos;
+package socialNet.repos;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import rgr.test_service.Entity.MessageEntity;
+import socialNet.Entity.MessageEntity;
 
 import java.util.List;
 

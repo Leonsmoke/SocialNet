@@ -1,10 +1,10 @@
-package rgr.test_service.View;
+package socialNet.View;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import rgr.test_service.Entity.UserEntity;
-import rgr.test_service.Security.SecurityUtils;
-import rgr.test_service.Service.FriendService;
+import socialNet.Entity.UserEntity;
+import socialNet.Security.SecurityUtils;
+import socialNet.Service.FriendService;
 
 import java.io.Serializable;
 

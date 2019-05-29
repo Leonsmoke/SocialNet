@@ -7,6 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import socialNet.Entity.FriendList;
 import socialNet.Entity.UserEntity;
 import socialNet.Service.UserService;
@@ -14,6 +15,9 @@ import socialNet.View.UserView;
 import socialNet.repos.FriendRepo;
 import socialNet.repos.UserRepo;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -222,7 +226,7 @@ public class UserController {
                 boolean isAcceptedFriendship = false;
                 for (FriendList outFriends:friendsOfUser
                      ) {
-                    if (friends.getFriend_id1() == outFriends.getFriend_id2() && friends.getFriend_id2() == outFriends.getFriend_id1()){
+                    if ((user.getId()==friends.getFriend_id1() || user.getId()==friends.getFriend_id2()) && friends.getFriend_id1() == outFriends.getFriend_id2() && friends.getFriend_id2() == outFriends.getFriend_id1()){
                         if (user.getId()==friends.getFriend_id1()){
                             friendsEntities.add(userRepo.findById(friends.getFriend_id2()));
                         } else {
@@ -233,6 +237,8 @@ public class UserController {
             }
 
         }
+        model.addAttribute("currentUser",currentUser);
+        model.addAttribute("pageId",id);
         model.addAttribute("usersFriends",friendsEntities);
         model.addAttribute("pageType","main");
         return FRIENDS_PAGE;
@@ -273,6 +279,8 @@ public class UserController {
             }
 
         }
+        model.addAttribute("currentUser",currentUser);
+        model.addAttribute("pageId",id);
         model.addAttribute("usersFriends",friendsEntities);
         model.addAttribute("pageType","in");
             return FRIENDS_PAGE;
@@ -311,11 +319,31 @@ public class UserController {
                     friendsEntities.add(userRepo.findById(friends.getFriend_id2()));
                 }
             }
-
         }
+        model.addAttribute("currentUser",currentUser);
+        model.addAttribute("pageId",id);
         model.addAttribute("usersFriends",friendsEntities);
         model.addAttribute("pageType","out");
         return FRIENDS_PAGE;
+    }
+
+    @RequestMapping(value="/upload", method=RequestMethod.POST)
+    public @ResponseBody String handleFileUpload(@RequestParam("name") String name,
+                                                 @RequestParam("file") MultipartFile file){
+        if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+                BufferedOutputStream stream =
+                        new BufferedOutputStream(new FileOutputStream(new File(name + "-uploaded")));
+                stream.write(bytes);
+                stream.close();
+                return "Вы удачно загрузили " + name + " в " + name + "-uploaded !";
+            } catch (Exception e) {
+                return "Вам не удалось загрузить " + name + " => " + e.getMessage();
+            }
+        } else {
+            return "Вам не удалось загрузить " + name + " потому что файл пустой.";
+        }
     }
 
 }

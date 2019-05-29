@@ -23,6 +23,7 @@ public class UserEntity implements UserDetails {
     private String password;
     private String email;
     private boolean active;
+    private String avatar;
 
 
 
@@ -32,7 +33,9 @@ public class UserEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> role;
 
-
+    public UserEntity() {
+        this.avatar="default_ava.jpg";
+    }
 
     public String getFirstName() {
         return firstName;
@@ -80,6 +83,14 @@ public class UserEntity implements UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public int getId() {

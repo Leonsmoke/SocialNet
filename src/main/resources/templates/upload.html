@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>User's Page</title>
+    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+    <script src="//code.jquery.com/jquery-1.7.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
+</head>
+<body onload='checkTypeProfile()'>
+
+<div class="page">
+    <div class="menu" id="user">
+        <ul class="tabs">
+            <li class="tab" id="profile">
+                <a href="/user">My profile</a>
+            </li>
+            <li class="tab" id="friends">
+                <a href="/user/friends">Friends</a>
+            </li>
+            <li class="tab" id="messages">
+                <a href="/messages">Messages</a>
+            </li>
+            <li class="tab" id="search">
+                <a href="/user/search">Search</a>
+            </li>
+        </ul>
+        <div>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" class="sign-up" value="Sign Out"/>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-header">
+            <h4>Upload avatar</h4>
+        </div>
+        <div class="panel-body">
+            <div class="upload-form">
+                <div>
+                    <form method="POST" enctype="multipart/form-data" action="/upload">
+                        <table>
+                            <tr><td>File to upload:</td><td><input type="file" name="file" multiple accept="image/*,image/jpeg" /></td></tr>
+                            <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+        </div>
+    </div>
+
+
+
+</div>
+</body>
+</html>
+

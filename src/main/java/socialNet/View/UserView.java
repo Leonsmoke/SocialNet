@@ -17,6 +17,7 @@ public class UserView implements Serializable {
     private String username;
     private String firstName;
     private String lastName;
+    private String avatar;
     private boolean isMyFriend;
     private boolean IHisFriend;
     private  String isFriend;

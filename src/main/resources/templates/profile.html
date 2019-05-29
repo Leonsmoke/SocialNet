@@ -39,16 +39,22 @@
         </div>
         <div class="panel-body">
             <div class="general_information">
+                <img class="avatar" th:src="'/upload/files/'+${user.avatar}" src="/upload/files/default_ava">
                 <p th:text="'Username: ' +${user.username}"></p>
                 <p th:text="'First name: ' + ${user.firstName}"></p>
                 <p th:text="'Last name: ' +${user.lastName}"></p>
                 <p id="textFriend" th:text="${userView.isFriend}"></p>
             </div>
             <div class="profile-btn">
+                <form th:action="'/upload'" method="get" style="visibility: hidden">
+                    <input type="submit" class="updateAvatar"  id = "updateAvatar" value="Update avatar"/>
+                </form>
+                <form th:action="'/user/friends/'+${user.getId()}" method="get">
+                    <input type="submit" class="updateAvatar"  id = "goToFriend" value="Friends"/>
+                </form>
                 <form th:action="'/messages/dialog'+${user.getId()}" method="get">
                     <input type="submit" class="goToDialogBtn"  id = "goToDialogBtn" value="Open dialog"/>
                 </form>
-
                 <form th:action="'/user/friends/add/'+${user.getId()}" method="get">
                     <input type="submit" class="addFriendButton"  id = "addFriendButton" value="Add as friend"/>
                 </form>

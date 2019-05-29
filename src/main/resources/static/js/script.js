@@ -39,28 +39,30 @@ function checkPageFriend(){
     var text = $("#page-type").text();
     var pageId = $("#pageId").text();
     var userId = $("#userId").text();
+    var addBtns= document.getElementsByClassName("addFriendBtn");
+    var delBtns= document.getElementsByClassName("deleteFriendBtn");
 
     if (pageId == userId){
         document.getElementById("AllFriends").style.visibility="visible";
         document.getElementById("IncomingRequest").style.visibility="visible";
         document.getElementById("OutcomingRequest").style.visibility="visible";
+        if (text=="main" || text=="out"){
+            Array.from(addBtns).forEach((btn) => {
+                btn.style.visibility="hidden";
+        });
+            Array.from(delBtns).forEach((btn) => {
+                btn.style.visibility="visible";
+        });
+        } else {
+            Array.from(addBtns).forEach((btn) => {
+                btn.style.visibility="visible";
+        });
+            Array.from(delBtns).forEach((btn) => {
+                btn.style.visibility="hidden";
+        });
+        }
     }
 
-    var addBtns= document.getElementsByClassName("addFriendBtn");
-    var delBtns= document.getElementsByClassName("deleteFriendBtn");
-    if (text=="main" || text=="out"){
-        Array.from(addBtns).forEach((btn) => {
-            btn.style.visibility="hidden";
-        });
-        Array.from(delBtns).forEach((btn) => {
-            btn.style.visibility="visible";
-    });
-    } else {
-        Array.from(addBtns).forEach((btn) => {
-            btn.style.visibility="visible";
-    });
-        Array.from(delBtns).forEach((btn) => {
-            btn.style.visibility="hidden";
-    });
-    }
+
+
 }

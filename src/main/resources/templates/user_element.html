@@ -4,11 +4,11 @@
 
 <div class="friend-container" th:fragment="userElement(firstName,lastName,id)">
         <a class="friend-firstname" th:href="'/user/'+${id}" th:text="${firstName} + ' ' + ${lastName}"></a>
-    <form th:action="'/user/friends/delete/'+${id}" method="get">
+    <form th:action="'/user/friends/delete/'+${id}" method="get" style="visibility: hidden">
         <input type="hidden" name="ffl" value="1" />
         <input type="submit" class="deleteFriendBtn"  id = "deleteFriendBtn" value="Remove from friends"/>
     </form>
-    <form th:action="'/user/friends/add/'+${id}" method="get">
+    <form th:action="'/user/friends/add/'+${id}" method="get" style="visibility: hidden">
         <input type="hidden" name="ffl" value="1" />
         <input type="submit" class="addFriendBtn"  id = "addFriendBtn" value="Accept request"/>
     </form>

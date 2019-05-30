@@ -6,33 +6,18 @@
     <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
     <script src="//code.jquery.com/jquery-1.7.min.js"></script>
     <script th:src="@{/js/script.js}"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body onload='checkTypeProfile()'>
 
 <div class="page">
-    <div class="menu" id="user">
-        <ul class="tabs">
-            <li class="tab" id="profile">
-                <a href="/user">My profile</a>
-            </li>
-            <li class="tab" id="friends">
-                <a href="/user/friends">Friends</a>
-            </li>
-            <li class="tab" id="messages">
-                <a href="/messages">Messages</a>
-            </li>
-            <li class="tab" id="search">
-                <a href="/user/search">Search</a>
-            </li>
-        </ul>
-        <div>
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" class="sign-up" value="Sign Out"/>
-            </form>
-        </div>
+    <div th:replace="~{user_element::header()}"></div>
+    <div class="page_name" align="center">
+        <h2>Upload</h2>
     </div>
+    <div th:replace="~{user_element::sideMenu()}"></div>
 
-    <div class="panel panel-primary">
+    <div align="center" class="panel-primary">
         <div class="panel-header">
             <h4>Upload avatar</h4>
         </div>
@@ -41,8 +26,8 @@
                 <div>
                     <form method="POST" enctype="multipart/form-data" action="/upload">
                         <table>
-                            <tr><td>File to upload:</td><td><input type="file" name="file" multiple accept="image/*,image/jpeg" /></td></tr>
-                            <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+                            <tr><td>File to upload:</td><td><input class="load-avatar" type="file" name="file" multiple accept="image/*,image/jpeg" /></td></tr>
+                            <tr><td></td><td><input class="upload" type="submit" value="Upload" /></td></tr>
                         </table>
                     </form>
                 </div>

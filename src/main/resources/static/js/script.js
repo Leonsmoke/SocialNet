@@ -62,7 +62,9 @@ function checkPageFriend(){
         });
         }
     }
+}
 
-
-
+function splitPost(post){
+    var arrayText = post.split('$');
+    return arrayText;
 }

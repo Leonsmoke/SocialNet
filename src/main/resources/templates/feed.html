@@ -2,41 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Search Page</title>
+    <title>Friend's Page</title>
     <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
     <script src="//code.jquery.com/jquery-1.7.min.js"></script>
-    <script src="../js/script.js"></script>
+    <script th:src="@{/js/script.js}"></script>
 </head>
-<body>
+<body onload="checkPageFriend()">
 
 <div class="page">
     <div th:replace="~{user_element::header()}"></div>
-    <div class="page_name" align="center">
-        <h2>Messages</h2>
-    </div>
     <div th:replace="~{user_element::sideMenu()}"></div>
-
-
-
     <div class="panel panel-primary">
-
         <div class="panel-header">
-            <h4>Your dialogs:</h4>
+            <h4>Your feed:</h4>
         </div>
         <div class="panel-body">
-            <div class="tabss">
-                <div class="dialog-row">
-                    <ul th:each="user:${users}">
-                        <li align="center" class="havent-mess" th:replace="~{user_element::dialogRow(firstName=${user.firstName},lastName=${user.lastName},id=${user.id})}">You haven't dialogs yet</li>
-                    </ul>
-                </div>
+            <div class="feed-list" th:each="post:${allPosts}">
+                <div th:insert="~{user_element::postElement(text=${post})}"></div>
             </div>
         </div>
         <div class="panel-footer">
         </div>
     </div>
-
-
 
 </div>
 </body>

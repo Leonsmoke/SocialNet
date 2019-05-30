@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,6 +33,12 @@ public class UserEntity implements UserDetails {
     @CollectionTable(name="role",joinColumns=@JoinColumn(name="user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> role;
+
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name="posts",joinColumns = @JoinColumn(name="user_id"))
+    private List<String> posts;
+
 
     public UserEntity() {
         this.avatar="default_ava.jpg";
@@ -100,6 +107,15 @@ public class UserEntity implements UserDetails {
     public void setId(int id) {
         this.id = id;
     }
+
+    public List<String> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<String> posts) {
+        this.posts = posts;
+    }
+
     public Set<Role> getRole() {
         return role;
     }

@@ -10,31 +10,15 @@
 <body>
 
 <div class="page">
-        <div class="menu" id="user">
-            <ul class="tabs">
-                <li class="tab" id="profile">
-                    <a href="/user">My profile</a>
-                </li>
-                <li class="tab" id="friends">
-                    <a href="/user/friends">Friends</a>
-                </li>
-                <li class="tab" id="messages">
-                    <a href="/messages">Messages</a>
-                </li>
-                <li class="tab" id="search">
-                    <a href="/user/search">Search</a>
-                </li>
-            </ul>
-            <div>
-                <form th:action="@{/logout}" method="post">
-                    <input type="submit" class="sign-up" value="Sign Out"/>
-                </form>
-            </div>
-        </div>
+    <div th:replace="~{user_element::header()}"></div>
+    <div class="page_name" align="center">
+        <h2>Search</h2>
+    </div>
+    <div th:replace="~{user_element::sideMenu()}"></div>
 
 
 
-    <div class="panel panel-primary">
+    <div align="center" class="panel-primary">
         <div>
             <form th:action="'/user/search/getAll'" method="get">
                 <input type="submit" class="getAllUsers" value="Show all users"/>
@@ -42,13 +26,13 @@
         </div>
         <div class="search-form">
             <form th:action="@{/user/search/doSearch}" method="post" >
-                <select name="selectSearchType" size="1">
+                <select class="select-search" name="selectSearchType" size="1">
                     <option selected value="s1">Username</option>
                     <option value="s2">First name</option>
                     <option value="s3">Last name</option>
                 </select>
                 <h4 class="subheader">Enter filter for search</h4>
-                <input type="search" name="filter"  pattern="^[a-zA-Z0-9]+$" >
+                <input class="search-area" type="search" name="filter"  pattern="^[a-zA-Z0-9]+$" >
                 <button class="search-btn" type="submit">Search</button>
             </form>
         </div>

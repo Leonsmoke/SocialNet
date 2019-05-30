@@ -18,6 +18,7 @@ import socialNet.repos.UserRepo;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -132,6 +133,60 @@ public class UserController {
         return USER_PAGE;
     }
 
+    @PostMapping("/{id}/addPost")
+    public String addPost(Model model,@AuthenticationPrincipal UserEntity currentUser,
+                          @PathVariable("id") int id, @RequestParam String textPost) {
+        UserEntity user = userRepo.findById(id);
+        List<String> posts = user.getPosts();
+        String newPost = currentUser.getFirstName() + " " + currentUser.getLastName() + "::     " +
+                textPost + "     ::" + LocalDateTime.now().getMonth() + "." + LocalDateTime.now().getDayOfMonth()+ "     "+
+                LocalDateTime.now().getHour() + "  :" + LocalDateTime.now().getMinute();
+        posts.add(newPost);
+        user.setPosts(posts);
+        userRepo.save(user);
+        return "redirect:/user/"+id;
+    }
+
+    @GetMapping("/feed")
+    public String getAllPost(Model model,@AuthenticationPrincipal UserEntity user){
+        List<FriendList> allFriends = friendRepo.findAll();
+        List<FriendList> usersFriends = friendRepo.findAll();
+        List<FriendList> friendsOfUser = friendRepo.findAll();
+        Set<UserEntity> friendsEntities = new HashSet<UserEntity>();
+        if (!allFriends.isEmpty()) {
+            for (FriendList friends : allFriends
+            ) {
+                if (friends.getFriend_id1()==user.getId()){
+                    usersFriends.add(friends);
+                }
+                if (friends.getFriend_id2()==user.getId()){
+                    friendsOfUser.add(friends);
+                }
+            }
+            for (FriendList friends: usersFriends
+            ) {
+                boolean isAcceptedFriendship = false;
+                for (FriendList outFriends:friendsOfUser
+                ) {
+                    if ((user.getId()==friends.getFriend_id1() || user.getId()==friends.getFriend_id2()) && friends.getFriend_id1() == outFriends.getFriend_id2() && friends.getFriend_id2() == outFriends.getFriend_id1()){
+                        if (user.getId()==friends.getFriend_id1()){
+                            friendsEntities.add(userRepo.findById(friends.getFriend_id2()));
+                        } else {
+                            friendsEntities.add(userRepo.findById(friends.getFriend_id1()));
+                        }
+                    }
+                }
+            }
+
+        }
+        List<String> allFeed =new ArrayList<String>();
+        for (UserEntity friend:friendsEntities
+             ) {
+            allFeed.addAll(friend.getPosts());
+        }
+        model.addAttribute("allPosts",allFeed);
+        return FEED_PAGE;
+    }
 
     @GetMapping("/friends/add/{id}")
     public String addFriend(@AuthenticationPrincipal UserEntity currentUser, @PathVariable("id") int id, @RequestParam(value = "ffl", required=false) Integer fromFriendList){
@@ -273,7 +328,7 @@ public class UserController {
                         break;
                     }
                 }
-                if (!isAcceptedFriendship && friends.getFriend_id1()!=currentUser.getId()){
+                if (!isAcceptedFriendship && friends.getFriend_id1()!=currentUser.getId() && friends.getFriend_id2()==currentUser.getId()){
                     friendsEntities.add(userRepo.findById(friends.getFriend_id1()));
                 }
             }
@@ -315,7 +370,7 @@ public class UserController {
                         break;
                     }
                 }
-                if (!isAcceptedFriendship && friends.getFriend_id2()!=currentUser.getId()){
+                if (!isAcceptedFriendship && friends.getFriend_id2()!=currentUser.getId() && friends.getFriend_id1()==currentUser.getId()){
                     friendsEntities.add(userRepo.findById(friends.getFriend_id2()));
                 }
             }

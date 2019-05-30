@@ -4,13 +4,19 @@
     <meta charset="utf-8" />
     <title>Registration</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" href="style.css">
     <script src="//code.jquery.com/jquery-1.7.min.js"></script>
     <script src="../js/script.js"></script>
 </head>
 <body>
-<div class="box" align="center">
-    <h1 class="header">Sign up</h1>
+<div class="page" align="center">
+    <div class="header">
+                <div align="center">
+                    <h1>SlowPoke</h1>
+                </div>
+            </div>
+    <div class="page_name" align="center">
+        <h2>Sign up</h2>
+    </div>
 
     <p><span th:text="${message}">Message</span></p>
     <form th:action="@{/registration}" method="post">

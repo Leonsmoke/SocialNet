@@ -1,31 +1,84 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
 <body>
 
-<div class="friend-container" th:fragment="userElement(firstName,lastName,id)">
-        <a class="friend-firstname" th:href="'/user/'+${id}" th:text="${firstName} + ' ' + ${lastName}"></a>
-    <form th:action="'/user/friends/delete/'+${id}" method="get" style="visibility: hidden">
-        <input type="hidden" name="ffl" value="1" />
-        <input type="submit" class="deleteFriendBtn"  id = "deleteFriendBtn" value="Remove from friends"/>
-    </form>
-    <form th:action="'/user/friends/add/'+${id}" method="get" style="visibility: hidden">
-        <input type="hidden" name="ffl" value="1" />
-        <input type="submit" class="addFriendBtn"  id = "addFriendBtn" value="Accept request"/>
-    </form>
+<div class="header" th:fragment="header()">
+    <div align="center">
+        <h1>SlowPoke</h1>
+    </div>
+    <div class="sign-out_btn">
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" class="sign-up" value="Sign Out"/>
+        </form>
+    </div>
+</div>
+
+
+<div class="menu" id="user" th:fragment="sideMenu()">
+    <ul class="tabs">
+        <li class="tab" id="profile">
+            <a href="/user">My profile</a>
+        </li>
+        <li class="tab" id="feed">
+            <a href="/user/feed">Feed</a>
+        </li>
+        <li class="tab" id="friends">
+            <a href="/user/friends">Friends</a>
+        </li>
+        <li class="tab" id="messages">
+            <a href="/messages">Messages</a>
+        </li>
+        <li class="tab" id="search">
+            <a href="/user/search">Search</a>
+        </li>
+    </ul>
+    <div>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" class="sign-up" value="Sign Out"/>
+        </form>
+    </div>
+</div>
+
+<div class="feed-container" th:fragment="postElement(text)">
+        <a class="postText" th:text="${text}"></a>
+</div>
+
+
+<div class="friend-container" th:fragment="userElement(firstName,lastName,id,avatar)"> <!-- КОНТЕЙНЕР ДЛЯ ДРУГАНОВ-->
+    <div class="photo">
+        <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
+        <a class="name" align="center" th:href="'/user/'+${id}" th:text="${firstName} + ' ' + ${lastName}"></a>
+    </div>
+    <div align="center" class="friend-btn">
+        <form th:action="'/user/friends/delete/'+${id}" method="get" style="visibility: hidden">
+            <input type="hidden" name="ffl" value="1" />
+            <input type="submit" class="deleteFriendBtn"  id = "deleteFriendBtn" value="Remove from friends"/>
+        </form>
+        <form th:action="'/user/friends/add/'+${id}" method="get" style="visibility: hidden">
+            <input type="hidden" name="ffl" value="1" />
+            <input type="submit" class="addFriendBtn"  id = "addFriendBtn" value="Accept request"/>
+        </form>
+    </div>
 </div>
 
 <li class="search-user-container" th:fragment="searchUser(firstName,lastName,id)">
-    <a th:href= "'/user/'+${id}" th:text="${firstName} + ' ' + ${lastName}">My profile</a>
+    <a th:href= "'/user/'+${id}" th:text="${firstName} + ' ' + ${lastName}"></a>
 </li>
 
 <li class="dialog-row-container" th:fragment="dialogRow(firstName,lastName,id)">
     <a th:href= "'/messages/dialog'+${id}" th:text="${firstName} + ' ' + ${lastName}"></a>
 </li>
 
-<li class="dialog-message-container" th:fragment="messageRow(textMessage,timeMessage)">
-    <a th:text="${timeMessage}"></a>
-    <a th:text="${textMessage}"></a>
-</li>
+
+        <li class="dialog-message-container" th:fragment="messageRow(textMessage,timeMessage)">
+            <a th:text="${timeMessage}"></a>
+            <a th:text="${textMessage}"></a>
+        </li>
+
+<span class="wall-post" th:fragment="wallPost(textPost)">
+    <p class="textPost" th:text="${textPost}"></p>
+</span>
 
 </body>
 </html>

@@ -4,14 +4,20 @@
     <meta charset="utf-8" />
     <title>Authorisation</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" href="style.css">
     <script src="//code.jquery.com/jquery-1.7.min.js"></script>
-    <script src="../js/script.js"></script>
+
 
 </head>
 <body>
-<div class="box" align="center">
-    <h1 class="header">Sign in</h1>
+<div class="page" align="center">
+    <div class="header">
+                <div align="center">
+                    <h1>SlowPoke</h1>
+                </div>
+            </div>
+    <div class="page_name" align="center">
+        <h2>Sign in</h2>
+    </div>
         <div th:if="${param.error}" class="incor_username">
             Incorrect username and password.
         </div>

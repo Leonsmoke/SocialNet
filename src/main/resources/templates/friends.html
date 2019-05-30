@@ -10,41 +10,22 @@
 <body onload="checkPageFriend()">
 
 <div class="page">
-        <div class="menu" id="user">
-            <ul class="tabs">
-                <li class="tab" id="profile">
-                    <a href="/user">My profile</a>
-                </li>
-                <li class="tab" id="friends">
-                    <a href="/user/friends">Friends</a>
-                </li>
-                <li class="tab" id="messages">
-                    <a href="/messages">Messages</a>
-                </li>
-                <li class="tab" id="search">
-                    <a href="/user/search">Search</a>
-                </li>
-            </ul>
-            <div>
-                <form th:action="@{/logout}" method="post">
-                    <input type="submit" class="sign-up" value="Sign Out"/>
-                </form>
-            </div>
-        </div>
-
-
-
+    <div th:insert="~{user_element::header()}"></div>
+    <div class="page_name" align="center">
+        <h2>Friends</h2>
+    </div>
+    <div th:replace="~{user_element::sideMenu()}"></div>
     <div class="panel panel-primary">
         <a id="AllFriends" href="/user/friends" style="visibility: hidden">Your friends</a>
         <a id="IncomingRequest" href="/user/friends/in" style="visibility: hidden">Incoming request</a>
-        <a id="OutcomingRequest" href="/user/friends/out" style="visibility: hidden">Outcoming request</a>
+        <a id="OutcomingRequest" href="/user/friends/out" style="visibility: hidden">Outgoing request</a>
         <div class="panel-header">
             <h4>Friend list:</h4>
         </div>
         <div class="panel-body">
             <div class="friend_list">
                 <span th:each="friend:${usersFriends}">
-                    <span th:insert="~{user_element::userElement(firstName=${friend.firstName},lastName=${friend.lastName},id=${friend.id})}"></span>
+                    <span th:insert="~{user_element::userElement(firstName=${friend.firstName},lastName=${friend.lastName},id=${friend.id},avatar=${friend.avatar})}"></span>
                 </span>
             </div>
         </div>

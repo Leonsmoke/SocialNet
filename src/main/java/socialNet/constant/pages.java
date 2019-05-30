@@ -8,5 +8,6 @@ public interface pages {
     String SEARCH_PAGE = "search";
     String MESSAGE_PAGE = "messages";
     String DIALOG_PAGE = "dialog";
+    String FEED_PAGE = "feed";
 
 }

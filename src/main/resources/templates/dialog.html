@@ -5,32 +5,13 @@
     <title>Search Page</title>
     <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
     <script src="//code.jquery.com/jquery-1.7.min.js"></script>
-    <script src="../js/script.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="page">
-        <div class="menu" id="user">
-            <ul class="tabs">
-                <li class="tab" id="profile">
-                    <a href="/user">My profile</a>
-                </li>
-                <li class="tab" id="friends">
-                    <a href="/user/friends">Friends</a>
-                </li>
-                <li class="tab" id="messages">
-                    <a href="/messages">Messages</a>
-                </li>
-                <li class="tab" id="search">
-                    <a href="/user/search">Search</a>
-                </li>
-            </ul>
-            <div>
-                <form th:action="@{/logout}" method="post">
-                    <input type="submit" class="sign-up" value="Sign Out"/>
-                </form>
-            </div>
-        </div>
+<div th:replace="~{user_element::header()}"></div>
+        <h2>Dialog</h2>
+<div th:replace="~{user_element::sideMenu()}"></div>
 
 
 
@@ -39,16 +20,17 @@
         <div class="panel-header">
             <h4 th:text="'Your dialog with:'+${user.firstName}+' '+${user.lastName}" ></h4>
         </div>
-        <div class="text-area">
+        <div align="center" class="text-area">
             <form th:action="@{/messages/dialog} + ${user.id}" method="post">
-                <textarea name="textMessage" cols="40" rows="5" ></textarea>
+                <textarea class="t-area" name="textMessage" cols="40" rows="5" ></textarea>
                 <input type="submit" class="send-message-btn" value="Send message"/>
             </form>
+            
         </div>
         <div class="panel-body">
-            <div class="dialog-row">
-                <ul th:each="message:${messageList}">
-                    <li th:replace="~{user_element::messageRow(textMessage=${message.textMessage},timeMessage=${message.timeMessage})}">You haven't messages yet</li>
+            <div class="tabss">
+                <ul class="dialog-area" th:each="message:${messageList}">
+                    <li class="havent-mess" align="center" th:replace="~{user_element::messageRow(textMessage=${message.textMessage},timeMessage=${message.timeMessage})}">You haven't messages yet</li>
                 </ul>
             </div>
         </div>

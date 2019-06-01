@@ -2,12 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Friend's Page</title>
+    <title>Feed</title>
     <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
     <script src="//code.jquery.com/jquery-1.7.min.js"></script>
     <script th:src="@{/js/script.js}"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body onload="checkPageFriend()">
+<body>
 
 <div class="page">
     <div th:replace="~{user_element::header()}"></div>
@@ -17,8 +18,8 @@
             <h4>Your feed:</h4>
         </div>
         <div class="panel-body">
-            <div class="feed-list" th:each="post:${allPosts}">
-                <div th:insert="~{user_element::postElement(text=${post})}"></div>
+            <div class="feed-list" th:each="post:${posts}">
+                <div th:replace="~{user_element::postElement(textPost=${post.text}, time=${post.time},wall_id=${post.wall_id},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.getAuthor_ava()})}"></div>
             </div>
         </div>
         <div class="panel-footer">

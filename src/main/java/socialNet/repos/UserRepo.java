@@ -9,7 +9,7 @@ public interface UserRepo extends JpaRepository<UserEntity,Long> {
     UserEntity findByUsername(String username);
     UserEntity findById(int id);
 
-
+    //List<UserEntity> getAllFriends();
 
     @Override
     List<UserEntity> findAll();

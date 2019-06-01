@@ -3,41 +3,41 @@ body{
     min-width: 1000px;
 }
 .page{
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 10%;
+    margin-right: 10%;
     min-width: 1000px;
 }
 .page_name{
     min-width: 1000px;
 }
 .panel-header{
-    margin-left:200px;
+    margin-left: 0px;
 }
 a, a:hover{
     text-decoration: none;
     padding: 5px;
-    font: normal 100% 'century gothic';
+    font: normal 1em 'century gothic';
     color: darkslategray;
     width: 400px;
     hyphens: auto;
     word-break:break-all;
 }
 h1{
-    font: normal 30px 'century goyhic';
+    font: normal 1.7em 'century goyhic';
     color: darkslategray;
 }
 h2{
-    font: normal 25px 'century gothic';
+    font: normal 1.5em 'century gothic';
     text-decoration: none;
     color: darkslategray;
 }
 h3{
-    font: normal 20px 'century gothic';
+    font: normal 1.3em 'century gothic';
     text-decoration: none;
     color: darkslategray;
 }
 h4{
-    font: normal 20px 'century gothic';
+    font: normal 1.1em 'century gothic';
     text-decoration: none;
     color: darkslategray;
     margin-bottom: auto;
@@ -65,7 +65,7 @@ input[type="text"], input[type="password"], input[type="email"]{
 .sign-in, .sign-up, .register-btn, .addFriendButton,
 .send-message-btn, .updateAvatar, .goToDialogBtn,
 .deleteFriendButton, .getAllUsers, .search-btn,
-.upload{
+.upload, .send-post-btn{
     padding: 4px;
     background-color: white;
     border: solid 1px pink;
@@ -73,7 +73,7 @@ input[type="text"], input[type="password"], input[type="email"]{
     cursor: pointer;
     margin-top: 3px;
     display: inline-block;
-    font: normal 18px 'century gothic';
+    font: normal 0.8em 'century gothic';
     width: 150px;
 }
 .sign-up{margin-left: 5px;}
@@ -82,22 +82,22 @@ input[type="text"], input[type="password"], input[type="email"]{
     padding: 10px;
 }
 label{
-    font: normal 90% 'century gothic';
+    font: normal 0.9em 'century gothic';
     text-decoration: none;
     color: darkslategray;
     margin-bottom: auto;
 }
 span{
-    font: normal 140% 'century gothic';
+    font: normal 1.4em 'century gothic';
     text-decoration: none;
     color: darkslategray;
     margin-bottom: auto;
 }
 .havent-mess{
     list-style-type: none;
-    font: normal 100% 'century gothic';
-    margin-left: 400px;
-    margin-right: 400px;
+    font: normal 1em 'century gothic';
+    margin-left: 100px;
+    margin-right: 100px;
 
 
 }
@@ -123,28 +123,29 @@ span{
 
 }
 .avatar {
-	border: solid 2px #000;
-	-webkit-border-radius: 20px;
+    border: solid 2px #000;
+    -webkit-border-radius: 20px;
     margin-left: 40px;
     margin-right: 5px;
 }
 .friend-avatar{
     border: solid 2px #000;
-	-webkit-border-radius: 20px;
+    -webkit-border-radius: 20px;
     margin: 10px;
 }
-.deleteFriendBtn,addFriendBtn{
+.deleteFriendBtn, .addFriendBtn{
     padding: 4px;
     background-color: white;
     border: solid 1px pink;
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
-    font: normal 15px% 'century gothic';
+    font: normal 0.6em 'century gothic';
     width: 150px;
 }
 .friend_list{
-
+    margin-left: 30%;
+    margin-right: 30%;
 }
 .dialog-row-container{
     margin-top: 10px;
@@ -159,6 +160,7 @@ span{
     margin-top: auto;
     overflow-y: scroll;
     height: 250px;
+    width: 700px;
 }
 .dialog-message-container{
     list-style-type: none;
@@ -167,38 +169,41 @@ span{
 }
 .dialog-area{
 
-width: 500px;
-overflow-x: hidden;
+    width: 500px;
+    overflow-x: hidden;
 }
-.t-area{
+.t-area, .wall-post-textarea{
     resize: none;
     border: solid 1px pink;
     border-radius: 5px;
     width: 500px;
 }
-.send-message-btn{
+.send-message-btn, .send-post-btn{
     display: block;
-}
-.text-area{
-    margin-left: 5px;
-    margin-right: 5px;
 }
 .full-name{
     display: flex;
 }
 .Lastname, .Firstname{
-    margin-left: 5px;
-    font: normal 130% 'century gothic';
+    font: normal 1.3em 'century gothic';
     text-decoration: none;
     color: darkslategray;
     margin-bottom: auto;
+}
+.Username, .Text-friends{
+    margin-left: 5px;
+    font: normal 1em 'century gothic';
+    text-decoration: none;
+    color: darkslategray;
+    margin-bottom: auto;
+
 }
 .profile-btn{
     display: flex;
 }
 .panel-primary, .panel-header{
-    margin-left: 29%;
-    margin-right: 20%;
+    margin-left: 200px;
+    margin-right: 200px;
 }
 .select-search{
     padding: 4px;
@@ -207,7 +212,7 @@ overflow-x: hidden;
     cursor: pointer;
     margin-top: 3px;
     display: inline-block;
-    font: normal 80% 'century gothic';
+    font: normal 0.8em 'century gothic';
     width: 150px;
 }
 .search-area{
@@ -216,7 +221,7 @@ overflow-x: hidden;
     border-radius: 5px;
     margin-top: 3px;
     display: inline-block;
-    font: normal 80% 'century gothic';
+    font: normal 0,8em 'century gothic';
     width: 450px;
 }
 .sign-up-btn{
@@ -227,5 +232,13 @@ overflow-x: hidden;
     border-radius: 5px;
     margin-top: 3px;
     display: inline-block;
-    font: normal 80% 'century gothic';
+    font: normal 0.8em 'century gothic';
+}
+.panel-footer{
+    margin-top: 50px;
+}
+.feed-container{
+    border-radius: 2px;
+    width: 600px;
+    background-color: white;
 }

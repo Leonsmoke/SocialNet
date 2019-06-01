@@ -6,6 +6,7 @@
     <script src="//code.jquery.com/jquery-1.7.min.js"></script>
     <script th:src="@{/js/script.js}"></script>
     <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body onload='checkTypeProfile()'>
 
@@ -54,16 +55,19 @@
                 </form>
             </div>
         </div>
-        <div class="panel-footer">
+        <div align="center" class="panel-footer">
             <div class="newPostArea">
                 <form th:action="'/user/' + ${user.id} + '/addPost'" method="post">
                     <textarea class="wall-post-textarea" name="textPost" cols="20" rows="5" ></textarea>
-                    <input type="submit" class="send-post-btn" value="Add post on your wall"/>
+                    <input type="submit" class="send-post-btn" value="Add post on wall"/>
                 </form>
             </div>
-            <div class="users-wall" th:each="post:${user.getPosts()}">
-                <span th:insert="~{user_element::wallPost(textPost=${post})}" >
+            <div>
+                <div class="users-wall" th:each="post:${posts}">
+                    <!-- -->
+                    <span th:replace="~{user_element::wallPost(textPost=${post.text}, time=${post.time},wall_id=${post.wall_id},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.author_ava})}" >
                 </span>
+                </div>
             </div>
         </div>
     </div>

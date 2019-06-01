@@ -22,15 +22,17 @@ $(document).ready(function () {
 function checkTypeProfile(){
     var text = $("#textFriend").text();
     if (text=="It's your Friend" || text == "You send friend request"){
-        document.getElementById("addFriendButton").style.visibility="hidden";
+        $('#addFriendButton').remove();
+        $('#updateAvatar').remove();
         document.getElementById("deleteFriendButton").style.visibility="visible";
 
     } else if (text=="It's not your friend" || text == "It's requested you for friend"){
         document.getElementById("addFriendButton").style.visibility="visible";
-        document.getElementById("deleteFriendButton").style.visibility="hidden";
+        $('#deleteFriendButton').remove();
+        $('#updateAvatar').remove();
     } else if (text == "It's your profile"){
-        document.getElementById("addFriendButton").style.visibility="hidden";
-        document.getElementById("deleteFriendButton").style.visibility="hidden";
+        $('#deleteFriendButton').remove();
+        $('#addFriendButton').remove();
         document.getElementById("updateAvatar").style.visibility="visible";
     }
 }
@@ -64,7 +66,25 @@ function checkPageFriend(){
     }
 }
 
-function splitPost(post){
-    var arrayText = post.split('$');
-    return arrayText;
+function createCommentArea(id){
+    var mainElement = $(id).parent();
+    if ($(id).parent().children()[5] != null){
+        $('#CommentForm').remove();
+    } else{
+        $('#CommentForm').remove();
+        var newForm = document.createElement("form");
+        newForm.className="CommentForm";
+        newForm.id="CommentForm";
+        var newElement = document.createElement("textarea");
+        newElement.cols = 40;
+        newElement.rows = 5;
+        var newBtn = document.createElement("input");
+        newBtn.type="submit";
+        newBtn.value="Send";
+        newBtn.id="SendCommBtn";
+        newForm.appendChild(newElement);
+        newForm.appendChild(newBtn);
+        mainElement.append(newForm);
+    }
+
 }

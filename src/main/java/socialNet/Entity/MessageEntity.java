@@ -8,7 +8,7 @@ import java.util.Objects;
 @Table(name="messages")
 public class MessageEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int sender_id;
     private int recipient_id;

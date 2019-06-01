@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="style.css">
 <body>
 
 <div class="header" th:fragment="header()">
@@ -40,9 +41,7 @@
     </div>
 </div>
 
-<div class="feed-container" th:fragment="postElement(text)">
-        <a class="postText" th:text="${text}"></a>
-</div>
+
 
 
 <div class="friend-container" th:fragment="userElement(firstName,lastName,id,avatar)"> <!-- КОНТЕЙНЕР ДЛЯ ДРУГАНОВ-->
@@ -75,9 +74,28 @@
             <a th:text="${timeMessage}"></a>
             <a th:text="${textMessage}"></a>
         </li>
-
-<span class="wall-post" th:fragment="wallPost(textPost)">
+    
+<div class="feed-container" id="feedCont" th:fragment="postElement(textPost,time,wall_id,author_id,author_fullname, avatar)">  <!-- FEED -->
+    <div class="photo">
+        <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
+        <a class="name" th:href= "'/user/'+${author_id}" th:text="'From: '+${author_fullname}"></a>
+    </div>
+    <a th:href= "'/user/'+${wall_id}" th:text="'New post on wall'"></a>
     <p class="textPost" th:text="${textPost}"></p>
+    <p class="time" th:text="${time}"></p>
+    <input type="submit" th:value="'Comment'" name="commentBtn" OnClick="createCommentArea(this);">
+</div>
+
+
+
+<span class="wall-post" th:fragment="wallPost(textPost,time,wall_id,author_id,author_fullname, avatar)">
+    <div class="photo">
+        <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
+       <a class="name" th:href= "'/user/'+${author_id}" th:text="'From: '+${author_fullname}"></a>
+    </div>
+    <a th:href= "'/user/'+${wall_id}" th:text="'New post on wall'"></a>
+    <p class="textPost" th:text="${textPost}"></p>
+    <p class="time" th:text="${time}"></p>
 </span>
 
 </body>

@@ -8,11 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import socialNet.Entity.FriendList;
+import socialNet.Entity.Post;
 import socialNet.Entity.UserEntity;
-import socialNet.Service.UserService;
 import socialNet.View.UserView;
-import socialNet.repos.FriendRepo;
+import socialNet.other.PostComparator;
 import socialNet.repos.UserRepo;
 
 import java.io.BufferedOutputStream;
@@ -34,10 +33,7 @@ public class UserController {
 
     @Autowired
     private UserRepo userRepo;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private FriendRepo friendRepo;
+
 
     @GetMapping("")
     public String user(Model model, @AuthenticationPrincipal UserEntity user){
@@ -112,23 +108,9 @@ public class UserController {
     public String getUser(Model model,@AuthenticationPrincipal UserEntity currentUser,
             @PathVariable("id") int id) {
         UserEntity user = userRepo.findById(id);
-        List<FriendList> allFriend = friendRepo.findAll();
-        boolean isMyFriend = false;
-        boolean IHisFriend = false;
-        if (!allFriend.isEmpty()){
-            for (FriendList friends:allFriend
-            ) {
-                if (friends.getFriend_id1()==currentUser.getId() && friends.getFriend_id2()==user.getId()){
-                    isMyFriend=true;
-                }
-                if (friends.getFriend_id2()==currentUser.getId() && friends.getFriend_id1()==user.getId()){
-                    IHisFriend=true;
-                }
-            }
-        }
-            //return ResponseEntity.ok(new UserView(user));
         model.addAttribute("user",user);
-        model.addAttribute("userView", new UserView(user,isMyFriend,IHisFriend));
+        model.addAttribute("posts",user.getPosts());
+        model.addAttribute("userView", new UserView(user,currentUser.isSendedRequest(user),user.isSendedRequest(currentUser)));
         model.addAttribute("currentUser",currentUser);
         return USER_PAGE;
     }
@@ -137,124 +119,62 @@ public class UserController {
     public String addPost(Model model,@AuthenticationPrincipal UserEntity currentUser,
                           @PathVariable("id") int id, @RequestParam String textPost) {
         UserEntity user = userRepo.findById(id);
-        List<String> posts = user.getPosts();
-        String newPost = currentUser.getFirstName() + " " + currentUser.getLastName() + "::     " +
-                textPost + "     ::" + LocalDateTime.now().getMonth() + "." + LocalDateTime.now().getDayOfMonth()+ "     "+
+        String time = LocalDateTime.now().getMonth() + "." + LocalDateTime.now().getDayOfMonth()+ "     "+
                 LocalDateTime.now().getHour() + "  :" + LocalDateTime.now().getMinute();
-        posts.add(newPost);
-        user.setPosts(posts);
+        user.getPosts().add(new Post(user.getId(),textPost,time,currentUser.getId(), currentUser.getFirstName()+" "+ currentUser.getLastName(), currentUser.getAvatar()));
         userRepo.save(user);
         return "redirect:/user/"+id;
     }
 
     @GetMapping("/feed")
     public String getAllPost(Model model,@AuthenticationPrincipal UserEntity user){
-        List<FriendList> allFriends = friendRepo.findAll();
-        List<FriendList> usersFriends = friendRepo.findAll();
-        List<FriendList> friendsOfUser = friendRepo.findAll();
-        Set<UserEntity> friendsEntities = new HashSet<UserEntity>();
-        if (!allFriends.isEmpty()) {
-            for (FriendList friends : allFriends
-            ) {
-                if (friends.getFriend_id1()==user.getId()){
-                    usersFriends.add(friends);
-                }
-                if (friends.getFriend_id2()==user.getId()){
-                    friendsOfUser.add(friends);
-                }
-            }
-            for (FriendList friends: usersFriends
-            ) {
-                boolean isAcceptedFriendship = false;
-                for (FriendList outFriends:friendsOfUser
-                ) {
-                    if ((user.getId()==friends.getFriend_id1() || user.getId()==friends.getFriend_id2()) && friends.getFriend_id1() == outFriends.getFriend_id2() && friends.getFriend_id2() == outFriends.getFriend_id1()){
-                        if (user.getId()==friends.getFriend_id1()){
-                            friendsEntities.add(userRepo.findById(friends.getFriend_id2()));
-                        } else {
-                            friendsEntities.add(userRepo.findById(friends.getFriend_id1()));
-                        }
-                    }
-                }
-            }
-
-        }
-        List<String> allFeed =new ArrayList<String>();
-        for (UserEntity friend:friendsEntities
+        List<Post> allPost = new ArrayList<>();
+        for (UserEntity friend: user.getOutgoingFriend()
              ) {
-            allFeed.addAll(friend.getPosts());
+            allPost.addAll(friend.getPosts());
         }
-        model.addAttribute("allPosts",allFeed);
+        allPost.sort(new PostComparator());
+        model.addAttribute("user",user);
+        model.addAttribute("posts",allPost);
         return FEED_PAGE;
     }
 
     @GetMapping("/friends/add/{id}")
     public String addFriend(@AuthenticationPrincipal UserEntity currentUser, @PathVariable("id") int id, @RequestParam(value = "ffl", required=false) Integer fromFriendList){
         UserEntity friend = userRepo.findById(id);
-
         if (null == friend || null == currentUser) {
             return "redirect:/user";
         } else {
-            List<FriendList> allFriend = friendRepo.findAll();
-            if (!allFriend.isEmpty()){
-                for (FriendList friends:allFriend
-                ) {
-                    if (friends.getFriend_id1()==currentUser.getId() && friends.getFriend_id2()==friend.getId()){
-                        if (fromFriendList==null){
-                            return "redirect:/user/"+id;
-                        } else {
-                            return "redirect:/user/friends/in"+currentUser.getId();
-                        }
-                    } else {
-                        FriendList newFriend = new FriendList();
-                        newFriend.setFriend_id1(currentUser.getId());
-                        newFriend.setFriend_id2(friend.getId());
-                        friendRepo.save(newFriend);
-                        if (fromFriendList==null){
-                            return "redirect:/user/"+id;
-                        } else {
-                            return "redirect:/user/friends/in"+currentUser.getId();
-                        }
-                    }
-                }
-            } else {
-                FriendList newFriend = new FriendList();
-                newFriend.setFriend_id1(currentUser.getId());
-                newFriend.setFriend_id2(friend.getId());
-                friendRepo.save(newFriend);
-                return "redirect:/user/"+id;
+            if (friend.getId()==currentUser.getId()) return "redirect:/user";
+            if (!currentUser.isSendedRequest(friend)){
+                currentUser.sendFriendRequest(friend);
+                userRepo.save(friend);
             }
-
-        }
-
-        return "redirect:/user/"+id;
+            if (fromFriendList==null){
+                return "redirect:/user/"+id;
+            } else {
+                return "redirect:/user/friends/in"+currentUser.getId();
+            }
+    }
     }
 
     @GetMapping("/friends/delete/{id}")
     public String deleteFriend(@AuthenticationPrincipal UserEntity currentUser, @PathVariable("id") int id, @RequestParam(value = "ffl", required=false) Integer fromFriendList){
         UserEntity friend = userRepo.findById(id);
-
         if (null == friend || null == currentUser) {
             return "redirect:/user";
         } else {
-            List<FriendList> allFriend = friendRepo.findAll();
-            if (!allFriend.isEmpty()){
-                for (FriendList friends:allFriend
-                ) {
-                    if (friends.getFriend_id1()==currentUser.getId() && friends.getFriend_id2()==friend.getId()){
-                        friendRepo.delete(friends);
-                        if (fromFriendList==null){
-                            return "redirect:/user/"+id;
-                        } else {
-                            return "redirect:/user/friends/"+currentUser.getId();
-                        }
-
-                    }
-                }
+            if (friend.getId()==currentUser.getId()) return "redirect:/user";
+            if (currentUser.isSendedRequest(friend)){
+                currentUser.deleteFriend(friend);
+                userRepo.save(friend);
             }
-        }
-
-        return "redirect:/user/"+id;
+            if (fromFriendList==null){
+                return "redirect:/user/"+id;
+            } else {
+                return "redirect:/user/friends/"+currentUser.getId();
+            }
+    }
     }
 
 
@@ -262,39 +182,9 @@ public class UserController {
     public String getUsersFriends(Model model,@AuthenticationPrincipal UserEntity currentUser,
                           @PathVariable("id") int id) {
         UserEntity user = userRepo.findById(id);
-        List<FriendList> allFriends = friendRepo.findAll();
-        List<FriendList> usersFriends = friendRepo.findAll();
-        List<FriendList> friendsOfUser = friendRepo.findAll();
-        Set<UserEntity> friendsEntities = new HashSet<UserEntity>();
-        if (!allFriends.isEmpty()) {
-            for (FriendList friends : allFriends
-            ) {
-                if (friends.getFriend_id1()==user.getId()){
-                    usersFriends.add(friends);
-                }
-                if (friends.getFriend_id2()==user.getId()){
-                    friendsOfUser.add(friends);
-                }
-            }
-            for (FriendList friends: usersFriends
-                 ) {
-                boolean isAcceptedFriendship = false;
-                for (FriendList outFriends:friendsOfUser
-                     ) {
-                    if ((user.getId()==friends.getFriend_id1() || user.getId()==friends.getFriend_id2()) && friends.getFriend_id1() == outFriends.getFriend_id2() && friends.getFriend_id2() == outFriends.getFriend_id1()){
-                        if (user.getId()==friends.getFriend_id1()){
-                            friendsEntities.add(userRepo.findById(friends.getFriend_id2()));
-                        } else {
-                            friendsEntities.add(userRepo.findById(friends.getFriend_id1()));
-                        }
-                    }
-                }
-            }
-
-        }
         model.addAttribute("currentUser",currentUser);
         model.addAttribute("pageId",id);
-        model.addAttribute("usersFriends",friendsEntities);
+        model.addAttribute("usersFriends",user.getAllAcceptedFriend());
         model.addAttribute("pageType","main");
         return FRIENDS_PAGE;
     }
@@ -303,40 +193,18 @@ public class UserController {
     @GetMapping("/friends/in{id}")
     public String getUsersInFriends(Model model,@AuthenticationPrincipal UserEntity currentUser,
                                   @PathVariable("id") int id) {
-        UserEntity user = userRepo.findById(id);
-        List<FriendList> allFriends = friendRepo.findAll();
-        List<FriendList> usersFriends = friendRepo.findAll();
-        List<FriendList> friendsOfUser = friendRepo.findAll();
-        Set<UserEntity> friendsEntities = new HashSet<UserEntity>();
-        if (!allFriends.isEmpty()) {
-            for (FriendList friends : allFriends
-            ) {
-                if (friends.getFriend_id1()==user.getId()){
-                    usersFriends.add(friends);
-                }
-                if (friends.getFriend_id2()==user.getId()){
-                    friendsOfUser.add(friends);
-                }
+        if (currentUser.getId()!=id) return "/friends/in"+currentUser.getId();
+        Set<UserEntity> incomingFriends = currentUser.getIncomingFriend();
+        Set<UserEntity> array = new HashSet<>();
+        for (UserEntity friend: incomingFriends
+             ) {
+            if (!currentUser.isAcceptedFriend(friend)){
+               array.add(friend);
             }
-            for (FriendList friends: friendsOfUser
-            ) {
-                boolean isAcceptedFriendship = false;
-                for (FriendList outFriends:usersFriends
-                ) {
-                    if (friends.getFriend_id1() == outFriends.getFriend_id2() && friends.getFriend_id2() == outFriends.getFriend_id1()){
-                        isAcceptedFriendship=true;
-                        break;
-                    }
-                }
-                if (!isAcceptedFriendship && friends.getFriend_id1()!=currentUser.getId() && friends.getFriend_id2()==currentUser.getId()){
-                    friendsEntities.add(userRepo.findById(friends.getFriend_id1()));
-                }
-            }
-
         }
         model.addAttribute("currentUser",currentUser);
         model.addAttribute("pageId",id);
-        model.addAttribute("usersFriends",friendsEntities);
+        model.addAttribute("usersFriends", array);
         model.addAttribute("pageType","in");
             return FRIENDS_PAGE;
 
@@ -345,39 +213,18 @@ public class UserController {
     @GetMapping("/friends/out{id}")
     public String getUsersOutFriends(Model model,@AuthenticationPrincipal UserEntity currentUser,
                                     @PathVariable("id") int id) {
-        UserEntity user = userRepo.findById(id);
-        List<FriendList> allFriends = friendRepo.findAll();
-        List<FriendList> usersFriends = friendRepo.findAll();
-        List<FriendList> friendsOfUser = friendRepo.findAll();
-        Set<UserEntity> friendsEntities = new HashSet<UserEntity>();
-        if (!allFriends.isEmpty()) {
-            for (FriendList friends : allFriends
-            ) {
-                if (friends.getFriend_id1()==user.getId()){
-                    usersFriends.add(friends);
-                }
-                if (friends.getFriend_id2()==user.getId()){
-                    friendsOfUser.add(friends);
-                }
-            }
-            for (FriendList friends: usersFriends
-            ) {
-                boolean isAcceptedFriendship = false;
-                for (FriendList outFriends:friendsOfUser
-                ) {
-                    if (friends.getFriend_id1() == outFriends.getFriend_id2() && friends.getFriend_id2() == outFriends.getFriend_id1()){
-                        isAcceptedFriendship=true;
-                        break;
-                    }
-                }
-                if (!isAcceptedFriendship && friends.getFriend_id2()!=currentUser.getId() && friends.getFriend_id1()==currentUser.getId()){
-                    friendsEntities.add(userRepo.findById(friends.getFriend_id2()));
-                }
+        if (currentUser.getId()!=id) return "/friends/out"+currentUser.getId();
+        Set<UserEntity> outgoingFriends = currentUser.getOutgoingFriend();
+        Set<UserEntity> array = new HashSet<>();
+        for (UserEntity friend: outgoingFriends
+        ) {
+            if (!currentUser.isAcceptedFriend(friend)){
+                array.add(friend);
             }
         }
         model.addAttribute("currentUser",currentUser);
         model.addAttribute("pageId",id);
-        model.addAttribute("usersFriends",friendsEntities);
+        model.addAttribute("usersFriends",array);
         model.addAttribute("pageType","out");
         return FRIENDS_PAGE;
     }

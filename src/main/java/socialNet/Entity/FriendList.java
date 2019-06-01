@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name="friends_list")
 public class FriendList {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int friend_id1;
     private int friend_id2;

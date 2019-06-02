@@ -1,0 +1,21 @@
+.header{
+    grid-area: header;
+    min-width: 600px;
+}
+.main{
+    grid-area: main;
+    min-width: 1000px;
+    background-color: #C5DDE8;
+    border-radius: 15px;
+}
+.container{
+    margin-left: 10%;
+    margin-right: 10%;
+    display: grid;
+    grid-template-areas: "header header header"
+                          "left main right";
+    grid-template-columns: 0px 1fr;
+    grid-template-rows: 120px 1fr;
+    min-height: 100vh;
+    grid-gap: 1em; 
+}

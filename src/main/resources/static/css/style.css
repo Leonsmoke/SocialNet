@@ -1,17 +1,11 @@
 body{
-    background-color: #C5DDE8;
-    min-width: 1000px;
+    background-color: white;
+    min-width: 600px;
 }
 .page{
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 400px;
+    margin-right: 400px;
     min-width: 1000px;
-}
-.page_name{
-    min-width: 1000px;
-}
-.panel-header{
-    margin-left: 0px;
 }
 a, a:hover{
     text-decoration: none;
@@ -19,8 +13,7 @@ a, a:hover{
     font: normal 1em 'century gothic';
     color: darkslategray;
     width: 400px;
-    hyphens: auto;
-    word-break:break-all;
+
 }
 h1{
     font: normal 1.7em 'century goyhic';
@@ -40,21 +33,21 @@ h4{
     font: normal 1.1em 'century gothic';
     text-decoration: none;
     color: darkslategray;
-    margin-bottom: auto;
+    align-self: center;
 
 }
 input[type="text"], input[type="password"], input[type="email"]{
     padding: 5px;
     border: solid 1px pink;
     border-radius: 5px;
+    margin-bottom: 5px;
 
 }
 .header{
-    padding: 35px;
     background: linear-gradient(45deg, #EECFBA, #b1d0de);
     border-radius: 10px;
-    margin-bottom: 20px;
-    min-width: 1000px;
+    min-width: 600px;
+    padding: 25px;
 }
 .sign-out_btn{
     float: right;
@@ -71,12 +64,11 @@ input[type="text"], input[type="password"], input[type="email"]{
     border: solid 1px pink;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 3px;
     display: inline-block;
     font: normal 0.8em 'century gothic';
     width: 150px;
 }
-.sign-up{margin-left: 5px;}
+.sign-up{}
 .Friend_Btn-position{
     float: left;
     padding: 10px;
@@ -87,12 +79,12 @@ label{
     color: darkslategray;
     margin-bottom: auto;
 }
-span{
-    font: normal 1.4em 'century gothic';
+/*span{
+    font: normal 1.3em 'century gothic';
     text-decoration: none;
     color: darkslategray;
     margin-bottom: auto;
-}
+}*/
 .havent-mess{
     list-style-type: none;
     font: normal 1em 'century gothic';
@@ -108,6 +100,9 @@ span{
     background-color: #b1d0de;
     border-radius: 5px;
 }
+ul{
+    list-style-type: none;
+}
 .tabs{
     background-color: #b1d0de;
     border-radius: 10px;
@@ -117,9 +112,11 @@ span{
 }
 .friend-container{
     margin-top: 10px;
-    border-radius: 15px;
+    border-radius: 5px;
     width: 470px; height: 130px;
-    background-color: #b1d0de;
+    background-color: white;
+    margin-bottom: 30px;
+    margin-left: 10px;
 
 }
 .avatar {
@@ -128,7 +125,7 @@ span{
     margin-left: 40px;
     margin-right: 5px;
 }
-.friend-avatar{
+.friend-avatar, .dialog-user-avatar{
     border: solid 2px #000;
     -webkit-border-radius: 20px;
     margin: 10px;
@@ -142,12 +139,14 @@ span{
     margin-left: 10px;
     font: normal 0.6em 'century gothic';
     width: 150px;
+    float: left;
 }
 .friend_list{
-    margin-left: 30%;
-    margin-right: 30%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
-.dialog-row-container{
+.dialog-row-contain{
+    background-color: white;
     margin-top: 10px;
     border-radius: 15px;
     width: 100px; height: 130px;
@@ -155,12 +154,11 @@ span{
 .tabss{
     background-color: #b1d0de;
     border-radius: 10px;
-    float: left;
-    padding: 20px;
-    margin-top: auto;
-    overflow-y: scroll;
-    height: 250px;
-    width: 700px;
+    overflow-y: auto;
+    min-height: 160px;
+    min-width: 400px;
+    margin: 20px;
+    margin-top: 30px;
 }
 .dialog-message-container{
     list-style-type: none;
@@ -189,21 +187,27 @@ span{
     text-decoration: none;
     color: darkslategray;
     margin-bottom: auto;
+    margin-top: auto;
+    margin-right: 5px;
 }
-.Username, .Text-friends{
+.Username, .text-friend{
     margin-left: 5px;
     font: normal 1em 'century gothic';
     text-decoration: none;
     color: darkslategray;
     margin-bottom: auto;
-
+}
+.textPost{
+    font: normal 1em 'century gothic';
+    text-decoration: none;
+    color: darkslategray;
+    margin: 0px;
+    hyphens: auto;
+    word-break:break-all;
 }
 .profile-btn{
-    display: flex;
-}
-.panel-primary, .panel-header{
-    margin-left: 200px;
-    margin-right: 200px;
+    margin: 20px;
+    display: inline-flex;
 }
 .select-search{
     padding: 4px;
@@ -221,7 +225,7 @@ span{
     border-radius: 5px;
     margin-top: 3px;
     display: inline-block;
-    font: normal 0,8em 'century gothic';
+    font: normal 0.8em 'century gothic';
     width: 450px;
 }
 .sign-up-btn{
@@ -237,8 +241,53 @@ span{
 .panel-footer{
     margin-top: 50px;
 }
-.feed-container{
-    border-radius: 2px;
-    width: 600px;
+.headline{
+    height: 30px;
+}
+.panel-body{
+    margin-top: 10px;
+}
+.btn{
+    padding: 4px;
     background-color: white;
+    border: solid 1px pink;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    font: normal 0.8em 'century gothic';
+    width: 150px;
+    margin: 5px;
+    float: left;
+}
+.fed-container, .comm-container, .dialog-row-contain, .search-user-contain{
+    background-color: white;
+    min-height: 125px;
+    width: 600px;
+    border-radius: 5px;
+}
+.dialog-row{
+    font: normal 1.3em 'century gothic';
+}
+.time{
+    font: normal 1em 'century gothic';
+    margin: 0px;
+    margin-right: 5px;
+    float: right;
+}
+.feed-container, .walpost, .comment-container, .dialog-row-contain, .search-user-contain{
+    width: 600px;
+    margin-bottom: 40px;
+    margin-left: 10px;
+}
+.wallPost{
+    background-color: white;
+    min-height: 125px;
+    width: 600px;
+    border-radius: 5px;
+}
+.name a{
+    font: normal 1.3em 'century gothic';
+}
+.dialog-row-contain, .search-user-contain li{
+    list-style-type: none;
 }

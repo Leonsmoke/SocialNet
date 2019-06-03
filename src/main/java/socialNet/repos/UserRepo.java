@@ -13,4 +13,8 @@ public interface UserRepo extends JpaRepository<UserEntity,Long> {
 
     @Override
     List<UserEntity> findAll();
+
+    /*@Query(value="SELECT * FROM rgr.posts WHERE (post_id = ?1 AND wall_id=?2)",
+            nativeQuery = true)
+    Post findPostById(Integer post_id, Integer wall_id);*/
 }

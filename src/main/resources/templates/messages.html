@@ -1,44 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8" />
-    <title>Search Page</title>
-    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
-    <script src="//code.jquery.com/jquery-1.7.min.js"></script>
-    <script src="../js/script.js"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type">
+        <script src="//code.jquery.com/jquery-1.7.min.js"></script>
+        <script th:src="@{/js/script.js}"></script>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <div th:replace="~{user_element::header()}"></div>
+            </header>
+            <main class="main">
+                <h2 class="headline" align="center">Messages</h2>
+                <div class="panel panel-primary">
 
-<div class="page">
-    <div th:replace="~{user_element::header()}"></div>
-    <div class="page_name" align="center">
-        <h2>Messages</h2>
-    </div>
-    <div th:replace="~{user_element::sideMenu()}"></div>
-
-
-
-    <div class="panel panel-primary">
-
-        <div class="panel-header">
-            <h4>Your dialogs:</h4>
-        </div>
-        <div class="panel-body">
-            <div class="tabss">
-                <div class="dialog-row">
-                    <ul th:each="user:${users}">
-                        <li align="center" class="havent-mess" th:replace="~{user_element::dialogRow(firstName=${user.firstName},lastName=${user.lastName},id=${user.id})}">You haven't dialogs yet</li>
-                    </ul>
+                <div class="panel-header">
+                    <h4 align="center">Your dialogs:</h4>
                 </div>
-            </div>
-        </div>
-        <div class="panel-footer">
-        </div>
+                <div align="center" class="panel-body">
+                    <div class="tabss">
+                        <div class="dialog-row" th:each="user:${users}">
+                            <ul>
+                                <li align="center" class="havent-mess"  th:include="~{user_element::dialogRow(firstName=${user.firstName},lastName=${user.lastName},id=${user.id},avatar=${user.avatar})}">You haven't dialogs yet</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                </div>
     </div>
-
-
-
-</div>
-</body>
+                
+            </main>
+            <aside class="left">
+                <div th:replace="~{user_element::sideMenu()}"></div>
+            </aside>
+        </div>
+    </body>
 </html>

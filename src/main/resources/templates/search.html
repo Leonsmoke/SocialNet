@@ -1,59 +1,56 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8" />
-    <title>Search Page</title>
-    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
-    <script src="//code.jquery.com/jquery-1.7.min.js"></script>
-    <script src="../js/script.js"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type">
+        <script src="//code.jquery.com/jquery-1.7.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <div th:replace="~{user_element::header()}"></div>
+            </header>
+            <main class="main" align="center">
+                <h2 class="headline" align="center">Search</h2>
+                <div align="center" class="panel-primary">
+                    <div>
+                        <form th:action="'/user/search/getAll'" method="get">
+                            <input type="submit" class="getAllUsers" value="Show all users"/>
+                        </form>
+                    </div>
+                    <div class="search-form">
+                        <form th:action="@{/user/search/doSearch}" method="post" >
+                            <select class="select-search" name="selectSearchType" size="1">
+                                <option selected value="s1">Username</option>
+                                <option value="s2">First name</option>
+                                <option value="s3">Last name</option>
+                            </select>
+                            <h4 class="subheader">Enter filter for search</h4>
+                            <input class="search-area" type="search" name="filter"  pattern="^[a-zA-Z0-9]+$" >
+                            <button class="search-btn" type="submit">Search</button>
+                        </form>
+                    </div>
+                    <div class="panel-header">
 
-<div class="page">
-    <div th:replace="~{user_element::header()}"></div>
-    <div class="page_name" align="center">
-        <h2>Search</h2>
-    </div>
-    <div th:replace="~{user_element::sideMenu()}"></div>
-
-
-
-    <div align="center" class="panel-primary">
-        <div>
-            <form th:action="'/user/search/getAll'" method="get">
-                <input type="submit" class="getAllUsers" value="Show all users"/>
-            </form>
+                        <h4>User list:</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="search-user-list">
+                            <ul th:each="user:${users}">
+                                <li th:replace="~{user_element::searchUser(firstName=${user.firstName},lastName=${user.lastName},id=${user.id})}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                    </div>
+                </div>
+            </main>
+            <aside class="left">
+                <div th:replace="~{user_element::sideMenu()}"></div>
+            </aside>
         </div>
-        <div class="search-form">
-            <form th:action="@{/user/search/doSearch}" method="post" >
-                <select class="select-search" name="selectSearchType" size="1">
-                    <option selected value="s1">Username</option>
-                    <option value="s2">First name</option>
-                    <option value="s3">Last name</option>
-                </select>
-                <h4 class="subheader">Enter filter for search</h4>
-                <input class="search-area" type="search" name="filter"  pattern="^[a-zA-Z0-9]+$" >
-                <button class="search-btn" type="submit">Search</button>
-            </form>
-        </div>
-        <div class="panel-header">
-
-            <h4>User list:</h4>
-        </div>
-        <div class="panel-body">
-            <div class="search-user-list">
-                <ul th:each="user:${users}">
-                    <li th:replace="~{user_element::searchUser(firstName=${user.firstName},lastName=${user.lastName},id=${user.id})}"></li>
-                </ul>
-            </div>
-        </div>
-        <div class="panel-footer">
-        </div>
-    </div>
-
-
-
-</div>
-</body>
+    </body>
 </html>

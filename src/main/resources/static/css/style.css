@@ -90,7 +90,7 @@ label{
     font: normal 1em 'century gothic';
     margin-left: 100px;
     margin-right: 100px;
-
+    min-height: 120px;
 
 }
 .menu ul li{
@@ -259,7 +259,13 @@ ul{
     margin: 5px;
     float: left;
 }
-.fed-container, .comm-container, .dialog-row-contain, .search-user-contain{
+.comm-container{
+    background-color: white;
+    min-height: 82px;
+    width: 500px;
+    border-radius: 5px;
+}
+.fed-container, .dialog-row-contain, .search-user-contain{
     background-color: white;
     min-height: 125px;
     width: 600px;

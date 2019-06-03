@@ -1,41 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8" />
-    <title>Friend's Page</title>
-    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
-    <script src="//code.jquery.com/jquery-1.7.min.js"></script>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="specialstyle.css">
+        <meta http-equiv="content-type">
+        <script src="//code.jquery.com/jquery-1.7.min.js"></script>
     <script th:src="@{/js/script.js}"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body onload="checkPageFriend()">
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+    </head>
+    <body onload="checkPageFriend()">
+        <div class="container">
+            <header class="header">
+                <div th:replace="~{user_element::header()}"></div>
+            </header>
+            <main class="main">
+                <h2 class="headline" align="center">Friends</h2>
+                <div class="panel panel-primary">
+                    <div calss="friendsPages" align="center">
+                        <a id="AllFriends" href="/user/friends" style="visibility: hidden">Your friends</a>
+                        <a id="IncomingRequest" href="/user/friends/in" style="visibility: hidden">Incoming request</a>
+                        <a id="OutcomingRequest" href="/user/friends/out" style="visibility: hidden">Outgoing request</a>
+                    </div>
 
-<div class="page">
-    <div th:insert="~{user_element::header()}"></div>
-    <div class="page_name" align="center">
-        <h2>Friends</h2>
-    </div>
-    <div th:replace="~{user_element::sideMenu()}"></div>
-    <div class="panel panel-primary">
-        <a id="AllFriends" href="/user/friends" style="visibility: hidden">Your friends</a>
-        <a id="IncomingRequest" href="/user/friends/in" style="visibility: hidden">Incoming request</a>
-        <a id="OutcomingRequest" href="/user/friends/out" style="visibility: hidden">Outgoing request</a>
-        <div class="panel-header">
-            <h4>Friend list:</h4>
-        </div>
-        <div class="panel-body">
-            <div class="friend_list">
-                <span th:each="friend:${usersFriends}">
-                    <span th:insert="~{user_element::userElement(firstName=${friend.firstName},lastName=${friend.lastName},id=${friend.id},avatar=${friend.avatar})}"></span>
-                </span>
-            </div>
-        </div>
-        <div class="panel-footer">
-        </div>
+             
+                <h4 align="center">Friend list:</h4>
+                
+                <div class="panel-body">
+                    <div class="friend_list">
+                        <span th:each="friend:${usersFriends}">
+                            <span th:insert="~{user_element::userElement(firstName=${friend.firstName},lastName=${friend.lastName},id=${friend.id},avatar=${friend.avatar})}"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                </div>
     </div>
     <p id="page-type" th:type="hidden" th:text="${pageType}" style="visibility: hidden"></p>
     <p id="pageId" th:type="hidden" th:text="${pageId}" style="visibility: hidden"></p>
     <p id="userId" th:type="hidden" th:text="${currentUser.getId()}" style="visibility: hidden"></p>
-</div>
-</body>
+            </main>
+            <aside class="left">
+                <div th:replace="~{user_element::sideMenu()}"></div>
+
+            </aside>
+        </div>
+    </body>
 </html>

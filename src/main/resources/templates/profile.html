@@ -1,79 +1,77 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8" />
-    <title>User's Page</title>
-    <script src="//code.jquery.com/jquery-1.7.min.js"></script>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type">
+        <script src="//code.jquery.com/jquery-1.7.min.js"></script>
     <script th:src="@{/js/script.js}"></script>
-    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body onload='checkTypeProfile()'>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+    </head>
+    <body onload="checkTypeProfile()">
+        <div class="container">
+            <header class="header">
+                <div th:replace="~{user_element::header()}"></div>
+            </header>
+            <main class="main">
+                <h2 class="headline" align="center">Profile</h2>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="general_information">
+                            <img class="avatar" th:src="'/upload/files/'+${user.avatar}" width="100" height="100" align="left">
+                            <div class="gen-inf">
 
-<div class="page">
 
-    <div th:replace="~{user_element::header()}"></div>
-
-    <div class="page_name" align="center">
-        <h2>Profile</h2>
-    </div>
-    <div th:replace="~{user_element::sideMenu()}"></div>
-    <div class="panel panel-primary">
-        <div class="panel-header">
-            <h4>General information</h4>
-        </div>
-        <div class="panel-body">
-            <div class="general_information">
-                <img class="avatar" th:src="'/upload/files/'+${user.avatar}" width="100" height="100" align="left">
-                <div class="gen-inf">
-                    
-                    
-                    <div class="full-name">
-                    <p class="Firstname" th:text="${user.firstName}"></p>
-                    <p class="Lastname" th:text="${user.lastName}"></p>
+                                <div class="full-name">
+                                <p class="Firstname" th:text="${user.firstName}">Vasya</p>
+                                <p class="Lastname" th:text="${user.lastName}">Biber</p>
+                                    </div>
+                                <p class="Username" th:text="'Username: ' +${user.username}">dfdf</p>
+                                <p class="text-friend" id="textFriend" th:text="${userView.isFriend}">dfd</p>
+                            </div>
                         </div>
-                    <p class="Username" th:text="'Username: ' +${user.username}"></p>
-                    <p id="textFriend" th:text="${userView.isFriend}"></p>
-                </div>
-            </div>
-            <div class="profile-btn">
-                <form th:action="'/upload'" method="get" style="visibility: hidden">
-                    <input type="submit" class="updateAvatar"  id = "updateAvatar" value="Update avatar"/>
-                </form>
-                <form th:action="'/user/friends/'+${user.getId()}" method="get">
-                    <input type="submit" class="updateAvatar"  id = "goToFriend" value="Friends"/>
-                </form>
-                <form th:action="'/messages/dialog'+${user.getId()}" method="get">
-                    <input type="submit" class="goToDialogBtn"  id = "goToDialogBtn" value="Open dialog"/>
-                </form>
-                <form th:action="'/user/friends/add/'+${user.getId()}" method="get">
-                    <input type="submit" class="addFriendButton"  id = "addFriendButton" value="Add as friend"/>
-                </form>
+                        <div class="profile-btn" align="center">
+                            
+                            <form th:action="'/user/friends/'+${user.getId()}" method="get">
+                                <input type="submit" class="updateAvatar"  id = "goToFriend" value="Friends"/>
+                            </form>
+                            <form th:action="'/messages/dialog'+${user.getId()}" method="get">
+                                <input type="submit" class="goToDialogBtn"  id = "goToDialogBtn" value="Open dialog"/>
+                            </form>
+                            <form th:action="'/user/friends/add/'+${user.getId()}" method="get">
+                                <input type="submit" class="addFriendButton"  id = "addFriendButton" value="Add as friend"/>
+                            </form>
 
-                <form th:action="'/user/friends/delete/'+${user.getId()}" method="get">
-                    <input type="submit" class="deleteFriendButton"  id = "deleteFriendButton" value="Cancel friendship"/>
-                </form>
-            </div>
+                            <form th:action="'/user/friends/delete/'+${user.getId()}" method="get">
+                                <input type="submit" class="deleteFriendButton"  id = "deleteFriendButton" value="Cancel friendship"/>
+                            </form>
+                            <form th:action="'/upload'" method="get" style="visibility: hidden">
+                                <input type="submit" class="updateAvatar"  id = "updateAvatar" value="Update avatar"/>
+                            </form>
+                            <form th:action="'/user/edit'" method="get" style="visibility: hidden">
+                                <input type="submit" class="updateAvatar"  id = "editProfile" value="Edit profile"/>
+                            </form>
+                        </div>
+                    </div>
+                    <div align="center" class="panel-footer">
+                        <div class="newPostArea">
+                            <form th:action="'/user/' + ${user.id} + '/addPost'" method="post">
+                                <textarea class="wall-post-textarea" name="textPost" cols="20" rows="5" ></textarea>
+                                <input type="submit" class="send-post-btn" value="Add post on wall"/>
+                            </form>
+                        </div>
+                        <div>
+                            <div class="users-wall" th:each="post:${posts}">
+                                <span th:replace="~{user_element::wallPost(textPost=${post.text}, time=${post.time},wall_id=${post.wall_id},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.author_ava})}" >
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </main>
+            <aside class="left">
+                <div th:replace="~{user_element::sideMenu()}"></div>
+            </aside>
         </div>
-        <div align="center" class="panel-footer">
-            <div class="newPostArea">
-                <form th:action="'/user/' + ${user.id} + '/addPost'" method="post">
-                    <textarea class="wall-post-textarea" name="textPost" cols="20" rows="5" ></textarea>
-                    <input type="submit" class="send-post-btn" value="Add post on wall"/>
-                </form>
-            </div>
-            <div>
-                <div class="users-wall" th:each="post:${posts}">
-                    <!-- -->
-                    <span th:replace="~{user_element::wallPost(textPost=${post.text}, time=${post.time},wall_id=${post.wall_id},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.author_ava})}" >
-                </span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-</div>
-</body>
+    </body>
 </html>

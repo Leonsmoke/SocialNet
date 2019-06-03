@@ -1,17 +1,13 @@
 package socialNet.View;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import socialNet.Entity.UserEntity;
 import socialNet.Security.SecurityUtils;
-import socialNet.Service.FriendService;
 
 import java.io.Serializable;
 
 public class UserView implements Serializable {
 
-    @Autowired
-    private FriendService friendService;
 
     private int id;
     private String username;

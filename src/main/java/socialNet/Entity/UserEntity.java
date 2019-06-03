@@ -45,6 +45,11 @@ public class UserEntity implements UserDetails {
     private Set<Role> role;
 
 
+    public void addPost(Post post){
+        posts.add(post);
+        post.setWall_id(this.id);
+    }
+
     public void sendFriendRequest(UserEntity friend){
         if (!outgoingFriend.contains(friend)){
             outgoingFriend.add(friend);

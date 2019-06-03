@@ -1,41 +1,39 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title>Authorisation</title>
-    <link rel="stylesheet" type="text/css" href="../css/style.css" th:href="@{/css/style.css}"/>
-    <script src="//code.jquery.com/jquery-1.7.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-
-
-</head>
-<body>
-<div class="page" align="center">
-    <div class="header">
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type">
+        <script src="//code.jquery.com/jquery-1.7.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
+    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/logingrid.css}"/>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <div th:replace="~{user_element::header()}"></div>
+            </header>
+            <main align="center" class="main">
                 <div align="center">
-                    <h1>SlowPoke</h1>
+                    <h2 class="headline" align="center">Sign in</h2>
+                    <div th:if="${param.error}" class="incor_username">
+                        Incorrect username and password.
+                    </div>
+                    <form th:action="@{/login}" method="post">
+                        <h4 class="subheader">Username</h4>
+                        <input type="text" name="username" placeholder="Username" maxlength="20"  pattern="^[a-zA-Z0-9]+$" required autocomplete="off">
+                        <h4 class="subheader">Password</h4>
+                        <input type="password" name="password" placeholder="Password" maxlength="30"  pattern="^[a-zA-Z0-9]+$" required><br>
+                        <div class="buttons_wrap">
+                            <button class="sign-in" type="submit">Sign In</button><br>
+                        </div>
+                    </form>
+                    <form action="registration">
+                        <button class="sign-up" >Sign Up</button>
+                    </form>
                 </div>
-            </div>
-    <div class="page_name" align="center">
-        <h2>Sign in</h2>
-    </div>
-        <div th:if="${param.error}" class="incor_username">
-            Incorrect username and password.
+            </main>
+            
         </div>
-    <form th:action="@{/login}" method="post">
-        <h4 class="subheader">Username</h4>
-        <input type="text" name="username" placeholder="Username" maxlength="20"  pattern="^[a-zA-Z0-9]+$" required autocomplete="off">
-        <h4 class="subheader">Password</h4>
-        <input type="password" name="password" placeholder="Password" maxlength="30"  pattern="^[a-zA-Z0-9]+$" required><br>
-        <div class="buttons_wrap">
-            <button class="sign-in" type="submit">Sign In</button><br>
-        </div>
-    </form>
-    <form action="registration">
-        <button class="sign-up" >Sign Up</button>
-    </form>
-
-
-</div>
-</body>
+    </body>
 </html>

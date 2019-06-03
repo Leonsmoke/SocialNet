@@ -8,10 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import socialNet.Entity.Comment;
 import socialNet.Entity.Post;
 import socialNet.Entity.UserEntity;
 import socialNet.View.UserView;
 import socialNet.other.PostComparator;
+import socialNet.repos.PostRepo;
 import socialNet.repos.UserRepo;
 
 import java.io.BufferedOutputStream;
@@ -34,6 +36,8 @@ public class UserController {
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private PostRepo postRepo;
 
     @GetMapping("")
     public String user(Model model, @AuthenticationPrincipal UserEntity user){
@@ -119,11 +123,27 @@ public class UserController {
     public String addPost(Model model,@AuthenticationPrincipal UserEntity currentUser,
                           @PathVariable("id") int id, @RequestParam String textPost) {
         UserEntity user = userRepo.findById(id);
-        String time = LocalDateTime.now().getMonth() + "." + LocalDateTime.now().getDayOfMonth()+ "     "+
+        String time = LocalDateTime.now().getDayOfMonth() + " " +LocalDateTime.now().getMonth() + "     "+
                 LocalDateTime.now().getHour() + "  :" + LocalDateTime.now().getMinute();
-        user.getPosts().add(new Post(user.getId(),textPost,time,currentUser.getId(), currentUser.getFirstName()+" "+ currentUser.getLastName(), currentUser.getAvatar()));
+        user.getPosts().add(new Post(user.getId(),textPost,time,currentUser.getId(), currentUser.getFirstName()+" "+ currentUser.getLastName(), currentUser.getAvatar(), user.getAvatar()));
         userRepo.save(user);
         return "redirect:/user/"+id;
+    }
+
+    @PostMapping("/feed/addComment")
+    public String addCommentFromFeed(Model model,@AuthenticationPrincipal UserEntity currentUser, @RequestParam int post_id, @RequestParam int wall_id, @RequestParam String text){
+        UserEntity user = userRepo.findById(wall_id);
+        String time = LocalDateTime.now().getDayOfMonth() + " " +LocalDateTime.now().getMonth() + "     "+
+                LocalDateTime.now().getHour() + "  :" + LocalDateTime.now().getMinute();
+        Post postToComment = postRepo.findPostByPostID(post_id);
+        //user.getPosts().get(user.getPosts().indexOf(postToComment)).getComments().add(new Comment(wall_id,post_id,text,time,currentUser.getId(),currentUser.getFirstName()+" "+ currentUser.getLastName(),currentUser.getAvatar()));
+        Comment comm = new Comment(wall_id,post_id,text,time,currentUser.getId(),currentUser.getFirstName()+" "+ currentUser.getLastName(),currentUser.getAvatar());
+        Post post = user.getPosts().get(user.getPosts().indexOf(postToComment));
+        post.addComment(comm);
+        user.addPost(post);
+        userRepo.saveAndFlush(user);
+        userRepo.saveAndFlush(currentUser);
+        return FEED_PAGE;
     }
 
     @GetMapping("/feed")
@@ -134,10 +154,16 @@ public class UserController {
             allPost.addAll(friend.getPosts());
         }
         allPost.sort(new PostComparator());
+        for (Post post:allPost
+             ) {
+            model.addAttribute("comments"+post.getId(),post.getComments());
+        }
         model.addAttribute("user",user);
         model.addAttribute("posts",allPost);
         return FEED_PAGE;
     }
+
+
 
     @GetMapping("/friends/add/{id}")
     public String addFriend(@AuthenticationPrincipal UserEntity currentUser, @PathVariable("id") int id, @RequestParam(value = "ffl", required=false) Integer fromFriendList){

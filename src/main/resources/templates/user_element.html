@@ -1,60 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" href="style.css">
-<body>
-
-<div class="header" th:fragment="header()">
-    <div align="center">
-        <h1>SlowPoke</h1>
-    </div>
-    <div class="sign-out_btn">
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" class="sign-up" value="Sign Out"/>
-        </form>
-    </div>
-</div>
-
-
-<div class="menu" id="user" th:fragment="sideMenu()">
-    <ul class="tabs">
-        <li class="tab" id="profile">
-            <a href="/user">My profile</a>
-        </li>
-        <li class="tab" id="feed">
-            <a href="/user/feed">Feed</a>
-        </li>
-        <li class="tab" id="friends">
-            <a href="/user/friends">Friends</a>
-        </li>
-        <li class="tab" id="messages">
-            <a href="/messages">Messages</a>
-        </li>
-        <li class="tab" id="search">
-            <a href="/user/search">Search</a>
-        </li>
-    </ul>
-    <div>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" class="sign-up" value="Sign Out"/>
-        </form>
-    </div>
-</div>
-
-
-
-
-<div class="friend-container" th:fragment="userElement(firstName,lastName,id,avatar)"> <!-- КОНТЕЙНЕР ДЛЯ ДРУГАНОВ-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type">
+        <script src="//code.jquery.com/jquery-1.7.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <div th:fragment="header()">
+                    <div align="center">
+                        <h1>SlowPoke</h1>
+                    </div>
+                    <div class="sign-out_btn">
+                        <form th:action="@{/logout}" method="post">
+                        <input type="submit" class="sign-up" value="Sign Out"/>
+                        </form>
+                    </div>
+                </div>
+            </header>
+            <main class="main">
+                
+                <div class="friend-container" th:fragment="userElement(firstName,lastName,id,avatar)"> <!-- КОНТЕЙНЕР ДЛЯ ДРУГАНОВ-->
     <div class="photo">
         <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
-        <a class="name" align="center" th:href="'/user/'+${id}" th:text="${firstName} + ' ' + ${lastName}"></a>
+        <div class="name">
+        <a class="name" align="center" th:href="'/user/'+${id}" th:text="${firstName} + ' ' + ${lastName}">xcxcxcx</a>
+        </div>
     </div>
     <div align="center" class="friend-btn">
-        <form th:action="'/user/friends/delete/'+${id}" method="get" style="visibility: hidden">
+        <form th:action="'/user/friends/delete/'+${id}" method="get" >
             <input type="hidden" name="ffl" value="1" />
             <input type="submit" class="deleteFriendBtn"  id = "deleteFriendBtn" value="Remove from friends"/>
         </form>
-        <form th:action="'/user/friends/add/'+${id}" method="get" style="visibility: hidden">
+        <form th:action="'/user/friends/add/'+${id}" method="get" >
             <input type="hidden" name="ffl" value="1" />
             <input type="submit" class="addFriendBtn"  id = "addFriendBtn" value="Accept request"/>
         </form>
@@ -65,8 +47,9 @@
     <a th:href= "'/user/'+${id}" th:text="${firstName} + ' ' + ${lastName}"></a>
 </li>
 
-<li class="dialog-row-container" th:fragment="dialogRow(firstName,lastName,id)">
-    <a th:href= "'/messages/dialog'+${id}" th:text="${firstName} + ' ' + ${lastName}"></a>
+<li class="dialog-row-container" th:fragment="dialogRow(firstName,lastName,id,avatar)">
+    <img class="dialog-user-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
+    <a class="dialog-row" th:href= "'/messages/dialog'+${id}" th:text="${firstName} + ' ' + ${lastName}"></a>
 </li>
 
 
@@ -74,29 +57,88 @@
             <a th:text="${timeMessage}"></a>
             <a th:text="${textMessage}"></a>
         </li>
-    
-<div class="feed-container" id="feedCont" th:fragment="postElement(textPost,time,wall_id,author_id,author_fullname, avatar)">  <!-- FEED -->
+
+
+
+
+<div class="feed-container" id="feedCont" th:fragment="postElement(textPost,time,wall_id,author_id,author_fullname, avatar, post_id)">  <!-- FEED -->
+    <div class="fed-container" id="fed-container">
     <div class="photo">
-        <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
-        <a class="name" th:href= "'/user/'+${author_id}" th:text="'From: '+${author_fullname}"></a>
+            <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
+                
     </div>
-    <a th:href= "'/user/'+${wall_id}" th:text="'New post on wall'"></a>
-    <p class="textPost" th:text="${textPost}"></p>
-    <p class="time" th:text="${time}"></p>
-    <input type="submit" th:value="'Comment'" name="commentBtn" OnClick="createCommentArea(this);">
+        <div class="name">
+            <a class="name"  th:href= "'/user/'+${author_id}" th:text="'From: '+${author_fullname}"></a>
+        </div>
+            <div class="feed-text" th:id="${post_id}">
+            <a class="wall-link" th:id="${wall_id} " th:href= "'/user/'+${wall_id}" th:text="'Post on wall'">sdsdsdsds</a>
+            <p class="textPost" th:text="${textPost}">sdsds</p>
+        </div>
+    </div>
+    <p class="time" th:text="${time}">14:12</p>
+        <input class="btn" type="submit" th:value="'Comments'" name="commentBtn" OnClick="createCommentArea(this);">
 </div>
 
+                <div class="comment-container" align="right" id="commentCont" th:fragment="commentElement(textComment,time,wall_id,author_id,author_fullname, avatar)"> <!— FEED —>
+                    <div class="comm-container" align="center">
+                        <div class="photo">
+                            <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" width="60" height="60" align="left">
 
+                        </div>
+                        <div class="name">
+                            <a class="name" th:href= "'/user/'+${author_id}" th:text="'From: '+${author_fullname}">llmkk</a>
+                        </div>
+                        <div class="feed-text">
+                            <a th:href= "'/user/'+${wall_id}" th:text="'Post on wall'">Eshkere</a>
+                            <p class="textPost" th:text="${textComment}">okok</p>
+                        </div>
+                    </div>
+                    <p class="time" th:text="${time}">14:12</p>
+                </div>
 
-<span class="wall-post" th:fragment="wallPost(textPost,time,wall_id,author_id,author_fullname, avatar)">
-    <div class="photo">
-        <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
-       <a class="name" th:href= "'/user/'+${author_id}" th:text="'From: '+${author_fullname}"></a>
-    </div>
-    <a th:href= "'/user/'+${wall_id}" th:text="'New post on wall'"></a>
-    <p class="textPost" th:text="${textPost}"></p>
-    <p class="time" th:text="${time}"></p>
-</span>
+                <div class="walpost" th:fragment="wallPost(textPost,time,wall_id,author_id,author_fullname, avatar)">
+<div class="wallPost">
+    <span class="wall-post" >
 
-</body>
+        <div class="photo">
+            <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
+        </div>
+        <div class="name">
+            <a th:href= "'/user/'+${author_id}" th:text="'From: '+${author_fullname}">Vaska Kaska</a>
+        </div>
+            <div class="wall-text">
+        <a th:href= "'/user/'+${wall_id}" th:text="'New post on wall'">xxxxx</a>
+        <p class="textPost" th:text="${textPost}">xcxcxcxcxc</p>
+        </div>
+    </span>
+</div>
+    <p class="time" th:text="${time}">14:15</p>
+</div>
+            </main>
+            <aside class="left">
+                <div class="menu" id="user" th:fragment="sideMenu()">
+                    <ul class="tabs">
+                        <li class="tab" id="profile">
+                            <a href="/user">My profile</a>
+                        </li>
+                        <li class="tab" id="feed">
+                            <a href="/user/feed">Feed</a>
+                        </li>
+                        <li class="tab" id="friends">
+                            <a href="/user/friends">Friends</a>
+                        </li>
+                        <li class="tab" id="messages">
+                            <a href="/messages">Messages</a>
+                        </li>
+                        <li class="tab" id="search">
+                            <a href="/user/search">Search</a>
+                        </li>
+                        <li class="tab" id="feedback">
+                            <a href="/messages/dialog5">Feedback</a>
+                        </li>
+                    </ul>
+                    </div>
+            </aside>
+        </div>
+    </body>
 </html>

@@ -1,45 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8" />
-    <title>Search Page</title>
-    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
-    <script src="//code.jquery.com/jquery-1.7.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div class="page">
-<div th:replace="~{user_element::header()}"></div>
-        <h2>Dialog</h2>
-<div th:replace="~{user_element::sideMenu()}"></div>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type">
+        <script src="//code.jquery.com/jquery-1.7.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <div th:replace="~{user_element::header()}"></div>
+            </header>
+            <main class="main">
+                <h2 class="headline" align="center">Dialog</h2>
+                <div class="panel panel-primary">
 
+                    <div class="panel-header">
+                        <h4 th:text="'Your dialog with:'+${user.firstName}+' '+${user.lastName}" ></h4>
+                    </div>
+                    <div align="center" class="text-area">
+                        <form th:action="@{/messages/dialog} + ${user.id}" method="post">
+                            <textarea class="t-area" name="textMessage" cols="40" rows="5" ></textarea>
+                            <input type="submit" class="send-message-btn" value="Send message"/>
+                        </form>
 
+                    </div>
+                    <div align="center" class="panel-body">
+                        <div align="center" class="tabss">
+                            <ul class="dialog-area" th:each="message:${messageList}">
+                                <li class="havent-mess" align="center" th:replace="~{user_element::messageRow(textMessage=${message.textMessage},timeMessage=${message.timeMessage})}">You haven't messages yet</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                    </div>
+                </div>
 
-    <div class="panel panel-primary">
-
-        <div class="panel-header">
-            <h4 th:text="'Your dialog with:'+${user.firstName}+' '+${user.lastName}" ></h4>
+            </main>
+            <aside class="left">
+                <div th:replace="~{user_element::sideMenu()}"></div>
+            </aside>
         </div>
-        <div align="center" class="text-area">
-            <form th:action="@{/messages/dialog} + ${user.id}" method="post">
-                <textarea class="t-area" name="textMessage" cols="40" rows="5" ></textarea>
-                <input type="submit" class="send-message-btn" value="Send message"/>
-            </form>
-            
-        </div>
-        <div class="panel-body">
-            <div class="tabss">
-                <ul class="dialog-area" th:each="message:${messageList}">
-                    <li class="havent-mess" align="center" th:replace="~{user_element::messageRow(textMessage=${message.textMessage},timeMessage=${message.timeMessage})}">You haven't messages yet</li>
-                </ul>
-            </div>
-        </div>
-        <div class="panel-footer">
-        </div>
-    </div>
-
-
-
-</div>
-</body>
+    </body>
 </html>

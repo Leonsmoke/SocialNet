@@ -1,45 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8" />
-    <title>User's Page</title>
-    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
-    <script src="//code.jquery.com/jquery-1.7.min.js"></script>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type">
+        <script src="//code.jquery.com/jquery-1.7.min.js"></script>
     <script th:src="@{/js/script.js}"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body onload='checkTypeProfile()'>
-
-<div class="page">
-    <div th:replace="~{user_element::header()}"></div>
-    <div class="page_name" align="center">
-        <h2>Upload</h2>
-    </div>
-    <div th:replace="~{user_element::sideMenu()}"></div>
-
-    <div align="center" class="panel-primary">
-        <div class="panel-header">
-            <h4>Upload avatar</h4>
-        </div>
-        <div class="panel-body">
-            <div class="upload-form">
-                <div>
-                    <form method="POST" enctype="multipart/form-data" action="/upload">
-                        <table>
-                            <tr><td>File to upload:</td><td><input class="load-avatar" type="file" name="file" multiple accept="image/*,image/jpeg" /></td></tr>
-                            <tr><td></td><td><input class="upload" type="submit" value="Upload" /></td></tr>
-                        </table>
-                    </form>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <div th:replace="~{user_element::header()}"></div>
+            </header>
+            <main class="main" align="center">
+                <h2 class="headline">Upload</h2>
+                <div align="center" class="panel-primary">
+                    <div class="panel-header">
+                        <h4>Upload avatar</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="upload-form">
+                            <div>
+                                <form method="POST" enctype="multipart/form-data" action="/upload">
+                                    <table>
+                                        <tr><td>File to upload:</td><td><input class="load-avatar" type="file" name="file" multiple accept="image/*,image/jpeg" /></td></tr>
+                                        <tr><td></td><td><input class="upload" type="submit" value="Upload" /></td></tr>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                    </div>
                 </div>
-            </div>
+            </main>
+            <aside class="left">
+                <div th:replace="~{user_element::sideMenu()}"></div>
+            </aside>
         </div>
-        <div class="panel-footer">
-        </div>
-    </div>
-
-
-
-</div>
-</body>
+    </body>
 </html>
-

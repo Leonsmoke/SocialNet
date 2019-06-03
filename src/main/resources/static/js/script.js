@@ -33,6 +33,7 @@ function checkTypeProfile(){
     } else if (text == "It's your profile"){
         $('#deleteFriendButton').remove();
         $('#addFriendButton').remove();
+        document.getElementById("editProfile").style.visibility="visible";
         document.getElementById("updateAvatar").style.visibility="visible";
     }
 }
@@ -49,42 +50,79 @@ function checkPageFriend(){
         document.getElementById("IncomingRequest").style.visibility="visible";
         document.getElementById("OutcomingRequest").style.visibility="visible";
         if (text=="main" || text=="out"){
-            Array.from(addBtns).forEach((btn) => {
-                btn.style.visibility="hidden";
-        });
-            Array.from(delBtns).forEach((btn) => {
-                btn.style.visibility="visible";
-        });
+            $('.addFriendBtn').remove();
         } else {
-            Array.from(addBtns).forEach((btn) => {
-                btn.style.visibility="visible";
-        });
-            Array.from(delBtns).forEach((btn) => {
-                btn.style.visibility="hidden";
-        });
+            $('.deleteFriendBtn').remove();
         }
+    } else {
+        $('.addFriendBtn').remove();
+        $('.deleteFriendBtn').remove();
     }
 }
 
 function createCommentArea(id){
-    var mainElement = $(id).parent();
-    if ($(id).parent().children()[5] != null){
+    var mainElement = $(id).parent().parent();
+
+    if ($(id).parent().parent().children().length==2){
         $('#CommentForm').remove();
     } else{
         $('#CommentForm').remove();
+        //getAllComments(id);
         var newForm = document.createElement("form");
         newForm.className="CommentForm";
         newForm.id="CommentForm";
         var newElement = document.createElement("textarea");
         newElement.cols = 40;
         newElement.rows = 5;
+        newElement.id="commentText";
         var newBtn = document.createElement("input");
-        newBtn.type="submit";
+        newBtn.className="sendCommButton";
+        newBtn.type="button";
         newBtn.value="Send";
         newBtn.id="SendCommBtn";
+        $(newBtn).on('click', function onclick() {
+            sendCommentPost(id);
+        });
+
         newForm.appendChild(newElement);
         newForm.appendChild(newBtn);
         mainElement.append(newForm);
     }
 
+
+
+
+}
+
+function sendCommentPost(param) {
+    var request = new XMLHttpRequest();
+    var url = "/user/feed/addComment";
+    var params = "post_id="+ $(param).parent().parent().children('#feedCont').children('#fed-container').children('.feed-text').attr("id") +
+        "&wall_id=" + $(param).parent().parent().children('#feedCont').children('#fed-container').children('.feed-text').children('.wall-link').attr("id") +
+        "&text=" + $(param).parent().parent().children('#CommentForm').children('#commentText').attr("value");
+    request.open("POST", url, true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    request.addEventListener("readystatechange", () => {
+
+        if (request.readyState == 4 && request.status==200){
+        document.location.reload();
+    }
+});
+
+    request.send(params);
+}
+
+function getAllComments(param) {
+var comment = '<div class="feed-list" th:each="post:${post'+$(param).parent().children('#feedCont').children('#fed-container').children('.feed-text').children('.wall-link').attr("id")+'}"><div class="feed-content" align="center" th:replace="~{user_element::commentElement(textPost=${post.text}, time=${post.time},wall_id=${post.wall_id},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.getAuthor_ava()}})}"></div> </div>';
+var mainElement = $(param).parent().parent();
+var newForm = document.createElement("div");
+newForm = comment;
+mainElement.append(newForm);
+}
+
+function commentBtn(id) {
+    createCommentArea(id);
+    var post_id = $(id).parent().parent().attr("id");
+    getAllComments(post_id);
 }

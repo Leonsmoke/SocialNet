@@ -14,6 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import socialNet.Entity.UserEntity;
 import socialNet.Storage.StorageFileNotFoundException;
 import socialNet.Storage.StorageService;
+import socialNet.repos.CommentRepo;
+import socialNet.repos.PostRepo;
 import socialNet.repos.UserRepo;
 
 import java.io.IOException;
@@ -27,6 +29,12 @@ public class FileUploadController {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private PostRepo postRepo;
+
+    @Autowired
+    private CommentRepo commentRepo;
 
     @Autowired
     public FileUploadController(StorageService storageService) {
@@ -54,6 +62,8 @@ public class FileUploadController {
                                    RedirectAttributes redirectAttributes, @AuthenticationPrincipal UserEntity currentUser) {
         storageService.store(file);
         currentUser.setAvatar(file.getOriginalFilename());
+        postRepo.changeAllPostsAva(file.getOriginalFilename(),currentUser.getId());
+        commentRepo.changeAllCommentsAva(file.getOriginalFilename(),currentUser.getId());
         userRepo.save(currentUser);
         return "redirect:/user";
     }

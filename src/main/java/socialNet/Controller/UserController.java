@@ -7,7 +7,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import socialNet.Entity.Comment;
 import socialNet.Entity.Post;
 import socialNet.Entity.UserEntity;
@@ -16,9 +15,6 @@ import socialNet.other.PostComparator;
 import socialNet.repos.PostRepo;
 import socialNet.repos.UserRepo;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -126,7 +122,7 @@ public class UserController {
         String time = LocalDateTime.now().getDayOfMonth() + " " +LocalDateTime.now().getMonth() + "     "+
                 LocalDateTime.now().getHour() + "  :" + LocalDateTime.now().getMinute();
         user.getPosts().add(new Post(user.getId(),textPost,time,currentUser.getId(), currentUser.getFirstName()+" "+ currentUser.getLastName(), currentUser.getAvatar(), user.getAvatar()));
-        userRepo.save(user);
+        userRepo.saveAndFlush(user);
         return "redirect:/user/"+id;
     }
 
@@ -151,13 +147,10 @@ public class UserController {
         List<Post> allPost = new ArrayList<>();
         for (UserEntity friend: user.getOutgoingFriend()
              ) {
-            allPost.addAll(friend.getPosts());
+            UserEntity userr = userRepo.findById(friend.getId());
+            allPost.addAll(userr.getPosts());
         }
         allPost.sort(new PostComparator());
-        for (Post post:allPost
-             ) {
-            model.addAttribute("comments"+post.getId(),post.getComments());
-        }
         model.addAttribute("user",user);
         model.addAttribute("posts",allPost);
         return FEED_PAGE;
@@ -255,23 +248,6 @@ public class UserController {
         return FRIENDS_PAGE;
     }
 
-    @RequestMapping(value="/upload", method=RequestMethod.POST)
-    public @ResponseBody String handleFileUpload(@RequestParam("name") String name,
-                                                 @RequestParam("file") MultipartFile file){
-        if (!file.isEmpty()) {
-            try {
-                byte[] bytes = file.getBytes();
-                BufferedOutputStream stream =
-                        new BufferedOutputStream(new FileOutputStream(new File(name + "-uploaded")));
-                stream.write(bytes);
-                stream.close();
-                return "Вы удачно загрузили " + name + " в " + name + "-uploaded !";
-            } catch (Exception e) {
-                return "Вам не удалось загрузить " + name + " => " + e.getMessage();
-            }
-        } else {
-            return "Вам не удалось загрузить " + name + " потому что файл пустой.";
-        }
-    }
+
 
 }

@@ -2,23 +2,21 @@ package socialNet.Controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import socialNet.Entity.Role;
 import socialNet.Entity.UserEntity;
+import socialNet.Service.UserService;
 import socialNet.repos.UserRepo;
-
-import java.util.Collections;
 
 @Controller
 public class RegistrationController {
     @Autowired
     private UserRepo userRepo;
-
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/registration")
     public String registration(){
@@ -32,15 +30,14 @@ public class RegistrationController {
             return ("registration");
         }
 
-        user.setActive(true);
-        if(role.equals("USER")) {
-            user.setRole(Collections.singleton(Role.USER));
-        } else{
-            user.setRole(Collections.singleton(Role.ADMIN));
-        }
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        userRepo.save(user);
-        return("redirect:/login");
+        final UserEntity profile = userService.create(
+                user.getUsername(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getPassword(),
+                user.getEmail());
+
+        return("redirect:/user");
     }
 
 }

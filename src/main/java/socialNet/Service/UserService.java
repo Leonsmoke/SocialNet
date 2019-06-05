@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import socialNet.Entity.UserEntity;
@@ -27,6 +28,18 @@ public class UserService implements UserDetailsService {
     public String getAvatarFromId(int id){
         UserEntity user = userRepo.findById(id);
         return user.getAvatar();
+    }
+
+    @Transactional
+    public UserEntity create(String username, String firstName, String lastName,String password, String email) {
+        final UserEntity person = UserEntity.builder()
+                .username(username)
+                .firstName(firstName)
+                .lastName(lastName)
+                .password(new BCryptPasswordEncoder().encode(password))
+                .email(email)
+                .build();
+        return userRepo.save(person);
     }
 
 }

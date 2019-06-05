@@ -1,6 +1,7 @@
 package socialNet.Entity;
 
 
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -23,6 +24,11 @@ public class UserEntity implements UserDetails {
     private String email;
     private boolean active;
     private String avatar;
+    private Date birthDate;
+    private String status;
+    private String information;
+    private Gender gender = Gender.UNDEFINED;
+
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "wall_id", cascade = CascadeType.ALL)
     private List<Post> posts = new ArrayList<Post>();
@@ -113,6 +119,26 @@ public class UserEntity implements UserDetails {
 
     public UserEntity() {
         this.avatar="default_ava.jpg";
+    }
+
+    public UserEntity(int id,String username, String firstName, String lastName, String password, String email, Date birthDate, Gender gender, Set<Role> role) {
+        this.id = id;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.role = role;
+        this.avatar="default_ava.jpg";
+        this.information="";
+        this.status="";
+        this.active=true;
+    }
+
+    public static UserBuilder builder() {
+        return new UserBuilder();
     }
 
     public String getFirstName() {
@@ -237,5 +263,69 @@ public class UserEntity implements UserDetails {
         return Objects.hash(id, username);
     }
 
+    public static class UserBuilder{
+        private int id;
+        private String username = "";
+        private String firstName = "";
+        private String lastName = "";
+        private String password = "";
+        private String email = "";
+        private Date birthDate;
+        private Gender gender = Gender.UNDEFINED;
+        @Enumerated(EnumType.STRING)
+        private Set<Role> role = Collections.singleton(Role.USER);
+        UserBuilder(){
+        }
+
+        public UserBuilder id(@NonNull int id){
+            this.id = id;
+            return this;
+        }
+
+        public UserBuilder username(@NonNull String username) {
+            this.username = username;
+            return this;
+        }
+
+        public UserBuilder firstName(@NonNull String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public UserBuilder lastName(@NonNull String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public UserBuilder email(@NonNull String email) {
+            this.email = email;
+            return this;
+        }
+
+        public UserBuilder password(@NonNull String password) {
+            this.password = password;
+            return this;
+        }
+
+        public UserBuilder birthDate(Date birthDate) {
+            this.birthDate = birthDate;
+            return this;
+        }
+
+
+        public UserBuilder gender(Gender gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public UserBuilder role(Set<Role> roles) {
+            this.role = roles;
+            return this;
+        }
+
+        public UserEntity build() {
+            return new UserEntity(id, username, firstName, lastName, password, email, birthDate, gender, role);
+        }
+    }
 
 }

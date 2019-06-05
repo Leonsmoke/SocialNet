@@ -7,8 +7,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import socialNet.Entity.Gender;
 import socialNet.Entity.UserEntity;
 import socialNet.repos.UserRepo;
+
+import java.util.Date;
+
 
 @Service
 public class UserService implements UserDetailsService {
@@ -40,6 +44,18 @@ public class UserService implements UserDetailsService {
                 .email(email)
                 .build();
         return userRepo.save(person);
+    }
+
+    @Transactional
+    public void SaveChangeFromEditor(UserEntity user, String status,  String firstName,String lastName,
+                                     String information, Date birthDate, int gender){
+        user.setStatus(status);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setInformation(information);
+        user.setBirthDate(birthDate);
+        user.setGender(Gender.getGender(gender));
+        userRepo.save(user);
     }
 
 }

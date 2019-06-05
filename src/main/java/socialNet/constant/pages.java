@@ -9,5 +9,6 @@ public interface pages {
     String MESSAGE_PAGE = "messages";
     String DIALOG_PAGE = "dialog";
     String FEED_PAGE = "feed";
-
+    String PROFILE_EDITOR_PAGE = "editor";
+    String REDIRECT_TO_PROFILE = "redirect:/user";
 }

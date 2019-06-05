@@ -12,6 +12,7 @@ public class Comment {
     private int comment_id;
     private int post_id;
     private int wall_id;
+    @Column(length = 1000)
     private String text;
     private String time;
     private Long timeForSort;

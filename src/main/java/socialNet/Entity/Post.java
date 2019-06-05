@@ -13,6 +13,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int post_id;
     private int wall_id;
+    @Column(length = 2000)
     private String text;
     private String time;
     private Long timeForSort;

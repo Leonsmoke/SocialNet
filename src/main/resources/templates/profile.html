@@ -20,13 +20,15 @@
                         <div class="general_information">
                             <img class="avatar" th:src="'/upload/files/'+${user.avatar}" width="100" height="100" align="left">
                             <div class="gen-inf">
-
-
+                                <p class="Status" th:text="${user.status}">dfdf</p>
                                 <div class="full-name">
                                 <p class="Firstname" th:text="${user.firstName}">Vasya</p>
                                 <p class="Lastname" th:text="${user.lastName}">Biber</p>
                                     </div>
                                 <p class="Username" th:text="'Username: ' +${user.username}">dfdf</p>
+                                <p class="DateOfBirth" th:text="'Gender: ' +${user.getGenderInString()}">Male</p>
+                                <p class="Information" th:text="'Information: ' +${user.getInformation()}">infaaaaaaaaaaaaaaaaa</p>
+                                <p class="DateOfBirth" th:text="'Date of birth: ' +${user.getBirthDate()}">1999-99-99</p>
                                 <p class="text-friend" id="textFriend" th:text="${userView.isFriend}">dfd</p>
                             </div>
                         </div>
@@ -56,7 +58,7 @@
                     <div align="center" class="panel-footer">
                         <div class="newPostArea">
                             <form th:action="'/user/' + ${user.id} + '/addPost'" method="post">
-                                <textarea class="wall-post-textarea" name="textPost" cols="20" rows="5" ></textarea>
+                                <textarea class="wall-post-textarea" name="textPost" cols="20" rows="5" maxlength="1999" ></textarea>
                                 <input type="submit" class="send-post-btn" value="Add post on wall"/>
                             </form>
                         </div>

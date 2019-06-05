@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type">
+        <script src="//code.jquery.com/jquery-1.7.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+    </head>
+    <body onload="checkTypeProfile()">
+        <div class="container">
+            <header class="header">
+                <div th:replace="~{user_element::header()}"></div>
+            </header>
+            <main class="main">
+                <h2 class="headline" align="center">Profile</h2>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="general_information">
+                            <img class="avatar" th:src="'/upload/files/'+${user.avatar}" width="100" height="100" align="left">
+                            <div class="gen-inf">
+                                <div class="editing-inputs">
+                                    <form class="editedForm" th:action="'/user/edit'" method="post">
+                                        <h4 th:text="'Status: '"></h4>
+                                        <input class="editorInput" maxlength="200" name="status" th:value="${user.status}">
+                                        <h4 th:text="'First name: '"></h4>
+                                        <input class="editorInput" maxlength="35" name="firstName" th:value="${user.firstName}">
+                                        <h4 th:text="'Last name: '"></h4>
+                                        <input class="editorInput" maxlength="35" name="lastName" th:value="${user.lastName}">
+                                        <h4 th:text="'Information:'"></h4>
+                                        <textarea class="editorInput" maxlength="1999" name="information" th:value="${user.information}"></textarea>
+                                        <h4 th:text="'Date of birth:'"></h4>
+                                        <input type="date" class="editorInput" name="stringBirthDate"
+                                               min="1940-01-01" max="2015-12-31" th:value="${user.getBirthDate()}">
+                                        <h4 th:text="'Gender:'"></h4>
+                                        <select class="editorInput" name="gender" size="1">
+                                            <option th:value="0" th:selected="${user.getGender()==0}">Undefined</option>
+                                            <option th:value="1" th:selected="${user.getGender()==1}">Male</option>
+                                            <option th:value="2" th:selected="${user.getGender()==2}">Female</option>
+                                        </select>
+                                        <input type="submit" class="editorInput"  id = "saveChangeBtn" value="Save change"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </main>
+            <aside class="left">
+                <div th:replace="~{user_element::sideMenu()}"></div>
+            </aside>
+        </div>
+    </body>
+</html>

@@ -16,6 +16,14 @@ public enum Gender implements Serializable {
         return id;
     }
 
+    public String getGenderString(){
+        switch (id){
+            case 1: return "Male";
+            case 2: return "Female";
+            default: return "Undefined";
+        }
+    }
+
     public static Gender getGender(Integer id) {
         if (id == null)
             return null;

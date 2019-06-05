@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Entity
@@ -25,8 +26,13 @@ public class UserEntity implements UserDetails {
     private boolean active;
     private String avatar;
     private Date birthDate;
+
+    @Column(length = 210)
     private String status;
+
+    @Column(length = 2000)
     private String information;
+
     private Gender gender = Gender.UNDEFINED;
 
 
@@ -101,6 +107,18 @@ public class UserEntity implements UserDetails {
         friend.deleteIncomingRequest(this);
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRole(Set<Role> role) {
+        this.role = role;
+    }
+
     public Set<UserEntity> getIncomingFriend() {
         return incomingFriend;
     }
@@ -160,6 +178,45 @@ public class UserEntity implements UserDetails {
         return username;
     }
 
+    public String getBirthDate() {
+        if ((birthDate)==null){
+            return "1900-12-31";
+        } else
+        return new SimpleDateFormat("yyyy-MM-dd").format(this.birthDate);
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
+    }
+
+    public int getGender() {
+        return gender.getId();
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getGenderInString(){
+        return gender.toString();
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -185,10 +242,6 @@ public class UserEntity implements UserDetails {
         return getRole();
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getAvatar() {
         return avatar;
     }
@@ -206,8 +259,6 @@ public class UserEntity implements UserDetails {
         this.posts = posts;
     }
 
-
-
     public int getId() {
         return id;
     }
@@ -218,10 +269,6 @@ public class UserEntity implements UserDetails {
 
     public Set<Role> getRole() {
         return role;
-    }
-
-    public void setRole(Set<Role> role) {
-        this.role = role;
     }
 
     public String getPassword() {
@@ -235,11 +282,6 @@ public class UserEntity implements UserDetails {
     public String getEmail() {
         return email;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
 
     public boolean isActive() {
         return active;

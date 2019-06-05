@@ -63,7 +63,7 @@ function checkPageFriend(){
 function createCommentArea(id){
     var mainElement = $(id).parent().parent();
 
-    if ($(id).parent().parent().children().length==2){
+    if ($(id).parent().parent().children().length>=2){
         $('#CommentForm').remove();
     } else{
         $('#CommentForm').remove();
@@ -97,8 +97,11 @@ function createCommentArea(id){
 function sendCommentPost(param) {
     var request = new XMLHttpRequest();
     var url = "/user/feed/addComment";
-    var params = "post_id="+ $(param).parent().parent().children('#feedCont').children('#fed-container').children('.feed-text').attr("id") +
+    /*var params = "post_id="+ $(param).parent().parent().children('#feedCont').children('#fed-container').children('.feed-text').attr("id") +
         "&wall_id=" + $(param).parent().parent().children('#feedCont').children('#fed-container').children('.feed-text').children('.wall-link').attr("id") +
+        "&text=" + $(param).parent().parent().children('#CommentForm').children('#commentText').attr("value");*/
+    var params = "post_id="+ $(param).attr("id") +
+        "&wall_id=" + $(param).attr("classid") +
         "&text=" + $(param).parent().parent().children('#CommentForm').children('#commentText').attr("value");
     request.open("POST", url, true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

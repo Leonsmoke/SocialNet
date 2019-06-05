@@ -126,6 +126,20 @@ public class UserController {
         return "redirect:/user/"+id;
     }
 
+    @PostMapping("/{id}/deletePost/{post_id}")
+    public String deletePost(Model model,@AuthenticationPrincipal UserEntity currentUser,
+                          @PathVariable("id") int id,@PathVariable("post_id") int post_id) {
+        UserEntity user = userRepo.findById(id);
+        Post postForDeleting = postRepo.findPostByPostID(post_id);
+        if (currentUser.getId()==postForDeleting.getAuthor_id()){
+            user.deletePost(postForDeleting);
+            postRepo.delete(postForDeleting);
+            userRepo.save(user);
+        }
+
+        return "redirect:/user/"+id;
+    }
+
     @PostMapping("/feed/addComment")
     public String addCommentFromFeed(Model model,@AuthenticationPrincipal UserEntity currentUser, @RequestParam int post_id, @RequestParam int wall_id, @RequestParam String text){
         UserEntity user = userRepo.findById(wall_id);

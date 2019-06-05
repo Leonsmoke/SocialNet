@@ -63,9 +63,14 @@
                             </form>
                         </div>
                         <div>
+                            <div>
                             <div class="users-wall" th:each="post:${posts}">
-                                <span th:replace="~{user_element::wallPost(textPost=${post.text}, time=${post.time},wall_id=${post.wall_id},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.author_ava})}" >
-                            </span>
+                                <div th:insert="~{user_element::wallPost(textPost=${post.text}, time=${post.time},wall_id=${post.wall_id},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.author_ava}, post_id=${post.getId()})}" >
+                            </div>
+                                <th:block th:each="comment:${post.comments}">
+                                    <div class="comment-list" th:insert="~{user_element::commentElement(textComment=${comment.getText()},time=${comment.getTime()},wall_id=${comment.getWall_id()},author_id=${comment.getAuthor_id()},author_fullname=${comment.getAuthor_fullname()}, avatar=${comment.getAuthor_ava()})}"></div>
+                                </th:block>
+                            </div>
                             </div>
                         </div>
                     </div>

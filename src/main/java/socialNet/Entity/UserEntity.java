@@ -62,6 +62,10 @@ public class UserEntity implements UserDetails {
         post.setWall_id(this.id);
     }
 
+    public void deletePost(Post post){
+        posts.remove(post);
+    }
+
     public void sendFriendRequest(UserEntity friend){
         if (!outgoingFriend.contains(friend)){
             outgoingFriend.add(friend);

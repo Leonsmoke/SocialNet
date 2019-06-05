@@ -11,4 +11,10 @@ public interface pages {
     String FEED_PAGE = "feed";
     String PROFILE_EDITOR_PAGE = "editor";
     String REDIRECT_TO_PROFILE = "redirect:/user";
+    String USERS_COMMUNITIES_PAGE = "communities";
+    String CREATE_COMMUNITY_PAGE = "createCommunity";
+    String REDIRECT = "redirect:";
+    String COMMUNITY_LINK = "/community";
+    String COMMUNITY_PAGE = "community";
+
 }

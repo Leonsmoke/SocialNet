@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type">
+        <script src="//code.jquery.com/jquery-1.7.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+    </head>
+    <body onload="checkTypeProfile()">
+        <div class="container">
+            <header class="header">
+                <div th:replace="~{user_element::header()}"></div>
+            </header>
+            <main class="main">
+                <h2 class="headline" align="center">Community</h2>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="general_information">
+                            <div class="gen-inf">
+                                <div class="editing-inputs">
+                                    <form class="editedForm" th:action="'/user/communities/create'" method="post">
+                                        <h4 th:text="'Community name: '"></h4>
+                                        <input class="communityCreator" maxlength="35" name="name">
+                                        <input type="submit" class="communityCreator"  id = "createCommunityBtn" value="Create community"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </main>
+            <aside class="left">
+                <div th:replace="~{user_element::sideMenu()}"></div>
+            </aside>
+        </div>
+    </body>
+</html>

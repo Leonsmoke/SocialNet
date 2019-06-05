@@ -147,6 +147,9 @@
                         <li class="tab" id="messages">
                             <a href="/messages">Messages</a>
                         </li>
+                        <li class="tab" id="communities">
+                            <a href="/user/communities">Communities</a>
+                        </li>
                         <li class="tab" id="search">
                             <a href="/user/search">Search</a>
                         </li>
@@ -157,5 +160,20 @@
                     </div>
             </aside>
         </div>
+
+
+
+    <div class="communities-list" th:fragment="communityRow(name,avatar,id)">
+        <div class="photo">
+            <img class="community-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
+        </div>
+        <a th:href= "'/community/'+${id}" th:text="${name}">xxxxx</a>
+    </div>
+
+
+    <div class="communities-member" th:fragment="commMember(firstName,LastName,id)">
+        <a th:href= "'/user/'+${id}" th:text="${firstName}+' '+${lastName}">xxxxx</a>
+    </div>
+
     </body>
 </html>

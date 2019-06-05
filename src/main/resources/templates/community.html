@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type">
+        <script src="//code.jquery.com/jquery-1.7.min.js"></script>
+        <script th:src="@{/js/script.js}"></script>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <div th:replace="~{user_element::header()}"></div>
+            </header>
+            <main class="main">
+                <h2 class="headline" align="center">Community</h2>
+                <div class="panel panel-primary">
+
+                <div align="center" class="panel-body">
+                    <img class="avatar" th:src="'/upload/files/'+${community.avatar}" width="100" height="100" align="left">
+                    <p class="Firstname" th:text="${community.name}"></p>
+                    <div th:each="user:${members}">
+                        <th:block th:insert="~{user_element::commMember(firstName=${user.getFirstName()},LastName=${user.getLastName()},id=${user.getId()})}">
+                        </th:block>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                </div>
+    </div>
+                
+            </main>
+            <aside class="left">
+                <div th:replace="~{user_element::sideMenu()}"></div>
+            </aside>
+        </div>
+    </body>
+</html>

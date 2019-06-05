@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type">
+        <script src="//code.jquery.com/jquery-1.7.min.js"></script>
+        <script th:src="@{/js/script.js}"></script>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <div th:replace="~{user_element::header()}"></div>
+            </header>
+            <main class="main">
+                <h2 class="headline" align="center">Communities</h2>
+                <div class="panel panel-primary">
+
+                <div class="panel-header">
+                    <h4 align="center">Your communities:</h4>
+                </div>
+                <div align="center" class="panel-body">
+                    <form th:action="'/user/communities/create'" method="get">
+                        <input type="submit" class="createCommBtn"  id = "createCommBtn" value="Create new community"/>
+                    </form>
+                    <div th:each="community:${communities}">
+                        <th:block th:insert="~{user_element::communityRow(name=${community.getName()},avatar=${community.getName()},id=${community.getId()})}">
+                        </th:block>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                </div>
+    </div>
+                
+            </main>
+            <aside class="left">
+                <div th:replace="~{user_element::sideMenu()}"></div>
+            </aside>
+        </div>
+    </body>
+</html>

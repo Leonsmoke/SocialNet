@@ -6,12 +6,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Entity
 @Table(name="users")
-public class UserEntity implements UserDetails {
+public class UserEntity implements UserDetails, Serializable {
 
 
 
@@ -51,11 +52,17 @@ public class UserEntity implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "friend1_id"))
     private Set<UserEntity> outgoingFriend = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Community> communities = new HashSet<>();
+
     @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
     @CollectionTable(name="role",joinColumns=@JoinColumn(name="user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> role;
 
+    public void addCommunity(Community community){
+        communities.add(community);
+    }
 
     public void addPost(Post post){
         posts.add(post);
@@ -109,6 +116,14 @@ public class UserEntity implements UserDetails {
     public void deleteFriend(UserEntity friend){
         outgoingFriend.remove(friend);
         friend.deleteIncomingRequest(this);
+    }
+
+    public Set<Community> getCommunities() {
+        return communities;
+    }
+
+    public void setCommunities(Set<Community> communities) {
+        this.communities = communities;
     }
 
     public void setUsername(String username) {

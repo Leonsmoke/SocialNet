@@ -164,15 +164,17 @@
 
 
     <div class="communities-list" th:fragment="communityRow(name,avatar,id)">
-        <div class="photo">
-            <img class="community-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
+        <div>
+            <div class="photo">
+                <img class="community-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
+            </div>
+            <a th:href= "'/community/'+${id}" th:text="${name}">xxxxx</a>
         </div>
-        <a th:href= "'/community/'+${id}" th:text="${name}">xxxxx</a>
     </div>
 
 
     <div class="communities-member" th:fragment="commMember(firstName,LastName,id)">
-        <a th:href= "'/user/'+${id}" th:text="${firstName}+' '+${lastName}">xxxxx</a>
+        <a th:href= "'/user/'+${id}" th:text="${firstName}+' '+${LastName}">xxxxx</a>
     </div>
 
     </body>

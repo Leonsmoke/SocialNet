@@ -10,11 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import socialNet.Entity.Community;
 import socialNet.Entity.UserEntity;
 import socialNet.Storage.StorageFileNotFoundException;
 import socialNet.Storage.StorageService;
 import socialNet.repos.CommentRepo;
+import socialNet.repos.CommunityRepo;
 import socialNet.repos.PostRepo;
 import socialNet.repos.UserRepo;
 
@@ -37,14 +38,22 @@ public class FileUploadController {
     private CommentRepo commentRepo;
 
     @Autowired
+    private CommunityRepo communityRepo;
+
+    @Autowired
     public FileUploadController(StorageService storageService) {
         this.storageService = storageService;
     }
 
     @GetMapping("/upload")
-    public String listUploadedFiles(Model model) throws IOException {
+    public String uploadAvaPage(Model model) throws IOException {
+        model.addAttribute("type","/profile");
+        return "upload";
+    }
 
-
+    @GetMapping("/upload/community{id}")
+    public String uploadAvaforCommunities(Model model, @PathVariable int id) throws IOException {
+        model.addAttribute("type","/community"+id);
         return "upload";
     }
 
@@ -57,15 +66,34 @@ public class FileUploadController {
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-    @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes, @AuthenticationPrincipal UserEntity currentUser) {
-        storageService.store(file);
-        currentUser.setAvatar(file.getOriginalFilename());
-        postRepo.changeAllPostsAva(file.getOriginalFilename(),currentUser.getId());
-        commentRepo.changeAllCommentsAva(file.getOriginalFilename(),currentUser.getId());
+    @PostMapping("/upload/profile")
+    public String handleFileUploadProfileAva(@RequestParam("file") MultipartFile file,
+                                             @AuthenticationPrincipal UserEntity currentUser) {
+        String addedStringToAvaName = "user"+currentUser.getId();
+        storageService.store(file,addedStringToAvaName);
+        String newPathToAva = addedStringToAvaName+file.getOriginalFilename();
+        currentUser.setAvatar(newPathToAva);
+        postRepo.changeAllPostsAva(newPathToAva,currentUser.getId());
+        commentRepo.changeAllCommentsAva(newPathToAva,currentUser.getId());
         userRepo.save(currentUser);
         return "redirect:/user";
+    }
+
+    @PostMapping("/upload/community{id}")
+    public String handleFileUploadCommunityAva(@RequestParam("file") MultipartFile file,
+                                               @PathVariable int id, @AuthenticationPrincipal UserEntity currentUser) {
+        Community community = communityRepo.findById(id);
+        String addedStringToAvaName = "comm"+community.getId();
+        if (community.getAdmin_id()==currentUser.getId()){
+            storageService.store(file,addedStringToAvaName);
+            String newPathToAva = addedStringToAvaName+file.getOriginalFilename();
+            community.setAvatar(newPathToAva);
+            communityRepo.save(community);
+        }
+
+        //postRepo.changeAllPostsAva(file.getOriginalFilename(),currentUser.getId());
+        //commentRepo.changeAllCommentsAva(file.getOriginalFilename(),currentUser.getId());
+        return "redirect:/community/"+id;
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

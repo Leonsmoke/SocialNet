@@ -24,8 +24,8 @@
                     <form th:action="'/user/communities/create'" method="get">
                         <input type="submit" class="createCommBtn"  id = "createCommBtn" value="Create new community"/>
                     </form>
-                    <div th:each="community:${communities}">
-                        <th:block th:insert="~{user_element::communityRow(name=${community.getName()},avatar=${community.getName()},id=${community.getId()})}">
+                    <div th:each="community:${user.communities}">
+                        <th:block th:insert="~{user_element::communityRow(name=${community.getName()},avatar=${community.avatar},id=${community.getId()})}">
                         </th:block>
                     </div>
                 </div>

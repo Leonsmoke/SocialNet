@@ -129,3 +129,15 @@ function commentBtn(id) {
     var post_id = $(id).parent().parent().attr("id");
     getAllComments(post_id);
 }
+function workWithCommunityPage(){
+    var isAdmin = $('#leaveCommunityBtn').parent().attr('classid');
+    var isJoined = $('#joinCommunityBtn').parent().attr('classid');
+    if (isAdmin=="falsee"){
+        $('#updateCommAvatar').remove();
+    }
+    if (isJoined=="truee"){
+        $('#joinCommunityBtn').remove();
+    } else {
+        $('#leaveCommunityBtn').remove();
+    }
+}

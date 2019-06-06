@@ -3,10 +3,7 @@ package socialNet.Entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="communities")
@@ -16,10 +13,14 @@ public class Community implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    private String description;
     private String avatar;
     private int admin_id;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "community_members",
+            joinColumns = @JoinColumn(name = "community_id"),
+            inverseJoinColumns = @JoinColumn(name = "member_id"))
     private Set<UserEntity> members = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "community_id", cascade = CascadeType.ALL)
@@ -32,12 +33,30 @@ public class Community implements Serializable {
     public Community(String name, int admin_id) {
         this.name = name;
         this.admin_id = admin_id;
-
+        avatar="default_comm.jpg";
     }
 
+    public int getAdmin_id() {
+        return admin_id;
+    }
+
+    public void setAdmin_id(int admin_id) {
+        this.admin_id = admin_id;
+    }
     public void addMember(UserEntity creator){
-        members.add(creator);
-        creator.getCommunities().add(this);
+        if (!members.contains(creator)){
+            members.add(creator);
+            creator.getCommunities().add(this);
+        }
+    }
+
+    public boolean isMemberOfCommunity(UserEntity user){
+        return members.contains(user);
+    }
+
+    public void deleteMember(UserEntity user){
+        members.remove(user);
+        user.leaveCommunity(this);
     }
 
     public int getId() {
@@ -78,5 +97,19 @@ public class Community implements Serializable {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Community community = (Community) o;
+        return id == community.id &&
+                name.equals(community.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

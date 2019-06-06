@@ -29,7 +29,6 @@ public class CommunityController {
     @GetMapping("/user/communities")
     public String communitiesPage(Model model, @AuthenticationPrincipal UserEntity currentUser) {
         model.addAttribute("user",currentUser);
-        model.addAttribute("communities", currentUser.getCommunities());
         return USERS_COMMUNITIES_PAGE;
     }
 
@@ -46,6 +45,7 @@ public class CommunityController {
         newCommunity = communityRepo.findCommunityByName(name);
         newCommunity.addMember(currentUser);
         communityRepo.save(newCommunity);
+        //userRepo.save(currentUser);
         return REDIRECT+COMMUNITY_LINK+"/"+newCommunity.getId();
     }
 
@@ -53,6 +53,17 @@ public class CommunityController {
     public String createCommunityPage(Model model, @AuthenticationPrincipal UserEntity currentUser, @PathVariable ("id") int community_id) {
         model.addAttribute("user",currentUser);
         Community currentCommunity = communityRepo.findById(community_id);
+        if (currentCommunity.isMemberOfCommunity(currentUser)){
+            model.addAttribute("isJoined","truee");
+        } else {
+            model.addAttribute("isJoined","falsee");
+        }
+        if (currentCommunity.getAdmin_id()==currentUser.getId()){
+            model.addAttribute("isAdmin","truee");
+        } else {
+            model.addAttribute("isAdmin","falsee");
+        }
+
         model.addAttribute("community", currentCommunity);
         model.addAttribute("members",currentCommunity.getMembers());
         return COMMUNITY_PAGE;
@@ -64,6 +75,17 @@ public class CommunityController {
         Community currentCommunity = communityRepo.findById(community_id);
         currentCommunity.addMember(currentUser);
         communityRepo.save(currentCommunity);
+        //userRepo.save(currentUser);
+        return REDIRECT+COMMUNITY_LINK+"/"+community_id;
+    }
+
+    @GetMapping("/community/{id}/leave")
+    public String leaveCommunity(Model model, @AuthenticationPrincipal UserEntity currentUser, @PathVariable ("id") int community_id) {
+        model.addAttribute("user",currentUser);
+        Community currentCommunity = communityRepo.findById(community_id);
+        currentCommunity.deleteMember(currentUser);
+        communityRepo.save(currentCommunity);
+        //userRepo.save(currentUser);
         return REDIRECT+COMMUNITY_LINK+"/"+community_id;
     }
 

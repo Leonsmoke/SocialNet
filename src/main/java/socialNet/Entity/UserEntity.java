@@ -52,7 +52,10 @@ public class UserEntity implements UserDetails, Serializable {
             inverseJoinColumns = @JoinColumn(name = "friend1_id"))
     private Set<UserEntity> outgoingFriend = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "community_members",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "community_id"))
     private Set<Community> communities = new HashSet<>();
 
     @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
@@ -67,6 +70,10 @@ public class UserEntity implements UserDetails, Serializable {
     public void addPost(Post post){
         posts.add(post);
         post.setWall_id(this.id);
+    }
+
+    public void leaveCommunity(Community community){
+        communities.remove(community);
     }
 
     public void deletePost(Post post){

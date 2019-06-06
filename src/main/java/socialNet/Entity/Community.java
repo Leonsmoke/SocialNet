@@ -43,6 +43,7 @@ public class Community implements Serializable {
     public void setAdmin_id(int admin_id) {
         this.admin_id = admin_id;
     }
+
     public void addMember(UserEntity creator){
         if (!members.contains(creator)){
             members.add(creator);

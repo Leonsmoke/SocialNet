@@ -29,8 +29,9 @@ public class Post {
     public Post() {
     }
 
-    public Post(int wall_id, String text, String time, Long timeForSort, int author_id, String author_fullname, String author_ava, String wall_ava) {
+    public Post(int wall_id, int community_id, String text, String time, Long timeForSort, int author_id, String author_fullname, String author_ava, String wall_ava) {
         this.wall_id = wall_id;
+        this.community_id = community_id;
         this.text = text;
         this.time = time;
         this.timeForSort = timeForSort;
@@ -40,8 +41,9 @@ public class Post {
         this.wall_ava = wall_ava;
     }
 
-    public Post(int wall_id, String text, String time, int author_id, String author_fullname, String author_ava, String wall_ava) {
+    public Post(int wall_id, int community_id, String text, String time, int author_id, String author_fullname, String author_ava, String wall_ava) {
         this.wall_id = wall_id;
+        this.community_id = community_id;
         this.text = text;
         this.time = time;
         this.author_id = author_id;
@@ -58,6 +60,14 @@ public class Post {
     public void addComment(Comment comment){
         comments.add(comment);
         comment.setPost_id(this.post_id);
+    }
+
+    public int getCommunity_id() {
+        return community_id;
+    }
+
+    public void setCommunity_id(int community_id) {
+        this.community_id = community_id;
     }
 
     public void setComments(List<Comment> comments) {

@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import socialNet.Entity.Community;
+import socialNet.Entity.Post;
 import socialNet.Entity.UserEntity;
 import socialNet.repos.CommunityRepo;
 import socialNet.repos.UserRepo;
+
+import java.time.LocalDateTime;
 
 import static socialNet.constant.pages.*;
 
@@ -30,6 +33,20 @@ public class CommunityController {
     public String communitiesPage(Model model, @AuthenticationPrincipal UserEntity currentUser) {
         model.addAttribute("user",currentUser);
         return USERS_COMMUNITIES_PAGE;
+    }
+
+    @PostMapping("/community/{id}/addPost")
+    public String addPost(Model model,@AuthenticationPrincipal UserEntity currentUser,
+                          @PathVariable("id") int id, @RequestParam String textPost) {
+        Community community = communityRepo.findById(id);
+        if (community.isMemberOfCommunity(currentUser)){
+            String time = LocalDateTime.now().getDayOfMonth() + " " +LocalDateTime.now().getMonth() + "     "+
+                    LocalDateTime.now().getHour() + "  :" + LocalDateTime.now().getMinute();
+            community.getPosts().add(new Post(-1, id,textPost,time,currentUser.getId(), currentUser.getFirstName()+" "+ currentUser.getLastName(), currentUser.getAvatar(), community.getAvatar()));
+            communityRepo.saveAndFlush(community);
+        }
+        
+        return "redirect:/community/"+id;
     }
 
     @GetMapping("/user/communities/create")
@@ -63,7 +80,6 @@ public class CommunityController {
         } else {
             model.addAttribute("isAdmin","falsee");
         }
-
         model.addAttribute("community", currentCommunity);
         model.addAttribute("members",currentCommunity.getMembers());
         return COMMUNITY_PAGE;

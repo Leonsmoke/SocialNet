@@ -121,7 +121,7 @@ public class UserController {
         UserEntity user = userRepo.findById(id);
         String time = LocalDateTime.now().getDayOfMonth() + " " +LocalDateTime.now().getMonth() + "     "+
                 LocalDateTime.now().getHour() + "  :" + LocalDateTime.now().getMinute();
-        user.getPosts().add(new Post(user.getId(),textPost,time,currentUser.getId(), currentUser.getFirstName()+" "+ currentUser.getLastName(), currentUser.getAvatar(), user.getAvatar()));
+        user.getPosts().add(new Post(user.getId(),-1,textPost,time,currentUser.getId(), currentUser.getFirstName()+" "+ currentUser.getLastName(), currentUser.getAvatar(), user.getAvatar()));
         userRepo.saveAndFlush(user);
         return "redirect:/user/"+id;
     }
@@ -151,8 +151,7 @@ public class UserController {
         Post post = user.getPosts().get(user.getPosts().indexOf(postToComment));
         post.addComment(comm);
         user.addPost(post);
-        userRepo.saveAndFlush(user);
-        userRepo.saveAndFlush(currentUser);
+            userRepo.saveAndFlush(user);
         return FEED_PAGE;
     }
 

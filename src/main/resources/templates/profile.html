@@ -18,18 +18,22 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <div class="general_information">
-                            <img class="avatar" th:src="'/upload/files/'+${user.avatar}" width="100" height="100" align="left">
+                            <img class="avatar" th:src="'/upload/files/'+${user.avatar}" align="left"> <!--  -->
                             <div class="gen-inf">
-                                <p class="Status" th:text="${user.status}">dfdf</p>
+                                
                                 <div class="full-name">
                                 <p class="Firstname" th:text="${user.firstName}">Vasya</p>
                                 <p class="Lastname" th:text="${user.lastName}">Biber</p>
                                     </div>
+                                <p class="Status" th:text="${user.status}">dfdf</p>
+                                <div class="link" onclick="$('#test').toggle()">More info</div>
+                                <div id="test" style="display:none">
                                 <p class="Username" th:text="'Username: ' +${user.username}">dfdf</p>
                                 <p class="DateOfBirth" th:text="'Gender: ' +${user.getGenderInString()}">Male</p>
                                 <p class="Information" th:text="'Information: ' +${user.getInformation()}">infaaaaaaaaaaaaaaaaa</p>
                                 <p class="DateOfBirth" th:text="'Date of birth: ' +${user.getBirthDate()}">1999-99-99</p>
                                 <p class="text-friend" id="textFriend" th:text="${userView.isFriend}">dfd</p>
+                                </div>
                             </div>
                         </div>
                         <div class="profile-btn" align="center">
@@ -55,23 +59,18 @@
                             </form>
                         </div>
                     </div>
+                    <div class="feed-list" th:each="post:${posts}">
+                        <div class="feed-content" align="center" th:classid="${post.getWall_id()}" th:id="${post.getId()}" th:insert="~{user_element::postElement(textPost=${post.text}, time=${post.time},wall_id=${post.wall_id},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.getAuthor_ava()}, post_id=${post.getId()})}"></div>
+                        <th:block th:each="comment:${post.comments}">
+                            <div class="comment-list" th:insert="~{user_element::commentElement(textComment=${comment.getText()},time=${comment.getTime()},wall_id=${comment.getWall_id()},author_id=${comment.getAuthor_id()},author_fullname=${comment.getAuthor_fullname()}, avatar=${comment.getAuthor_ava()})}"></div>
+                        </th:block>
+                    </div>
                     <div align="center" class="panel-footer">
                         <div class="newPostArea">
                             <form th:action="'/user/' + ${user.id} + '/addPost'" method="post">
                                 <textarea class="wall-post-textarea" name="textPost" cols="20" rows="5" maxlength="1999" ></textarea>
                                 <input type="submit" class="send-post-btn" value="Add post on wall"/>
                             </form>
-                        </div>
-                        <div>
-                            <div>
-                            <div class="users-wall" th:each="post:${posts}">
-                                <div th:insert="~{user_element::wallPost(textPost=${post.text}, time=${post.time},wall_id=${post.wall_id},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.author_ava}, post_id=${post.getId()})}" >
-                            </div>
-                                <th:block th:each="comment:${post.comments}">
-                                    <div class="comment-list" th:insert="~{user_element::commentElement(textComment=${comment.getText()},time=${comment.getTime()},wall_id=${comment.getWall_id()},author_id=${comment.getAuthor_id()},author_fullname=${comment.getAuthor_fullname()}, avatar=${comment.getAuthor_ava()})}"></div>
-                                </th:block>
-                            </div>
-                            </div>
                         </div>
                     </div>
                     </div>

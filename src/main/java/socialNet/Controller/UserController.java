@@ -107,6 +107,7 @@ public class UserController {
     //public ResponseEntity<UserView> getUser(
     public String getUser(Model model,@AuthenticationPrincipal UserEntity currentUser,
             @PathVariable("id") int id) {
+        
         UserEntity user = userRepo.findById(id);
         model.addAttribute("user",user);
         model.addAttribute("posts",user.getPosts());

@@ -97,11 +97,10 @@ function createCommentArea(id){
 function sendCommentPost(param) {
     var request = new XMLHttpRequest();
     var url = "/user/feed/addComment";
-    /*var params = "post_id="+ $(param).parent().parent().children('#feedCont').children('#fed-container').children('.feed-text').attr("id") +
-        "&wall_id=" + $(param).parent().parent().children('#feedCont').children('#fed-container').children('.feed-text').children('.wall-link').attr("id") +
-        "&text=" + $(param).parent().parent().children('#CommentForm').children('#commentText').attr("value");*/
-    var params = "post_id="+ $(param).attr("id") +
-        "&wall_id=" + $(param).attr("classid") +
+    var post_id = $(param).parent().parent().attr("id");
+    var wall_id = $(param).parent().parent().attr("classid");
+    var params = "post_id="+ post_id +
+        "&wall_id=" + wall_id +
         "&text=" + $(param).parent().parent().children('#CommentForm').children('#commentText').attr("value");
     request.open("POST", url, true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

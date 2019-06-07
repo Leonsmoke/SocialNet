@@ -1,21 +1,45 @@
-.header{
-    grid-area: header;
-    min-width: 600px;
-}
-.main{
-    grid-area: main;
-    min-width: 1000px;
-    background-color: #C5DDE8;
-    border-radius: 15px;
-}
 .container{
-    margin-left: 10%;
-    margin-right: 10%;
-    display: grid;
-    grid-template-areas: "header header header"
-                          "left main right";
-    grid-template-columns: 0px 1fr;
-    grid-template-rows: 120px 1fr;
-    min-height: 100vh;
-    grid-gap: 1em; 
+    background: linear-gradient(45deg, #EECFBA, #b1d0de);
+    width: 600px;
+    border-radius: 15px;
+    padding: 10px;
+    margin-top: 15%;
+    border:solid 1px gray;
+}
+body{
+    background-image: url(fon.png);
+}
+h2{
+    font: normal 1.5em 'century gothic';
+    text-decoration: none;
+    color: darkslategray;
+}
+h4{
+    font: normal 1.1em 'century gothic';
+    text-decoration: none;
+    color: darkslategray;
+    align-self: center;
+
+}
+input[type="text"], input[type="password"]{
+    padding: 5px;
+    border: solid 1px pink;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    width: 170px;
+
+}
+.sign-in, .sign-up{
+    padding: 4px;
+    background-color: white;
+    border: solid 1px pink;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    font: normal 0.8em 'century gothic';
+    width: 150px;
+}
+.incor_username{
+    color: red;
+    font: normal 0.9em 'century gothic';
 }

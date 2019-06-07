@@ -72,6 +72,8 @@ public class UserEntity implements UserDetails, Serializable {
         post.setWall_id(this.id);
     }
 
+
+
     public void leaveCommunity(Community community){
         communities.remove(community);
     }

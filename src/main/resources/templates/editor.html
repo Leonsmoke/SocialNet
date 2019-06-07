@@ -22,24 +22,25 @@
                             <div class="gen-inf">
                                 <div class="editing-inputs">
                                     <form class="editedForm" th:action="'/user/edit'" method="post">
-                                        <h4 th:text="'Status: '"></h4>
-                                        <input class="editorInput" maxlength="200" name="status" th:value="${user.status}">
                                         <h4 th:text="'First name: '"></h4>
-                                        <input class="editorInput" maxlength="35" name="firstName" th:value="${user.firstName}">
+                                        <input class="editorInput" maxlength="35" type="text" name="firstName" th:value="${user.firstName}">
                                         <h4 th:text="'Last name: '"></h4>
-                                        <input class="editorInput" maxlength="35" name="lastName" th:value="${user.lastName}">
+                                        <input class="editorInput" maxlength="35" type="text" name="lastName" th:value="${user.lastName}">
+                                        <h4 th:text="'Status: '"></h4>
+                                        <input class="editorInput" maxlength="200" type="text" name="status" th:value="${user.status}">
                                         <h4 th:text="'Information:'"></h4>
-                                        <textarea class="editorInput" maxlength="1999" name="information" th:value="${user.information}"></textarea>
+                                        <textarea class="areaeditorInput" maxlength="1999" name="information" th:value="${user.getInformation()}"> </textarea> <!-- СМЕНИЛ КЛАСС editorInput НА areaeditorInput-->
                                         <h4 th:text="'Date of birth:'"></h4>
                                         <input type="date" class="editorInput" name="stringBirthDate"
                                                min="1940-01-01" max="2015-12-31" th:value="${user.getBirthDate()}">
                                         <h4 th:text="'Gender:'"></h4>
-                                        <select class="editorInput" name="gender" size="1">
+                                        <select class="editorInput-select" name="gender" size="1">
                                             <option th:value="0" th:selected="${user.getGender()==0}">Undefined</option>
                                             <option th:value="1" th:selected="${user.getGender()==1}">Male</option>
                                             <option th:value="2" th:selected="${user.getGender()==2}">Female</option>
                                         </select>
-                                        <input type="submit" class="editorInput"  id = "saveChangeBtn" value="Save change"/>
+                                        <input type="submit" class="editorInput-btn"  id = "saveChangeBtn" value="Save change"/>
+                                        <!-- СМЕНИЛ КЛАСС editorInput НА editorInput-btn-->
                                     </form>
                                 </div>
                             </div>

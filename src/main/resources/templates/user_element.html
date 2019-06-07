@@ -9,8 +9,6 @@
         <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
     </head>
     <body>
-
-
         <div class="container">
             <header class="header">
                 <div th:fragment="header()">
@@ -25,9 +23,7 @@
                 </div>
             </header>
             <main class="main">
-
-
-
+                
                 <div class="friend-container" th:fragment="userElement(firstName,lastName,id,avatar)"> <!-- КОНТЕЙНЕР ДЛЯ ДРУГАНОВ-->
     <div class="photo">
         <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
@@ -47,12 +43,9 @@
     </div>
 </div>
 
-
 <li class="search-user-container" th:fragment="searchUser(firstName,lastName,id)">
     <a th:href= "'/user/'+${id}" th:text="${firstName} + ' ' + ${lastName}"></a>
 </li>
-
-
 
 <li class="dialog-row-container" th:fragment="dialogRow(firstName,lastName,id,avatar)">
     <img class="dialog-user-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
@@ -67,15 +60,15 @@
 
 
 
-
+<br><br><br><br><br><br><br><br><br><br>
 <div class="feed-container" id="feedCont" th:fragment="postElement(textPost,time,wall_id,author_id,author_fullname, avatar, post_id)">  <!-- FEED -->
     <div class="fed-container" id="fed-container">
     <div class="photo">
-            <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
+            <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" align="left">
                 
     </div>
         <div class="name">
-            <a class="name"  th:href= "'/user/'+${author_id}" th:text="'From: '+${author_fullname}"></a>
+            <a class="name"  th:href= "'/user/'+${author_id}" th:text="'From: '+${author_fullname}">Vasya Bublik</a>
         </div>
             <div class="feed-text" th:id="${post_id}">
             <a class="wall-link" th:id="${wall_id} " th:href= "'/user/'+${wall_id}" th:text="'Post on wall'">sdsdsdsds</a>
@@ -86,96 +79,96 @@
     <form th:action="'/user/'+${wall_id}+'/deletePost/'+${post_id}" method="post">
         <input class="btn" type="submit" th:value="'Delete'" name="deleteBtn">
     </form>
-        <input class="btn" th:id="${post_id}" th:classid="${wall_id}" type="submit" th:value="'Comments'" name="commentBtn" OnClick="createCommentArea(this);">
+        <input class="btn" type="submit" th:value="'Comments'" name="commentBtn" OnClick="createCommentArea(this);">
 </div>
 
+
+
+
+
+
+
                 <div class="comment-container" align="right" id="commentCont" th:fragment="commentElement(textComment,time,wall_id,author_id,author_fullname, avatar)"> <!— FEED —>
-                    <div class="comm-container" align="center">
+                    <div class="comm-container" align="left">
                         <div class="photo">
-                            <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" width="60" height="60" align="left">
+                            <img class="comm-avatar" th:src="'/upload/files/'+${avatar}" width="60" height="60" align="left">
 
                         </div>
-                        <div class="name">
-                            <a class="name" th:href= "'/user/'+${author_id}" th:text="'From: '+${author_fullname}">llmkk</a>
+                        <div class="comment-name">
+                            <a class="name" th:href= "'/user/'+${author_id}" th:text="'From: '+${author_fullname}">Serega Otvertka</a>
                         </div>
-                        <div class="feed-text">
+                        <div class="feed-text-comm">
                             <a th:href= "'/user/'+${wall_id}" th:text="'Post on wall'">Eshkere</a>
-                            <p class="textPost" th:text="${textComment}">okok</p>
+                            <p class="textPost" th:text="${textComment}">Normes</p>
                         </div>
                     </div>
                     <p class="time" th:text="${time}">14:12</p>
                 </div>
 
-                <div class="walpost" th:fragment="wallPost(textPost,time,wall_id,author_id,author_fullname, avatar,post_id)">
-<div class="wallPost">
-    <div class="wall-post" >
 
-        <div class="photo">
-            <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
-        </div>
-        <div class="name">
-            <a th:href= "'/user/'+${author_id}" th:text="'From: '+${author_fullname}">Vaska Kaska</a>
-        </div>
-            <div class="wall-text">
-        <a th:href= "'/user/'+${wall_id}" th:text="'New post on wall'">xxxxx</a>
-        <p class="textPost" th:text="${textPost}">xcxcxcxcxc</p>
-        </div>
-    </div>
-</div>
-    <p class="time" th:text="${time}">14:15</p>
-                    <form th:action="'/user/'+${wall_id}+'/deletePost/'+${post_id}" method="post">
+
+
+
+
+                
+                <form th:action="'/user/'+${wall_id}+'/deletePost/'+${post_id}" method="post">
                         <input class="btn" type="submit" th:value="'Delete'" name="deleteBtn">
                     </form>
+                
                     <input class="btn" th:id="${post_id}" th:classid="${wall_id}" type="submit" th:value="'Comments'" name="commentBtn" OnClick="createCommentArea(this);">
-</div>
+                <br><br>
+                <div class="communities-list" th:fragment="communityRow(name,avatar,id)">
+                    <div>
+                        <div class="photo">
+                            <img class="community-avatar" th:src="'/upload/files/'+${avatar}" align="left">
+                        </div>
+                        <div class="memder-name">
+                        <a th:href= "'/community/'+${id}" th:text="${name}">xxxxx</a>
+                    </div>
+                    </div>
+                </div>
+<br><br>
+
+    <div class="communities-member" th:fragment="commMember(firstName,LastName,id)" align="center">
+        <a th:href= "'/user/'+${id}" th:text="${firstName}+' '+${LastName}">xxxxx</a>
+    </div>
+                
             </main>
-
-
-
             <aside class="left">
                 <div class="menu" id="user" th:fragment="sideMenu()">
                     <ul class="tabs">
                         <li class="tab" id="profile">
+                            <a href="/user"><img src="/upload/files/home.png" width="20px"></a>
                             <a href="/user">My profile</a>
                         </li>
                         <li class="tab" id="feed">
+                            <a href="/user/feed"><img src="/upload/files/news.png" width="20px"></a>
                             <a href="/user/feed">Feed</a>
                         </li>
                         <li class="tab" id="friends">
+                            <a href="/user/friends"><img src="/upload/files/friends.png" width="20px"></a>
                             <a href="/user/friends">Friends</a>
                         </li>
                         <li class="tab" id="messages">
+                            <a href="/messages"><img src="/upload/files/message.png" width="20px"></a>
                             <a href="/messages">Messages</a>
                         </li>
                         <li class="tab" id="communities">
+                            <a href="/user/communities"><img src="/upload/files/Commun.png" width="20px"></a>
                             <a href="/user/communities">Communities</a>
                         </li>
                         <li class="tab" id="search">
+                            <a href="/user/search"><img src="/upload/files/search.png" width="20px"></a>
                             <a href="/user/search">Search</a>
                         </li>
                         <li class="tab" id="feedback">
+                            <a href="/messages/dialog5"><img src="/upload/files/dialog.png" width="20px"></a>
                             <a href="/messages/dialog5">Feedback</a>
                         </li>
                     </ul>
                     </div>
             </aside>
         </div>
-
-
-
-    <div class="communities-list" th:fragment="communityRow(name,avatar,id)">
-        <div>
-            <div class="photo">
-                <img class="community-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
-            </div>
-            <a th:href= "'/community/'+${id}" th:text="${name}">xxxxx</a>
-        </div>
-    </div>
-
-
-    <div class="communities-member" th:fragment="commMember(firstName,LastName,id)">
-        <a th:href= "'/user/'+${id}" th:text="${firstName}+' '+${LastName}">xxxxx</a>
-    </div>
-
+        
     </body>
 </html>

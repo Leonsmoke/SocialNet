@@ -9,12 +9,10 @@
         <link rel="stylesheet" type="text/css"  th:href="@{/css/logingrid.css}"/>
     </head>
     <body>
+        <div class="page" align="center">
         <div class="container">
-            <header class="header">
-                <div th:replace="~{user_element::header()}"></div>
-            </header>
             <main align="center" class="main">
-                <div align="center">
+                <div>
                     <h2 class="headline" align="center">Sign in</h2>
                     <div th:if="${param.error}" class="incor_username">
                         Incorrect username and password.
@@ -34,6 +32,6 @@
                 </div>
             </main>
             
-        </div>
+            </div></div>
     </body>
 </html>

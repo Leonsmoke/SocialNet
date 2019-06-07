@@ -45,7 +45,7 @@ public class CommunityController {
             community.getPosts().add(new Post(-1, id,textPost,time,currentUser.getId(), currentUser.getFirstName()+" "+ currentUser.getLastName(), currentUser.getAvatar(), community.getAvatar()));
             communityRepo.saveAndFlush(community);
         }
-        
+
         return "redirect:/community/"+id;
     }
 

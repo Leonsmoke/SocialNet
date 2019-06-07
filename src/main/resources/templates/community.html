@@ -34,23 +34,23 @@
                         </th:block>
                     </div>
                 </div>
-                <div class="panel-footer">
-                    <div class="newPostArea">
-                        <form th:action="'/community/' + ${community.getId()} + '/addPost'" method="post">
-                            <textarea class="wall-post-textarea" name="textPost" cols="20" rows="5" maxlength="1999" ></textarea>
-                            <input type="submit" class="send-post-btn" value="Add post on wall"/>
-                        </form>
-                        <div><div>
-                            <div class="users-wall" th:each="post:${community.getPosts()}">
-                                <div th:insert="~{user_element::wallPost(textPost=${post.text}, time=${post.time},wall_id=${post.community_id},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.author_ava}, post_id=${post.getId()})}" >
+                    <div class="panel-footer">
+                        <div class="newPostArea">
+                            <form th:action="'/community/' + ${community.getId()} + '/addPost'" method="post">
+                                <textarea class="wall-post-textarea" name="textPost" cols="20" rows="5" maxlength="1999" ></textarea>
+                                <input type="submit" class="send-post-btn" value="Add post on wall"/>
+                            </form>
+                            <div><div>
+                                <div class="users-wall" th:each="post:${community.getPosts()}">
+                                    <div th:insert="~{user_element::wallPost(textPost=${post.text}, time=${post.time},wall_id=${post.community_id},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.author_ava}, post_id=${post.getId()})}" >
+                                    </div>
+                                    <th:block th:each="comment:${post.comments}">
+                                        <div class="comment-list" th:insert="~{user_element::commentElement(textComment=${comment.getText()},time=${comment.getTime()},wall_id=${comment.getWall_id()},author_id=${comment.getAuthor_id()},author_fullname=${comment.getAuthor_fullname()}, avatar=${comment.getAuthor_ava()})}"></div>
+                                    </th:block>
                                 </div>
-                                <th:block th:each="comment:${post.comments}">
-                                    <div class="comment-list" th:insert="~{user_element::commentElement(textComment=${comment.getText()},time=${comment.getTime()},wall_id=${comment.getWall_id()},author_id=${comment.getAuthor_id()},author_fullname=${comment.getAuthor_fullname()}, avatar=${comment.getAuthor_ava()})}"></div>
-                                </th:block>
-                            </div>
-                        </div></div>
+                            </div></div>
+                        </div>
                     </div>
-                </div>
     </div>
                 
             </main>

@@ -1,12 +1,14 @@
 .header{
     grid-area: header;
     min-width: 600px;
+    border: solid 1px gray;
 }
 .main{
     grid-area: main;
     min-width: 600px;
     background-color: #C5DDE8;
     border-radius: 15px;
+    border: solid 1px gray
 }
 .left{
     grid-area: left;
@@ -18,7 +20,7 @@
     display: grid;
     grid-template-areas: "header header header"
                           "left main right";
-    grid-template-columns: 200px 1fr 200px;
+    grid-template-columns: 220px 1fr 220px;
     grid-template-rows: 120px 1fr;
     min-height: 100vh;
     grid-gap: 1em; 

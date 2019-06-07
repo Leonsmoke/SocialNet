@@ -1,11 +1,6 @@
 body{
-    background-color: white;
+    background-image: url(fon.png);
     min-width: 600px;
-}
-.page{
-    margin-left: 400px;
-    margin-right: 400px;
-    min-width: 1000px;
 }
 a, a:hover{
     text-decoration: none;
@@ -36,11 +31,12 @@ h4{
     align-self: center;
 
 }
-input[type="text"], input[type="password"], input[type="email"]{
+input[type="text"], input[type="password"], input[type="email"], input[type="date"]{
     padding: 5px;
     border: solid 1px pink;
     border-radius: 5px;
     margin-bottom: 5px;
+    width: 170px;
 
 }
 .header{
@@ -52,13 +48,10 @@ input[type="text"], input[type="password"], input[type="email"]{
 .sign-out_btn{
     float: right;
 }
-.incor_username{
-    color: red;
-}
 .sign-in, .sign-up, .register-btn, .addFriendButton,
 .send-message-btn, .updateAvatar, .goToDialogBtn,
 .deleteFriendButton, .getAllUsers, .search-btn,
-.upload, .send-post-btn{
+.upload, .send-post-btn, .editorInput-btn{
     padding: 4px;
     background-color: white;
     border: solid 1px pink;
@@ -102,6 +95,7 @@ label{
 }
 ul{
     list-style-type: none;
+    border: solid 1px gray;
 }
 .tabs{
     background-color: #b1d0de;
@@ -117,18 +111,26 @@ ul{
     background-color: white;
     margin-bottom: 30px;
     margin-left: 10px;
+    border: solid 1px gray;
 
 }
 .avatar {
-    border: solid 2px #000;
+    border: solid 1px #000;
     -webkit-border-radius: 20px;
     margin-left: 40px;
     margin-right: 5px;
+    object-fit: cover;
+    width: 150px;
+    height: 200px;
 }
 .friend-avatar, .dialog-user-avatar{
-    border: solid 2px #000;
+    border: solid 1px #000;
     -webkit-border-radius: 20px;
-    margin: 10px;
+    margin-top: 5px;
+    margin-left: 10px;
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
 }
 .deleteFriendBtn, .addFriendBtn{
     padding: 4px;
@@ -170,7 +172,7 @@ ul{
     width: 500px;
     overflow-x: hidden;
 }
-.t-area, .wall-post-textarea{
+.t-area, .wall-post-textarea, .areaeditorInput{
     resize: none;
     border: solid 1px pink;
     border-radius: 5px;
@@ -191,7 +193,6 @@ ul{
     margin-right: 5px;
 }
 .Username, .text-friend{
-    margin-left: 5px;
     font: normal 1em 'century gothic';
     text-decoration: none;
     color: darkslategray;
@@ -201,7 +202,8 @@ ul{
     font: normal 1em 'century gothic';
     text-decoration: none;
     color: darkslategray;
-    margin: 0px;
+    margin: 0;
+    margin-left: 120px;
     hyphens: auto;
     word-break:break-all;
 }
@@ -264,18 +266,21 @@ ul{
     min-height: 82px;
     width: 500px;
     border-radius: 5px;
+    border: solid 1px gray;
 }
 .fed-container, .dialog-row-contain, .search-user-contain{
     background-color: white;
     min-height: 125px;
     width: 600px;
     border-radius: 5px;
+    border: solid 1px gray;
 }
 .dialog-row{
     font: normal 1.3em 'century gothic';
 }
 .time{
     font: normal 1em 'century gothic';
+    color: gray;
     margin: 0px;
     margin-right: 5px;
     float: right;
@@ -290,10 +295,108 @@ ul{
     min-height: 125px;
     width: 600px;
     border-radius: 5px;
+    border: solid 1px gray;
+}
+.wall-link{
+    margin-left: 5px; 
 }
 .name a{
     font: normal 1.3em 'century gothic';
+    cursor: pointer;
 }
 .dialog-row-contain, .search-user-contain li{
     list-style-type: none;
+}
+.link{
+    width: 100px;
+    margin-left: 200px;
+    cursor: pointer;
+}
+#test{
+    width: 600px;
+    font: normal 1em 'century gothic';
+    margin-left: 200px;
+}
+.Status{
+    color: gray;
+    margin: 0;
+    font-size: 1em;
+    width: 200px;
+    margin-left: 145px;
+}
+.editing-inputs{
+    margin-left: 200px;
+}
+.editorInput-select{
+    padding: 5px;
+    border: solid 1px pink;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    width: 170px;
+}
+.name{
+    font: normal 1.2em 'century gothic';
+    text-decoration: none;
+    color: darkslategray;
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-right: 5px;
+}
+.comment-name a{
+    font: normal 1.2em 'century gothic';
+    text-decoration: none;
+    color: darkslategray;
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.comm-avatar{
+    border: solid 1px #000;
+    -webkit-border-radius: 20px;
+    margin-top: 5px;
+    margin-left: 10px;
+    object-fit: cover;
+    width: 70px;
+    height: 70px;
+}
+.community-avatar{
+    border: solid 1px #000;
+    -webkit-border-radius: 20px;
+    margin-top: 5px;
+    margin-left: 10px;
+    object-fit: cover;
+    width: 70px;
+    height: 70px;
+}
+.feed-text-comm a, .feed-text-comm p{
+    margin-left: 0;
+    font-size: 0.9em;
+}
+.feed-text-comm p{
+    margin-left: 87px;
+}
+.communities-list{
+    background-color: white;
+    min-height: 100px;
+    width: 400px;
+    border-radius: 5px;
+    border: solid 1px gray;
+    margin: 10px;
+}
+.communities-list a{
+    margin-left: 0;
+    font-size: 1.2em;
+}
+.communities-member{
+    border: solid 1px gray;
+    border-radius: 5px;
+    width: 300px;
+    background-color: white;
+    padding: 5px;
+    margin: 10px;
+}
+.communities-member a{
+    font-size: 1.2em;
+    
 }

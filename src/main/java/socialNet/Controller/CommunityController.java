@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import socialNet.Entity.Comment;
 import socialNet.Entity.Community;
 import socialNet.Entity.Post;
 import socialNet.Entity.UserEntity;
 import socialNet.repos.CommunityRepo;
+import socialNet.repos.PostRepo;
 import socialNet.repos.UserRepo;
 
 import java.time.LocalDateTime;
@@ -28,6 +30,9 @@ public class CommunityController {
     CommunityRepo communityRepo;
     @Autowired
     UserRepo userRepo;
+    @Autowired
+    PostRepo postRepo;
+
 
     @GetMapping("/user/communities")
     public String communitiesPage(Model model, @AuthenticationPrincipal UserEntity currentUser) {
@@ -47,6 +52,20 @@ public class CommunityController {
         }
 
         return "redirect:/community/"+id;
+    }
+    @PostMapping("/community/addComment")
+    public String addComment(Model model,@AuthenticationPrincipal UserEntity currentUser,
+                           @RequestParam int post_id,@RequestParam int wall_id,@RequestParam String text) {
+        Community community = communityRepo.findById(wall_id);
+        String time = LocalDateTime.now().getDayOfMonth() + " " +LocalDateTime.now().getMonth() + "     "+
+                LocalDateTime.now().getHour() + "  :" + LocalDateTime.now().getMinute();
+        Post postToComment = postRepo.findPostByPostID(post_id);
+        Comment comm = new Comment(wall_id,post_id,text,time,currentUser.getId(),currentUser.getFirstName()+" "+ currentUser.getLastName(),currentUser.getAvatar());
+        Post post = community.getPosts().get(community.getPosts().indexOf(postToComment));
+        post.addComment(comm);
+        community.addPost(post);
+        communityRepo.save(community);
+        return "redirect:/community/"+wall_id;
     }
 
     @GetMapping("/user/communities/create")

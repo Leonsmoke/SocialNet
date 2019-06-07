@@ -41,9 +41,8 @@
                                 <input type="submit" class="send-post-btn" value="Add post on wall"/>
                             </form>
                             <div><div>
-                                <div class="users-wall" th:each="post:${community.getPosts()}">
-                                    <div th:insert="~{user_element::wallPost(textPost=${post.text}, time=${post.time},wall_id=${post.community_id},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.author_ava}, post_id=${post.getId()})}" >
-                                    </div>
+                                <div class="feed-list" th:each="post:${community.getPosts()}">
+                                    <div class="feed-content" align="center" th:classid="${post.wall_id}" th:frame="${post.getCommunity_id()}" th:id="${post.getId()}" th:insert="~{user_element::postElement(textPost=${post.text}, time=${post.time},wall_id=${post.getCommunity_id()},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.getAuthor_ava()}, post_id=${post.getId()})}"></div>
                                     <th:block th:each="comment:${post.comments}">
                                         <div class="comment-list" th:insert="~{user_element::commentElement(textComment=${comment.getText()},time=${comment.getTime()},wall_id=${comment.getWall_id()},author_id=${comment.getAuthor_id()},author_fullname=${comment.getAuthor_fullname()}, avatar=${comment.getAuthor_ava()})}"></div>
                                     </th:block>

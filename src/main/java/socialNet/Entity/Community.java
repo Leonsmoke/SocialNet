@@ -36,6 +36,11 @@ public class Community implements Serializable {
         avatar="default_comm.jpg";
     }
 
+    public void addPost(Post post){
+        posts.add(post);
+        post.setCommunity_id(this.id);
+    }
+
     public int getAdmin_id() {
         return admin_id;
     }

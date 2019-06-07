@@ -99,6 +99,10 @@ function sendCommentPost(param) {
     var url = "/user/feed/addComment";
     var post_id = $(param).parent().parent().attr("id");
     var wall_id = $(param).parent().parent().attr("classid");
+    if (wall_id==-1){
+        wall_id = $(param).parent().parent().attr("frame");
+        url="/community/addComment";
+    }
     var params = "post_id="+ post_id +
         "&wall_id=" + wall_id +
         "&text=" + $(param).parent().parent().children('#CommentForm').children('#commentText').attr("value");

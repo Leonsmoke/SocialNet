@@ -5,10 +5,10 @@
 }
 .main{
     grid-area: main;
-    min-width: 600px;
+    min-width: 700px;
     background-color: #C5DDE8;
     border-radius: 15px;
-    border: solid 1px gray
+    border: solid 1px gray;
 }
 .left{
     grid-area: left;

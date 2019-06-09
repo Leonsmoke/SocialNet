@@ -7,6 +7,7 @@
     <script th:src="@{/js/script.js}"></script>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/normalstyle.css}"/>
     </head>
     <body>
         <div class="container">
@@ -16,12 +17,25 @@
                         <h1>SlowPoke</h1>
                     </div>
                     <div class="sign-out_btn">
-                        <form th:action="@{/logout}" method="post">
-                        <input type="submit" class="sign-up" value="Sign Out"/>
-                        </form>
+                        <nav>
+                                <ul >
+
+                                    <li><a href="#" >Menu</a>
+
+                                        <!-- первый уровень выпадающего списка -->
+                                        <ul>
+                                            <li><a href="/user/changeTheme?theme=normalstyle.css">Original theme</a></li>
+                                            <li><a href="/user/changeTheme?theme=darkstyle.css">Dark theme</a></li>
+                                            <li><a href="#">Exit</a></li>
+                                        </ul>
+
+                                    </li>
+                                </ul>
+                        </nav>
                     </div>
                 </div>
             </header>
+            
             <main class="main">
                 
                 <div class="friend-container" th:fragment="userElement(firstName,lastName,id,avatar)"> <!-- КОНТЕЙНЕР ДЛЯ ДРУГАНОВ-->
@@ -61,30 +75,25 @@
 
 
 <br><br><br><br><br><br><br><br><br><br>
-<div class="feed-container" id="feedCont" th:fragment="postElement(textPost,time,wall_id,author_id,author_fullname, avatar, post_id)">  <!-- FEED -->
+<div class="feed-container" id="feedCont" th:fragment="postElement(textPost,time,wall_id,author_id,author_fullname, avatar, post_id, community_id)">  <!-- FEED -->
     <div class="fed-container" id="fed-container">
     <div class="photo">
-            <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" align="left">
-                
+            <img class="friend-avatar" th:src="'/upload/files/'+${avatar}" align="left">   
     </div>
         <div class="name">
             <a class="name"  th:href= "'/user/'+${author_id}" th:text="'From: '+${author_fullname}">Vasya Bublik</a>
+            <form th:action="'/user/'+${wall_id}+'/deletePost/'+${post_id}" method="post">
+                <input class="cross" type="image" th:src="'/upload/files/cross.png'" width="20">
+            </form> <!-- УДАЛИТЬ НОВОСТЬ -->
         </div>
-            <div class="feed-text" th:id="${post_id}">
-            <a class="wall-link" th:id="${wall_id} " th:href= "'/user/'+${wall_id}" th:text="'Post on wall'">sdsdsdsds</a>
+            <div class="feed-text" th:id="${post_id}" align="left">
+            <a class="wall-link" th:id="${wall_id} " th:href= "'/user/'+${wall_id}+'?comm_id='+${community_id}" th:text="'Post on wall'">sdsdsdsds</a>
             <p class="textPost" th:text="${textPost}">sdsds</p>
         </div>
     </div>
     <p class="time" th:text="${time}">14:12</p>
-    <form th:action="'/user/'+${wall_id}+'/deletePost/'+${post_id}" method="post">
-        <input class="btn" type="submit" th:value="'Delete'" name="deleteBtn">
-    </form>
-        <input class="btn" type="submit" th:value="'Comments'" name="commentBtn" OnClick="createCommentArea(this);">
+        <input type="image" th:src="'/upload/files/plus.png'" width="20" OnClick="createCommentArea(this);">
 </div>
-
-
-
-
 
 
 
@@ -105,19 +114,11 @@
                     </div>
                     <p class="time" th:text="${time}">14:12</p>
                 </div>
-
-
-
-
+                
 
 
                 
-                <form th:action="'/user/'+${wall_id}+'/deletePost/'+${post_id}" method="post">
-                        <input class="btn" type="submit" th:value="'Delete'" name="deleteBtn">
-                    </form>
-                
-                    <input class="btn" th:id="${post_id}" th:classid="${wall_id}" type="submit" th:value="'Comments'" name="commentBtn" OnClick="createCommentArea(this);">
-                <br><br>
+               <br><br>
                 <div class="communities-list" th:fragment="communityRow(name,avatar,id)">
                     <div>
                         <div class="photo">
@@ -139,31 +140,31 @@
                 <div class="menu" id="user" th:fragment="sideMenu()">
                     <ul class="tabs">
                         <li class="tab" id="profile">
-                            <a href="/user"><img src="/upload/files/home.png" width="20px"></a>
+                            <a href="/user"><img th:src="'/upload/files/home.png'" width="20px"></a>
                             <a href="/user">My profile</a>
                         </li>
                         <li class="tab" id="feed">
-                            <a href="/user/feed"><img src="/upload/files/news.png" width="20px"></a>
+                            <a href="/user/feed"><img th:src="'/upload/files/news.png'" width="20px"></a>
                             <a href="/user/feed">Feed</a>
                         </li>
                         <li class="tab" id="friends">
-                            <a href="/user/friends"><img src="/upload/files/friends.png" width="20px"></a>
+                            <a href="/user/friends"><img th:src="'/upload/files/friends.png'" width="20px"></a>
                             <a href="/user/friends">Friends</a>
                         </li>
                         <li class="tab" id="messages">
-                            <a href="/messages"><img src="/upload/files/message.png" width="20px"></a>
+                            <a href="/messages"><img th:src="'/upload/files/messege.png'" width="20px"></a>
                             <a href="/messages">Messages</a>
                         </li>
                         <li class="tab" id="communities">
-                            <a href="/user/communities"><img src="/upload/files/Commun.png" width="20px"></a>
+                            <a href="/user/communities"><img th:src="'/upload/files/Commun.png'" width="20px"></a>
                             <a href="/user/communities">Communities</a>
                         </li>
                         <li class="tab" id="search">
-                            <a href="/user/search"><img src="/upload/files/search.png" width="20px"></a>
+                            <a href="/user/search"><img th:src="'/upload/files/search.png'" width="20px"></a>
                             <a href="/user/search">Search</a>
                         </li>
                         <li class="tab" id="feedback">
-                            <a href="/messages/dialog5"><img src="/upload/files/dialog.png" width="20px"></a>
+                            <a href="/messages/dialog5"><img th:src="'/upload/files/dialog.png'" width="20px"></a>
                             <a href="/messages/dialog5">Feedback</a>
                         </li>
                     </ul>

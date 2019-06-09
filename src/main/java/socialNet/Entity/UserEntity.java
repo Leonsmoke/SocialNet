@@ -27,6 +27,7 @@ public class UserEntity implements UserDetails, Serializable {
     private boolean active;
     private String avatar;
     private Date birthDate;
+    private String theme;
 
     @Column(length = 210)
     private String status;
@@ -127,6 +128,14 @@ public class UserEntity implements UserDetails, Serializable {
         friend.deleteIncomingRequest(this);
     }
 
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
     public Set<Community> getCommunities() {
         return communities;
     }
@@ -180,6 +189,7 @@ public class UserEntity implements UserDetails, Serializable {
         this.avatar="default_ava.jpg";
         this.information="";
         this.status="";
+        this.theme="normalstyle.css";
         this.active=true;
     }
 

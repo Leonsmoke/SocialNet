@@ -1,0 +1,173 @@
+body{
+    background-image: url(fon.png);
+}
+a, a:hover{
+    color: darkslategray;
+}
+h1{
+    color: darkslategray;
+}
+h2{
+    color: darkslategray;
+}
+h3{
+    color: darkslategray;
+}
+h4{
+    color: darkslategray;
+}
+input[type="text"], input[type="password"], input[type="email"], input[type="date"]{
+    border: solid 1px pink;
+}
+.header{
+    background: linear-gradient(45deg, #EECFBA, #b1d0de);
+    border: solid 1px gray;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+.sign-in, .sign-up, .register-btn, .addFriendButton,
+.send-message-btn, .updateAvatar, .goToDialogBtn,
+.deleteFriendButton, .getAllUsers, .search-btn,
+.upload, .send-post-btn, .editorInput-btn{
+    background-color: white;
+    border: solid 1px pink;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+label{
+    color: darkslategray;
+}
+/*span{
+    font: normal 1.3em 'century gothic';
+    text-decoration: none;
+    color: darkslategray;
+    margin-bottom: auto;
+}*/
+.menu ul li{
+    background-color: #b1d0de;
+    border-bottom: solid 1px gray;
+}
+ul{
+    border: solid 1px gray;
+}
+.tabs{
+    background-color: #b1d0de;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+.friend-container{
+    background-color: white;
+    border: solid 1px gray;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+.avatar {
+    border: solid 1px #000;
+}
+.friend-avatar, .dialog-user-avatar{
+    border: solid 1px #000;
+}
+.deleteFriendBtn, .addFriendBtn{
+    background-color: white;
+    border: solid 1px pink;
+}
+.dialog-row-contain{
+    background-color: white;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+.tabss{
+    background-color: #b1d0de;
+}
+.dialog-area{
+    width: 500px;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+.t-area, .wall-post-textarea, .areaeditorInput{
+    border: solid 1px pink;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+.Lastname, .Firstname{
+    color: darkslategray;
+}
+.Username, .text-friend{
+    color: darkslategray;
+}
+.textPost{
+    color: darkslategray;
+}
+.select-search{
+    background-color: white;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+.search-area{
+    background-color: white;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+.btn{
+    background-color: white;
+    border: solid 1px pink;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+.comm-container{
+    background-color: white;
+    border: solid 1px gray;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+.fed-container, .dialog-row-contain, .search-user-contain{
+    background-color: white;
+    border: solid 1px gray;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+.time{
+    color: gray;
+}
+.wallPost{
+    background-color: white;
+    border: solid 1px gray;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+.Status{
+    color: gray;
+}
+.editorInput-select{
+    border: solid 1px pink;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+.name{
+    color: darkslategray;
+}
+.comment-name a{
+    color: darkslategray;
+}
+.comm-avatar{
+    border: solid 1px #000;
+}
+.community-avatar{
+    border: solid 1px #000;
+}
+.communities-list{
+    background-color: white;
+    border: solid 1px gray;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+.communities-member{
+    border-bottom: solid 1px gray;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+.main{
+    background-color: #C5DDE8;
+    border: solid 1px gray;
+    box-shadow: 1px 1px 3px 1px gray;
+}
+nav a:hover {
+    background-color: #C5DDE8;
+}
+nav a{
+    color: darkslategray;
+}
+nav ul{
+    box-shadow: 1px 1px 3px 1px gray;
+}
+
+.textPost{
+    background-color: #edeef0;
+    box-shadow: 1px 1px 3px 1px gray;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}

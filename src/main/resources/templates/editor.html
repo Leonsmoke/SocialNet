@@ -7,8 +7,9 @@
     <script th:src="@{/js/script.js}"></script>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{'/css/'+${currentUser.theme}}"/>
     </head>
-    <body onload="checkTypeProfile()">
+        <body onload="checkTypeProfile()">
         <div class="container">
             <header class="header">
                 <div th:replace="~{user_element::header()}"></div>

@@ -13,8 +13,6 @@ import socialNet.Entity.UserEntity;
 import socialNet.Service.UserService;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static socialNet.constant.pages.PROFILE_EDITOR_PAGE;
 import static socialNet.constant.pages.REDIRECT_TO_PROFILE;
@@ -33,9 +31,7 @@ public class EditProfileController {
     public String saveProfile(@AuthenticationPrincipal UserEntity currentUser,@RequestParam String status, @RequestParam String firstName, @RequestParam String lastName,
                               @RequestParam String information, @RequestParam String stringBirthDate, @RequestParam int gender){
         try{
-            Date birthDate = null;
-            birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(stringBirthDate);
-            userService.SaveChangeFromEditor(currentUser,status,firstName,lastName,information,birthDate,gender);
+            userService.saveProfileChange(currentUser, status, firstName, lastName, information, stringBirthDate, gender);
         }
         catch (ParseException e){
             return REDIRECT_TO_PROFILE;

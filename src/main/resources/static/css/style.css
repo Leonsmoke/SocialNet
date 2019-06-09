@@ -1,49 +1,39 @@
 body{
-    background-image: url(fon.png);
     min-width: 600px;
 }
 a, a:hover{
     text-decoration: none;
     padding: 5px;
-    font: normal 1em 'century gothic';
-    color: darkslategray;
-    width: 400px;
-
+    font: normal 0.85em 'century gothic';
 }
 h1{
     font: normal 1.7em 'century goyhic';
-    color: darkslategray;
 }
 h2{
     font: normal 1.5em 'century gothic';
     text-decoration: none;
-    color: darkslategray;
 }
 h3{
     font: normal 1.3em 'century gothic';
     text-decoration: none;
-    color: darkslategray;
 }
 h4{
     font: normal 1.1em 'century gothic';
     text-decoration: none;
-    color: darkslategray;
     align-self: center;
 
 }
 input[type="text"], input[type="password"], input[type="email"], input[type="date"]{
     padding: 5px;
-    border: solid 1px pink;
     border-radius: 5px;
     margin-bottom: 5px;
     width: 170px;
 
 }
 .header{
-    background: linear-gradient(45deg, #EECFBA, #b1d0de);
     border-radius: 10px;
     min-width: 600px;
-    padding: 25px;
+    padding: 20px;
 }
 .sign-out_btn{
     float: right;
@@ -53,15 +43,12 @@ input[type="text"], input[type="password"], input[type="email"], input[type="dat
 .deleteFriendButton, .getAllUsers, .search-btn,
 .upload, .send-post-btn, .editorInput-btn{
     padding: 4px;
-    background-color: white;
-    border: solid 1px pink;
     border-radius: 5px;
     cursor: pointer;
     display: inline-block;
     font: normal 0.8em 'century gothic';
     width: 150px;
 }
-.sign-up{}
 .Friend_Btn-position{
     float: left;
     padding: 10px;
@@ -69,7 +56,6 @@ input[type="text"], input[type="password"], input[type="email"], input[type="dat
 label{
     font: normal 0.9em 'century gothic';
     text-decoration: none;
-    color: darkslategray;
     margin-bottom: auto;
 }
 /*span{
@@ -90,15 +76,12 @@ label{
     margin: 15px;
     text-align: left;
     list-style-type: none;
-    background-color: #b1d0de;
     border-radius: 5px;
 }
 ul{
     list-style-type: none;
-    border: solid 1px gray;
 }
 .tabs{
-    background-color: #b1d0de;
     border-radius: 10px;
     float: left;
     padding: 20px;
@@ -108,23 +91,19 @@ ul{
     margin-top: 10px;
     border-radius: 5px;
     width: 470px; height: 130px;
-    background-color: white;
     margin-bottom: 30px;
     margin-left: 10px;
-    border: solid 1px gray;
 
 }
 .avatar {
-    border: solid 1px #000;
     -webkit-border-radius: 20px;
-    margin-left: 40px;
-    margin-right: 5px;
+    margin-left: 30px;
+    margin-right: 30px;
     object-fit: cover;
     width: 150px;
     height: 200px;
 }
 .friend-avatar, .dialog-user-avatar{
-    border: solid 1px #000;
     -webkit-border-radius: 20px;
     margin-top: 5px;
     margin-left: 10px;
@@ -134,8 +113,6 @@ ul{
 }
 .deleteFriendBtn, .addFriendBtn{
     padding: 4px;
-    background-color: white;
-    border: solid 1px pink;
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
@@ -148,13 +125,11 @@ ul{
     margin-right: 10%;
 }
 .dialog-row-contain{
-    background-color: white;
     margin-top: 10px;
     border-radius: 15px;
     width: 100px; height: 130px;
 }
 .tabss{
-    background-color: #b1d0de;
     border-radius: 10px;
     overflow-y: auto;
     min-height: 160px;
@@ -174,7 +149,6 @@ ul{
 }
 .t-area, .wall-post-textarea, .areaeditorInput{
     resize: none;
-    border: solid 1px pink;
     border-radius: 5px;
     width: 500px;
 }
@@ -187,7 +161,6 @@ ul{
 .Lastname, .Firstname{
     font: normal 1.3em 'century gothic';
     text-decoration: none;
-    color: darkslategray;
     margin-bottom: auto;
     margin-top: auto;
     margin-right: 5px;
@@ -195,13 +168,11 @@ ul{
 .Username, .text-friend{
     font: normal 1em 'century gothic';
     text-decoration: none;
-    color: darkslategray;
     margin-bottom: auto;
 }
 .textPost{
     font: normal 1em 'century gothic';
     text-decoration: none;
-    color: darkslategray;
     margin: 0;
     margin-left: 120px;
     hyphens: auto;
@@ -213,7 +184,6 @@ ul{
 }
 .select-search{
     padding: 4px;
-    background-color: white;
     border-radius: 5px;
     cursor: pointer;
     margin-top: 3px;
@@ -223,7 +193,6 @@ ul{
 }
 .search-area{
     padding: 4px;
-    background-color: white;
     border-radius: 5px;
     margin-top: 3px;
     display: inline-block;
@@ -251,8 +220,6 @@ ul{
 }
 .btn{
     padding: 4px;
-    background-color: white;
-    border: solid 1px pink;
     border-radius: 5px;
     cursor: pointer;
     display: inline-block;
@@ -262,25 +229,20 @@ ul{
     float: left;
 }
 .comm-container{
-    background-color: white;
     min-height: 82px;
     width: 500px;
     border-radius: 5px;
-    border: solid 1px gray;
 }
 .fed-container, .dialog-row-contain, .search-user-contain{
-    background-color: white;
     min-height: 125px;
     width: 600px;
     border-radius: 5px;
-    border: solid 1px gray;
 }
 .dialog-row{
     font: normal 1.3em 'century gothic';
 }
 .time{
     font: normal 1em 'century gothic';
-    color: gray;
     margin: 0px;
     margin-right: 5px;
     float: right;
@@ -291,11 +253,9 @@ ul{
     margin-left: 10px;
 }
 .wallPost{
-    background-color: white;
     min-height: 125px;
     width: 600px;
     border-radius: 5px;
-    border: solid 1px gray;
 }
 .wall-link{
     margin-left: 5px; 
@@ -303,6 +263,7 @@ ul{
 .name a{
     font: normal 1.3em 'century gothic';
     cursor: pointer;
+    width: 300px;
 }
 .dialog-row-contain, .search-user-contain li{
     list-style-type: none;
@@ -318,7 +279,6 @@ ul{
     margin-left: 200px;
 }
 .Status{
-    color: gray;
     margin: 0;
     font-size: 1em;
     width: 200px;
@@ -329,7 +289,6 @@ ul{
 }
 .editorInput-select{
     padding: 5px;
-    border: solid 1px pink;
     border-radius: 5px;
     margin-bottom: 5px;
     width: 170px;
@@ -337,22 +296,20 @@ ul{
 .name{
     font: normal 1.2em 'century gothic';
     text-decoration: none;
-    color: darkslategray;
     margin-bottom: auto;
     margin-top: auto;
     margin-right: 5px;
+    display: flex;
 }
 .comment-name a{
     font: normal 1.2em 'century gothic';
     text-decoration: none;
-    color: darkslategray;
     margin-bottom: auto;
     margin-top: auto;
     margin-right: 5px;
     cursor: pointer;
 }
 .comm-avatar{
-    border: solid 1px #000;
     -webkit-border-radius: 20px;
     margin-top: 5px;
     margin-left: 10px;
@@ -361,7 +318,6 @@ ul{
     height: 70px;
 }
 .community-avatar{
-    border: solid 1px #000;
     -webkit-border-radius: 20px;
     margin-top: 5px;
     margin-left: 10px;
@@ -377,11 +333,9 @@ ul{
     margin-left: 87px;
 }
 .communities-list{
-    background-color: white;
     min-height: 100px;
     width: 400px;
     border-radius: 5px;
-    border: solid 1px gray;
     margin: 10px;
 }
 .communities-list a{
@@ -389,14 +343,60 @@ ul{
     font-size: 1.2em;
 }
 .communities-member{
-    border: solid 1px gray;
     border-radius: 5px;
     width: 300px;
-    background-color: white;
     padding: 5px;
     margin: 10px;
 }
 .communities-member a{
-    font-size: 1.2em;
-    
+    font-size: 1.2em;   
 }
+.name input[type="image"]{
+    float: right;
+    margin-left: 125px;
+    padding: 5px;
+}
+
+
+			
+			/* убираем отступы и поля, а также list-style для "ul", 
+			 * и добавляем "position:relative" */
+			nav ul {
+			    padding:0;
+			    margin:0;
+			    list-style: none;
+			    position: relative;
+                min-width: 100px;
+                border-radius: 5px;
+			    }
+			
+			/* применяем inline-block позиционирование к элементам навигации */
+			nav ul li {
+			    display:inline-block;
+			    }
+			
+			/* стилизуем ссылки */
+			nav a {
+			    display:block;
+			    text-decoration:none;
+			}
+			
+			/* изменяем цвет фона при наведении курсора */
+nav ul ul {
+			    display: none;
+			    position: absolute;
+			    top: 100%;
+			}
+			
+			/* отображаем выпадающий список при наведении */
+			nav ul li:hover > ul {
+			    display:inherit;
+			}
+			
+			/* первый уровень выпадающего списка */
+			nav ul ul li {
+			    min-width:60px;
+			    float:none;
+			    display:list-item;
+			    position: relative;
+			}

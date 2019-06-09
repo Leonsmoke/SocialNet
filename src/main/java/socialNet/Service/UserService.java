@@ -8,15 +8,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import socialNet.Entity.Comment;
-import socialNet.Entity.Gender;
-import socialNet.Entity.Post;
-import socialNet.Entity.UserEntity;
+import socialNet.Entity.*;
 import socialNet.View.UserView;
 import socialNet.other.PostComparator;
+import socialNet.repos.CommunityRepo;
 import socialNet.repos.PostRepo;
 import socialNet.repos.UserRepo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -28,6 +28,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     PostRepo postRepo;
+
+    @Autowired
+    CommunityRepo communityRepo;
 
     @Override
     @Transactional(readOnly = true)
@@ -96,6 +99,12 @@ public class UserService implements UserDetailsService {
             userRepo.save(user);
         }
     }
+
+    public void changeTheme(UserEntity currentUser, String theme){
+        currentUser.setTheme(theme);
+        userRepo.saveAndFlush(currentUser);
+    }
+
     @Transactional
     public void addComment(int wall_id, int post_id, String text, UserEntity currentUser){
         UserEntity user = userRepo.findById(wall_id);
@@ -116,9 +125,15 @@ public class UserService implements UserDetailsService {
             UserEntity userr = userRepo.findById(friend.getId());
             allPost.addAll(userr.getPosts());
         }
+        for (Community community: user.getCommunities()
+        ) {
+            Community community1 = communityRepo.findById(community.getId());
+            allPost.addAll(community1.getPosts());
+        }
         allPost.sort(new PostComparator());
         model.addAttribute("user",user);
         model.addAttribute("posts",allPost);
+        model.addAttribute("currentUser",user);
         return model;
     }
     @Transactional
@@ -233,5 +248,17 @@ public class UserService implements UserDetailsService {
         List<UserEntity> users = userRepo.findAll();
         model.addAttribute("users",users);
         return model;
+    }
+
+
+    public void saveProfileChange(UserEntity currentUser, String status, String firstName,
+                                  String lastName,String information, String stringBirthDate,int gender) throws ParseException{
+        try{
+            Date birthDate = null;
+            birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(stringBirthDate);
+            SaveChangeFromEditor(currentUser,status,firstName,lastName,information,birthDate,gender);
+        }
+        catch (ParseException e){
+        }
     }
 }

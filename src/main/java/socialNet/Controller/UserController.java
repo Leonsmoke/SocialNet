@@ -73,9 +73,21 @@ public class UserController {
 
     @GetMapping("/{id}")
     public String getUser(Model model,@AuthenticationPrincipal UserEntity currentUser,
-            @PathVariable("id") int id) {
+            @PathVariable("id") int id, @RequestParam(name="comm_id", required = false) Integer comm_id) {
+        if (id==-1){
+            return "redirect:/community/"+comm_id;
+        }
         model= userService.getUserPage(model,currentUser,id);
         return USER_PAGE;
+    }
+
+    @GetMapping("/changeTheme")
+    public String chengeTheme(Model model,@AuthenticationPrincipal UserEntity currentUser,
+                          @RequestParam(name="theme", required = true) String theme) {
+        if (currentUser.getTheme()!=theme){
+            userService.changeTheme(currentUser,theme);
+        }
+        return "redirect:/user";
     }
 
     @PostMapping("/{id}/addPost")
@@ -100,7 +112,7 @@ public class UserController {
 
     @GetMapping("/feed")
     public String getAllPost(Model model,@AuthenticationPrincipal UserEntity user){
-        userService.getFeed(model,user);
+        model = userService.getFeed(model,user);
         return FEED_PAGE;
     }
 

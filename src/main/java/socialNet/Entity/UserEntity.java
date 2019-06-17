@@ -251,6 +251,14 @@ public class UserEntity implements UserDetails, Serializable {
         this.gender = gender;
     }
 
+    public String getActiveString(){
+        if (this.active){
+            return "Ban";
+        } else {
+            return "Unban";
+        }
+    }
+
     public String getGenderInString(){
         return gender.toString();
     }
@@ -280,6 +288,7 @@ public class UserEntity implements UserDetails, Serializable {
         return getRole();
     }
 
+
     public String getAvatar() {
         return avatar;
     }
@@ -296,6 +305,8 @@ public class UserEntity implements UserDetails, Serializable {
     public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
+
+
 
     public int getId() {
         return id;
@@ -323,6 +334,17 @@ public class UserEntity implements UserDetails, Serializable {
 
     public boolean isActive() {
         return active;
+    }
+
+    public boolean checkValid(){
+        if (username.length()<3 || username.length()>20){
+            return false;
+        }
+        if (firstName.length()<2 || firstName.length()>20 || lastName.length()<2 || lastName.length()>20){
+            return false;
+        }
+        if (email.length()<3 || email.length()>30) return false;
+        return true;
     }
 
     public void setActive(boolean active) {

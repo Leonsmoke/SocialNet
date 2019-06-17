@@ -4,10 +4,12 @@
         <meta charset="utf-8">
         <meta http-equiv="content-type">
         <script src="//code.jquery.com/jquery-1.7.min.js"></script>
-    <script th:src="@{/js/script.js}"></script>
+        <script th:src="@{/js/script.js}"></script>
+        <script th:src="@{/js/adminCheck.js}"></script>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{'/css/'+${currentUser.theme}}"/>
+        <title th:text="${user.firstName}+' '+${user.lastName}">Profile</title>
     </head>
     <body onload="checkTypeProfile()">
         <div class="container">
@@ -21,7 +23,9 @@
                         <div class="general_information">
                             <img class="avatar" th:src="'/upload/files/'+${user.avatar}" align="left"> <!--  -->
                             <div class="gen-inf">
-                                
+                                <script th:inline="javascript">
+                                    addAdminLink([[${currentUser.getRole()}]]);
+                                </script>
                                 <div class="full-name">
                                 <p class="Firstname" th:text="${user.firstName}">Vasya</p>
                                 <p class="Lastname" th:text="${user.lastName}">Biber</p>

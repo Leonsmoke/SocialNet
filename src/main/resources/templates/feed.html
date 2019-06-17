@@ -8,19 +8,23 @@
         <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{'/css/'+${currentUser.theme}}"/>
+        <title>Feed</title>
     </head>
     <body>
         <div class="container">
             <header class="header"> <!-- ВСЯ РАБОТА С ХЕДЕРОМ -->
                 <div th:replace="~{user_element::header()}"></div>
             </header>
+            <script th:inline="javascript">
+                addAdminLink([[${currentUser.getRole()}]]);
+            </script>
             <main class="main">  <!-- ВСЯ РАБОТА С НАПОЛНЕНИЕМ СТРАНИЦЫ -->
                 <div class="panel panel-primary">
                     <h4 class="headline" align="center">Your feed:</h4>
                 
                 <div class="panel-body">
                     <div class="feed-list" th:each="post:${posts}">
-                        <div class="feed-content" align="center"  th:classid="${post.getWall_id()}" th:id="${post.getId()}" th:insert="~{user_element::postElement(textPost=${post.text}, time=${post.time},wall_id=${post.wall_id},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.getAuthor_ava()}, post_id=${post.getId()}, community_id=${post.getCommunity_id()})}"></div>
+                        <div class="feed-content" align="center"  th:frame="${post.getCommunity_id()}" th:classid="${post.getWall_id()}" th:id="${post.getId()}" th:insert="~{user_element::postElement(textPost=${post.text}, time=${post.time},wall_id=${post.wall_id},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.getAuthor_ava()}, post_id=${post.getId()}, community_id=${post.getCommunity_id()})}"></div>
                         <th:block th:each="comment:${post.comments}">
                             <div class="comment-list" th:insert="~{user_element::commentElement(textComment=${comment.getText()},time=${comment.getTime()},wall_id=${comment.getWall_id()},author_id=${comment.getAuthor_id()},author_fullname=${comment.getAuthor_fullname()}, avatar=${comment.getAuthor_ava()})}"></div>
                         </th:block>

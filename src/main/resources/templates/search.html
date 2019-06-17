@@ -8,12 +8,16 @@
         <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{'/css/'+${currentUser.theme}}"/>
+        <title>Search</title>
     </head>
     <body>
         <div class="container">
             <header class="header">
                 <div th:replace="~{user_element::header()}"></div>
             </header>
+            <script th:inline="javascript">
+                addAdminLink([[${currentUser.getRole()}]]);
+            </script>
             <main class="main" align="center">
                 <h2 class="headline" align="center">Search</h2>
                 <div align="center" class="panel-primary">
@@ -23,7 +27,7 @@
                         </form>
                     </div>
                     <div class="search-form">
-                        <form th:action="@{/user/search/doSearch}" method="post" >
+                        <form th:action="'/user/search/doSearch'" method="post" >
                             <select class="select-search" name="selectSearchType" size="1">
                                 <option selected value="s1">Username</option>
                                 <option value="s2">First name</option>

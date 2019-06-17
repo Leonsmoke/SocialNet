@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type">
+        <title>Oooops...</title>
+        <script src="//code.jquery.com/jquery-1.7.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/normalstyle.css}"/>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <div th:replace="~{user_element::header()}"></div>
+            </header>
+            <main class="main" align="center">
+                <h2 class="headline" align="center">403</h2>
+                <div align="center" class="panel-primary">
+                    <h4>Ooooooops... Something went wrong. You are not authorized to view this page. Please give me some money :)</h4>
+                    <img th:src="'/upload/files/error.png'" align="center">
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

@@ -18,7 +18,7 @@ import static socialNet.constant.pages.PROFILE_EDITOR_PAGE;
 import static socialNet.constant.pages.REDIRECT_TO_PROFILE;
 
 @Controller
-@PreAuthorize("hasAuthority('USER')")
+@PreAuthorize("hasAuthority('USER')||hasAuthority('ADMIN')")
 public class EditProfileController {
     @Autowired
     private UserService userService;

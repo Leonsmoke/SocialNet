@@ -19,7 +19,7 @@ import socialNet.repos.UserRepo;
 import static socialNet.constant.pages.*;
 
 @Controller
-@PreAuthorize("hasAuthority('USER')")
+@PreAuthorize("hasAuthority('USER')||hasAuthority('ADMIN')")
 public class CommunityController {
 
     @Autowired
@@ -41,13 +41,13 @@ public class CommunityController {
     public String addPost(Model model,@AuthenticationPrincipal UserEntity currentUser,
                           @PathVariable("id") int id, @RequestParam String textPost) {
         communityService.addPost(id,currentUser,textPost);
-        return "redirect:/community/"+id;
+        return REDIRECT+COMMUNITY_LINK+"/"+id;
     }
     @PostMapping("/community/addComment")
     public String addComment(Model model,@AuthenticationPrincipal UserEntity currentUser,
                            @RequestParam int post_id,@RequestParam int wall_id,@RequestParam String text) {
         communityService.addComment(wall_id,post_id,currentUser,text);
-        return "redirect:/community/"+wall_id;
+        return REDIRECT+COMMUNITY_LINK+"/"+wall_id;
     }
 
     @GetMapping("/user/communities/create")

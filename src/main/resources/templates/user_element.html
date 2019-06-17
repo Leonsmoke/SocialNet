@@ -13,25 +13,35 @@
         <div class="container">
             <header class="header">
                 <div th:fragment="header()">
-                    <div align="center">
+                    <div class="head" align="center">
                         <h1>SlowPoke</h1>
-                    </div>
-                    <div class="sign-out_btn">
-                        <nav>
+
+                        <div class="sign-out_btn" align="left">
+                            <nav>
                                 <ul >
 
-                                    <li><a href="#" >Menu</a>
+                                    <li><a>Menu</a>
 
                                         <!-- первый уровень выпадающего списка -->
-                                        <ul>
-                                            <li><a href="/user/changeTheme?theme=normalstyle.css">Original theme</a></li>
-                                            <li><a href="/user/changeTheme?theme=darkstyle.css">Dark theme</a></li>
-                                            <li><a href="#">Exit</a></li>
+                                        <ul id="topMenu">
+                                            <li><a href="/user">Profile</a></li>
+                                            <li><a href="/user/changeTheme?theme=normalstyle">Light Theme</a></li>
+                                            <li><a href="/user/changeTheme?theme=darkstyle">Dark Theme</a></li>
+                                            <li><a href="/logout">Log out</a></li>
                                         </ul>
 
                                     </li>
                                 </ul>
-                        </nav>
+                            </nav>
+                        </div>
+                        <div class="head-search">
+                                <div class="head-search-area">
+                                    <input class="search-area" type="search" name="filter" pattern="^[a-zA-Z0-9]+$" maxlength="25" >
+                                </div>
+                                <div class="search-head-btn">
+                                    <a href="/user/search"><img th:src="'/upload/files/search.png'" width="20px"></a>
+                                </div>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -57,9 +67,17 @@
     </div>
 </div>
 
+
 <li class="search-user-container" th:fragment="searchUser(firstName,lastName,id)">
-    <a th:href= "'/user/'+${id}" th:text="${firstName} + ' ' + ${lastName}"></a>
+    <a th:href= "'/user/'+${id}"  th:text="${firstName} + ' ' + ${lastName}"></a>
 </li>
+
+                <li class="search-user-container" th:fragment="adminUserList(firstName,lastName,id,active)">
+                    <a th:text="${firstName} + ' ' + ${lastName}"></a>
+                    <form th:action="'/admin/panel/ban'+${id}" method="get">
+                        <input type="submit" class="ban"  id = "ban" th:value="${active}"/>
+                    </form>
+                </li>
 
 <li class="dialog-row-container" th:fragment="dialogRow(firstName,lastName,id,avatar)">
     <img class="dialog-user-avatar" th:src="'/upload/files/'+${avatar}" width="100" height="100" align="left">
@@ -164,8 +182,8 @@
                             <a href="/user/search">Search</a>
                         </li>
                         <li class="tab" id="feedback">
-                            <a href="/messages/dialog5"><img th:src="'/upload/files/dialog.png'" width="20px"></a>
-                            <a href="/messages/dialog5">Feedback</a>
+                            <a href="/feedback"><img th:src="'/upload/files/dialog.png'" width="20px"></a>
+                            <a href="/feedback">Feedback</a>
                         </li>
                     </ul>
                     </div>

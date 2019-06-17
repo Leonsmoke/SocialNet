@@ -5,15 +5,12 @@
         <meta http-equiv="content-type">
         <script src="//code.jquery.com/jquery-1.7.min.js"></script>
     <script th:src="@{/js/script.js}"></script>
-        <link rel="stylesheet" type="text/css"  th:href="@{/css/logingrid.css}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{/css/regstyle.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
-        <link rel="stylesheet" type="text/css"  th:href="@{/css/normalstyle.css}"/>
+        <title>SignUp</title>
     </head>
     <body>
         <div class="container">
-            <header class="header">
-                <div th:replace="~{user_element::header()}"></div>
-            </header>
             <main class="main" align="center">
                 <h2 class="headline" align="center">Sign up</h2>
                 <p><span th:text="${message}"align="center">Message</span></p>
@@ -35,7 +32,7 @@
                     <input type="email" name="email" maxlength="45" required class="register_input"><br>
                     <div class="radio_wrap">
                         <input type="radio" class="radio" name="role" value="USER" checked><label>User</label>
-                        <input type="radio" class="radio" name="role" value="ADMIN" style="visibility: hidden"><label>Admin</label>
+                        <input type="radio" class="radio" name="role" value="ADMIN" style="visibility: hidden"><label style="visibility: hidden">Admin</label>
                     </div>
                     <div class="buttons_wrap">
                         <button class="register-btn" type="submit" id="regBut">Sign up</button>

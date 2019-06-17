@@ -12,12 +12,11 @@ import socialNet.Service.MessageService;
 import socialNet.repos.MessageRepo;
 import socialNet.repos.UserRepo;
 
-import static socialNet.constant.pages.DIALOG_PAGE;
-import static socialNet.constant.pages.MESSAGE_PAGE;
+import static socialNet.constant.pages.*;
 
 @Controller
 @RequestMapping("/messages")
-@PreAuthorize("hasAuthority('USER')")
+@PreAuthorize("hasAuthority('USER')||hasAuthority('ADMIN')")
 public class MessageController {
     @Autowired
     private UserRepo userRepo;
@@ -43,7 +42,7 @@ public class MessageController {
     @PostMapping("/dialog{id}")
     public String sendMessage(Model model, @AuthenticationPrincipal UserEntity currentUser, @PathVariable("id") int id, @RequestParam String textMessage){
         messageService.sendMessage(currentUser,id,textMessage);
-        return "redirect:/messages/dialog"+id;
+        return REDIRECT+DIALOG_LINK+id;
     }
 
 }

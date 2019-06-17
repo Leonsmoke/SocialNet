@@ -34,6 +34,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="dat
     border-radius: 10px;
     min-width: 600px;
     padding: 20px;
+    height: 50px;
 }
 .sign-out_btn{
     float: right;
@@ -150,7 +151,7 @@ ul{
 .t-area, .wall-post-textarea, .areaeditorInput{
     resize: none;
     border-radius: 5px;
-    width: 500px;
+    width: 480px;
 }
 .send-message-btn, .send-post-btn{
     display: block;
@@ -400,3 +401,28 @@ nav ul ul {
 			    display:list-item;
 			    position: relative;
 			}
+            .havent-mess a{
+                font: normal 1.5em 'century gothic';
+            }
+            .tabss ul{
+                border: none;}
+
+.head h1{
+    width: 200px;
+    float: left;
+    margin: 0px;
+    margin-top: 14px;
+}
+.head-search{
+    display: flex;
+    width: 700px;
+    float: left;
+}
+.head-search-area{
+    width: 460px;
+    margin-top: 10px;
+}
+.search-head-btn{
+    margin-top: 15px;
+    width: 30px;
+}

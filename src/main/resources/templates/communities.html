@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="content-type">
+        <title>Communities</title>
         <script src="//code.jquery.com/jquery-1.7.min.js"></script>
         <script th:src="@{/js/script.js}"></script>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
@@ -15,6 +16,9 @@
                 <div th:replace="~{user_element::header()}"></div>
             </header>
             <main class="main">
+                <script th:inline="javascript">
+                    addAdminLink([[${user.getRole()}]]);
+                </script>
                 <h2 class="headline" align="center">Communities</h2>
                 <div class="panel panel-primary">
 

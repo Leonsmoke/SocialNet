@@ -19,10 +19,11 @@ public class CommunityService {
     CommunityRepo communityRepo;
     @Autowired
     PostRepo postRepo;
-
+    @Autowired
+    ValidationService validationService;
     public void addPost(int id, UserEntity currentUser, String textPost){
         Community community = communityRepo.findById(id);
-        if (community.isMemberOfCommunity(currentUser)){
+        if (community.isMemberOfCommunity(currentUser) && validationService.checkValidText(textPost)){
             String time = LocalDateTime.now().getDayOfMonth() + " " +LocalDateTime.now().getMonth() + "     "+
                     LocalDateTime.now().getHour() + "  :" + LocalDateTime.now().getMinute();
             community.getPosts().add(new Post(-1, id,textPost,time,currentUser.getId(), currentUser.getFirstName()+" "+ currentUser.getLastName(), currentUser.getAvatar(), community.getAvatar()));
@@ -31,24 +32,30 @@ public class CommunityService {
     }
 
     public void addComment( int wall_id, int post_id, UserEntity currentUser, String text){
-        Community community = communityRepo.findById(wall_id);
-        String time = LocalDateTime.now().getDayOfMonth() + " " +LocalDateTime.now().getMonth() + "     "+
-                LocalDateTime.now().getHour() + "  :" + LocalDateTime.now().getMinute();
-        Post postToComment = postRepo.findPostByPostID(post_id);
-        Comment comm = new Comment(wall_id,post_id,text,time,currentUser.getId(),currentUser.getFirstName()+" "+ currentUser.getLastName(),currentUser.getAvatar());
-        Post post = community.getPosts().get(community.getPosts().indexOf(postToComment));
-        post.addComment(comm);
-        community.addPost(post);
-        communityRepo.save(community);
+        if (validationService.checkValidText(text)){
+            Community community = communityRepo.findById(wall_id);
+            String time = LocalDateTime.now().getDayOfMonth() + " " +LocalDateTime.now().getMonth() + "     "+
+                    LocalDateTime.now().getHour() + "  :" + LocalDateTime.now().getMinute();
+            Post postToComment = postRepo.findPostByPostID(post_id);
+            Comment comm = new Comment(wall_id,post_id,text,time,currentUser.getId(),currentUser.getFirstName()+" "+ currentUser.getLastName(),currentUser.getAvatar());
+            Post post = community.getPosts().get(community.getPosts().indexOf(postToComment));
+            post.addComment(comm);
+            community.addPost(post);
+            communityRepo.save(community);
+        }
+
     }
 
     public int createCommunity(String name, UserEntity currentUser){
-        Community newCommunity = new Community(name,currentUser.getId());
-        communityRepo.save(newCommunity);
-        newCommunity = communityRepo.findCommunityByName(name);
-        newCommunity.addMember(currentUser);
-        communityRepo.save(newCommunity);
-        return newCommunity.getId();
+        if (validationService.checkValidShort(name)){
+            Community newCommunity = new Community(name,currentUser.getId());
+            communityRepo.save(newCommunity);
+            newCommunity = communityRepo.findCommunityByName(name);
+            newCommunity.addMember(currentUser);
+            communityRepo.save(newCommunity);
+            return newCommunity.getId();
+        }
+        return 0;
     }
 
     public Model createCommunityOpenPage(Model model, UserEntity currentUser, int community_id){

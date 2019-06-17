@@ -7,7 +7,8 @@
         <script th:src="@{/js/script.js}"></script>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
-        <link rel="stylesheet" type="text/css"  th:href="@{'/css/'+${currentUser.theme}}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{'/css/'+${user.theme}}"/>
+        <title th:text="${community.name}">Community</title>
     </head>
     <body onload="workWithCommunityPage()">
         <div class="container">
@@ -16,6 +17,9 @@
             </header>
             <main class="main">
                 <h2 class="headline" align="center">Community</h2>
+                <script th:inline="javascript">
+                    addAdminLink([[${user.getRole()}]]);
+                </script>
                 <div class="panel panel-primary">
 
                 <div align="center" class="panel-body" >

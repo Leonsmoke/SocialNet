@@ -16,5 +16,14 @@ public interface pages {
     String REDIRECT = "redirect:";
     String COMMUNITY_LINK = "/community";
     String COMMUNITY_PAGE = "community";
-
+    String ADMIN_PANEL_PAGE = "adminPanel";
+    String ADMIN_PANEK_LINK = "/admin/panel";
+    String UPLOAD_PAGE = "upload";
+    String DIALOG_LINK = "/messages/dialog";
+    String FEEDBACK_PAGE = "feedback";
+    String PAGE_404 = "404";
+    String PAGE_403 = "403";
+    String PAGE_400 = "400";
+    String PAGE_500 = "500";
+    String ERROR_PATH = "/error";
 }

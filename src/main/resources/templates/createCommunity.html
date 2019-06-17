@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{'/css/'+${currentUser.theme}}"/>
+        <title>Create community</title>
     </head>
     <body onload="checkTypeProfile()">
         <div class="container">
@@ -15,6 +16,9 @@
                 <div th:replace="~{user_element::header()}"></div>
             </header>
             <main class="main">
+                <script th:inline="javascript">
+                    addAdminLink([[${currentUser.getRole()}]]);
+                </script>
                 <h2 class="headline" align="center">Community</h2>
                 <div class="panel panel-primary">
                     <div class="panel-body">

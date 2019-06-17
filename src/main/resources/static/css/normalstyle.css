@@ -48,6 +48,9 @@ label{
 ul{
     border: solid 1px gray;
 }
+.search-user-list ul{
+    border: none;
+}
 .tabs{
     background-color: #b1d0de;
     box-shadow: 1px 1px 3px 1px gray;

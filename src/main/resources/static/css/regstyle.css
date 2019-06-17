@@ -1,0 +1,45 @@
+.main{
+    grid-area: main;
+    min-width: 700px;
+    border-radius: 15px;
+}
+.left{
+    grid-area: left;
+}
+.container{
+    margin-left: 10%;
+    margin-right: 10%;
+    display: grid;
+    grid-template-areas: "header header header"
+                            "main main main";
+    grid-template-columns: 220px 1fr 220px;
+    grid-template-rows: 10;
+    min-height: 100vh;
+    grid-gap: 1em;
+}
+body{
+    background-image: url("fon.png");
+}
+h1{
+    color: darkslategray;
+}
+h2{
+    color: darkslategray;
+}
+h3{
+    color: darkslategray;
+}
+h4{
+    color: darkslategray;
+}
+input[type="text"], input[type="password"], input[type="email"], input[type="date"]{
+    border: solid 1px pink;
+}
+.register-btn, .sign-in{
+    background-color: white;
+}
+.main{
+    background: linear-gradient(45deg, #EECFBA, #b1d0de);
+    border: solid 1px gray;
+    box-shadow: 1px 1px 3px 1px gray;
+}

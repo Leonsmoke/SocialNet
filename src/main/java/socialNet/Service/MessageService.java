@@ -19,6 +19,9 @@ public class MessageService {
     MessageRepo messageRepo;
     @Autowired
     UserRepo userRepo;
+    @Autowired
+    ValidationService validationService;
+
 
     public Model getUserDialogs(UserEntity user, Model model){
         List<MessageEntity> allDialogs = messageRepo.findAllDialogs(user.getId());
@@ -50,8 +53,11 @@ public class MessageService {
     }
 
     public void sendMessage(UserEntity currentUser, int id, String textMessage){
-        MessageEntity message = new MessageEntity(currentUser.getId(),id,currentUser.getFirstName()+":  "+textMessage);
-        messageRepo.save(message);
+        if (validationService.checkValidText(textMessage)){
+            MessageEntity message = new MessageEntity(currentUser.getId(),id,currentUser.getFirstName()+":  "+textMessage);
+            messageRepo.save(message);
+        }
+
     }
 
 }

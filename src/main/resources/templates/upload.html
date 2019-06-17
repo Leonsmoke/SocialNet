@@ -7,7 +7,8 @@
     <script th:src="@{/js/script.js}"></script>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
-        <link rel="stylesheet" type="text/css"  th:href="@{'/css/'+${currentUser.theme}}"/>
+        <link rel="stylesheet" type="text/css"  th:href="@{'/css/'+${user.theme}}"/>
+        <title>Upload avatar</title>
     </head>
     <body>
         <div class="container">
@@ -15,10 +16,13 @@
                 <div th:replace="~{user_element::header()}"></div>
             </header>
             <main class="main" align="center">
+                <script th:inline="javascript">
+                    addAdminLink([[${currentUser.getRole()}]]);
+                </script>
                 <h2 class="headline">Upload</h2>
                 <div align="center" class="panel-primary">
                     <div class="panel-header">
-                        <h4>Upload avatar</h4>
+                        <h4>Upload avatar (not bigger then 2mb)</h4>
                     </div>
                     <div class="panel-body">
                         <div class="upload-form">

@@ -15,8 +15,10 @@ import socialNet.Storage.StorageFileNotFoundException;
 
 import java.io.IOException;
 
+import static socialNet.constant.pages.*;
+
 @Controller
-@PreAuthorize("hasAuthority('USER')")
+@PreAuthorize("hasAuthority('USER')||hasAuthority('ADMIN')")
 
 public class FileUploadController {
 
@@ -24,15 +26,17 @@ public class FileUploadController {
     UploadService uploadService;
 
     @GetMapping("/upload")
-    public String uploadAvaPage(Model model) throws IOException {
+    public String uploadAvaPage(Model model, @AuthenticationPrincipal UserEntity currentUser) throws IOException {
         model.addAttribute("type","/profile");
-        return "upload";
+        model.addAttribute("user",currentUser);
+        return UPLOAD_PAGE;
     }
 
     @GetMapping("/upload/community{id}")
-    public String uploadAvaforCommunities(Model model, @PathVariable int id) throws IOException {
+    public String uploadAvaforCommunities(Model model, @PathVariable int id, @AuthenticationPrincipal UserEntity currentUser) throws IOException {
         model.addAttribute("type","/community"+id);
-        return "upload";
+        model.addAttribute("user",currentUser);
+        return UPLOAD_PAGE;
     }
 
     @GetMapping("upload/files/{filename:.+}")
@@ -45,14 +49,14 @@ public class FileUploadController {
     public String handleFileUploadProfileAva(@RequestParam("file") MultipartFile file,
                                              @AuthenticationPrincipal UserEntity currentUser) {
         uploadService.uploadProfileAva(currentUser,file);
-        return "redirect:/user";
+        return REDIRECT_TO_PROFILE;
     }
 
     @PostMapping("/upload/community{id}")
     public String handleFileUploadCommunityAva(@RequestParam("file") MultipartFile file,
                                                @PathVariable int id, @AuthenticationPrincipal UserEntity currentUser) {
         uploadService.uploadCommunityAva(id,currentUser,file);
-        return "redirect:/community/"+id;
+        return REDIRECT+COMMUNITY_LINK+"/"+id;
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

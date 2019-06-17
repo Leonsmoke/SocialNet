@@ -8,12 +8,14 @@
     <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/logingrid.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/normalstyle.css}"/>
+        <title >Login</title>
     </head>
     <body>
         <div class="page" align="center">
         <div class="container">
             <main align="center" class="main">
                 <div>
+
                     <h2 class="headline" align="center">Sign in</h2>
                     <div th:if="${param.error}" class="incor_username">
                         Incorrect username and password.

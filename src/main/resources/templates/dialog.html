@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css"  th:href="@{/css/specialstyle.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
         <link rel="stylesheet" type="text/css"  th:href="@{'/css/'+${currentUser.theme}}"/>
+        <title>Dialog</title>
     </head>
     <body>
         <div class="container">
@@ -17,8 +18,10 @@
             <main class="main">
                 <h2 class="headline" align="center">Dialog</h2>
                 <div class="panel panel-primary">
-
-                    <div class="panel-header">
+                    <script th:inline="javascript">
+                        addAdminLink([[${currentUser.getRole()}]]);
+                    </script>
+                    <div class="panel-header" align="center">
                         <h4 th:text="'Your dialog with:'+${user.firstName}+' '+${user.lastName}" ></h4>
                     </div>
                     <div align="center" class="text-area">
@@ -28,8 +31,8 @@
                         </form>
 
                     </div>
-                    <div align="center" class="panel-body">
-                        <div align="center" class="tabss">
+                    <div class="panel-body">
+                        <div class="tabss">
                             <ul class="dialog-area" th:each="message:${messageList}">
                                 <li class="havent-mess" align="center" th:replace="~{user_element::messageRow(textMessage=${message.textMessage},timeMessage=${message.timeMessage})}">You haven't messages yet</li>
                             </ul>

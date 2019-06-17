@@ -16,7 +16,7 @@ import static socialNet.constant.pages.*;
 
 @Controller
 @RequestMapping("/user")
-@PreAuthorize("hasAuthority('USER')")
+@PreAuthorize("hasAuthority('USER')||hasAuthority('ADMIN')")
 
 public class UserController {
 
@@ -62,12 +62,14 @@ public class UserController {
     @GetMapping("/search/getAll")
     public String getAllUser(Model model, @AuthenticationPrincipal UserEntity user){
         model = userService.getAllUserFromSearch(model);
+        model.addAttribute("currentUser",user);
         return SEARCH_PAGE;
     }
 
     @PostMapping("/search/doSearch")
     public String doSearch(Model model, @AuthenticationPrincipal UserEntity user, @RequestParam String selectSearchType, @RequestParam String filter){
         model = userService.searchRequest(model,selectSearchType,filter);
+        model.addAttribute("currentUser",user);
         return SEARCH_PAGE;
     }
 
@@ -82,7 +84,7 @@ public class UserController {
     }
 
     @GetMapping("/changeTheme")
-    public String chengeTheme(Model model,@AuthenticationPrincipal UserEntity currentUser,
+    public String changeTheme(Model model,@AuthenticationPrincipal UserEntity currentUser,
                           @RequestParam(name="theme", required = true) String theme) {
         if (currentUser.getTheme()!=theme){
             userService.changeTheme(currentUser,theme);
@@ -93,6 +95,7 @@ public class UserController {
     @PostMapping("/{id}/addPost")
     public String addPost(Model model,@AuthenticationPrincipal UserEntity currentUser,
                           @PathVariable("id") int id, @RequestParam String textPost) {
+        model.addAttribute("currentUser",currentUser);
         userService.addPost(id,textPost,currentUser);
         return "redirect:/user/"+id;
     }
@@ -107,6 +110,7 @@ public class UserController {
     @PostMapping("/feed/addComment")
     public String addCommentFromFeed(Model model,@AuthenticationPrincipal UserEntity currentUser, @RequestParam int post_id, @RequestParam int wall_id, @RequestParam String text){
         userService.addComment(wall_id,post_id,text,currentUser);
+        model.addAttribute("currentUser",currentUser);
         return FEED_PAGE;
     }
 

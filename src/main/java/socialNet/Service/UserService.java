@@ -32,6 +32,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     CommunityRepo communityRepo;
 
+    @Autowired
+    ValidationService validationService;
+
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -86,8 +89,10 @@ public class UserService implements UserDetailsService {
         UserEntity user = userRepo.findById(id);
         String time = LocalDateTime.now().getDayOfMonth() + " " +LocalDateTime.now().getMonth() + "     "+
                 LocalDateTime.now().getHour() + "  :" + LocalDateTime.now().getMinute();
-        user.getPosts().add(new Post(user.getId(),-1,textPost,time,currentUser.getId(), currentUser.getFirstName()+" "+ currentUser.getLastName(), currentUser.getAvatar(), user.getAvatar()));
-        userRepo.saveAndFlush(user);
+        if (validationService.checkValidText(textPost)){
+            user.getPosts().add(new Post(user.getId(),-1,textPost,time,currentUser.getId(), currentUser.getFirstName()+" "+ currentUser.getLastName(), currentUser.getAvatar(), user.getAvatar()));
+            userRepo.saveAndFlush(user);
+        }
     }
     @Transactional
     public void deletePost(int id, int post_id, int user_id){
@@ -101,7 +106,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void changeTheme(UserEntity currentUser, String theme){
-        currentUser.setTheme(theme);
+        currentUser.setTheme(theme+".css");
         userRepo.saveAndFlush(currentUser);
     }
 
@@ -110,12 +115,14 @@ public class UserService implements UserDetailsService {
         UserEntity user = userRepo.findById(wall_id);
         String time = LocalDateTime.now().getDayOfMonth() + " " +LocalDateTime.now().getMonth() + "     "+
                 LocalDateTime.now().getHour() + "  :" + LocalDateTime.now().getMinute();
-        Post postToComment = postRepo.findPostByPostID(post_id);
-        Comment comm = new Comment(wall_id,post_id,text,time,currentUser.getId(),currentUser.getFirstName()+" "+ currentUser.getLastName(),currentUser.getAvatar());
-        Post post = user.getPosts().get(user.getPosts().indexOf(postToComment));
-        post.addComment(comm);
-        user.addPost(post);
-        userRepo.saveAndFlush(user);
+        if (validationService.checkValidText(text)){
+            Post postToComment = postRepo.findPostByPostID(post_id);
+            Comment comm = new Comment(wall_id,post_id,text,time,currentUser.getId(),currentUser.getFirstName()+" "+ currentUser.getLastName(),currentUser.getAvatar());
+            Post post = user.getPosts().get(user.getPosts().indexOf(postToComment));
+            post.addComment(comm);
+            user.addPost(post);
+            userRepo.saveAndFlush(user);
+        }
     }
     @Transactional
     public Model getFeed(Model model, UserEntity user){
@@ -217,25 +224,27 @@ public class UserService implements UserDetailsService {
     public Model searchRequest(Model model, String selectSearchType, String filter){
         List<UserEntity> Allusers = userRepo.findAll();
         List<UserEntity> goodResultUsers = new ArrayList<>();
-        if (selectSearchType.equalsIgnoreCase("s1")){
-            for (UserEntity profile :Allusers
-            ) {
-                if (profile.getUsername().contains(filter)){
-                    goodResultUsers.add(profile);
+        if (validationService.checkValidShort(filter)){
+            if (selectSearchType.equalsIgnoreCase("s1")){
+                for (UserEntity profile :Allusers
+                ) {
+                    if (profile.getUsername().contains(filter)){
+                        goodResultUsers.add(profile);
+                    }
                 }
-            }
-        } else if (selectSearchType.equalsIgnoreCase("s2")){
-            for (UserEntity profile :Allusers
-            ) {
-                if (profile.getFirstName().contains(filter)){
-                    goodResultUsers.add(profile);
+            } else if (selectSearchType.equalsIgnoreCase("s2")){
+                for (UserEntity profile :Allusers
+                ) {
+                    if (profile.getFirstName().contains(filter)){
+                        goodResultUsers.add(profile);
+                    }
                 }
-            }
-        } else if (selectSearchType.equalsIgnoreCase("s3")){
-            for (UserEntity profile :Allusers
-            ) {
-                if (profile.getLastName().contains(filter)){
-                    goodResultUsers.add(profile);
+            } else if (selectSearchType.equalsIgnoreCase("s3")){
+                for (UserEntity profile :Allusers
+                ) {
+                    if (profile.getLastName().contains(filter)){
+                        goodResultUsers.add(profile);
+                    }
                 }
             }
         }
@@ -256,7 +265,10 @@ public class UserService implements UserDetailsService {
         try{
             Date birthDate = null;
             birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(stringBirthDate);
-            SaveChangeFromEditor(currentUser,status,firstName,lastName,information,birthDate,gender);
+            if (validationService.checkValidShort(status) && validationService.checkValidShort(firstName) && validationService.checkValidShort(lastName) &&
+                    validationService.checkValidText(information)){
+                SaveChangeFromEditor(currentUser,status,firstName,lastName,information,birthDate,gender);
+            }
         }
         catch (ParseException e){
         }

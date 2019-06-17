@@ -265,8 +265,8 @@ public class UserService implements UserDetailsService {
         try{
             Date birthDate = null;
             birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(stringBirthDate);
-            if (validationService.checkValidShort(status) && validationService.checkValidShort(firstName) && validationService.checkValidShort(lastName) &&
-                    validationService.checkValidText(information)){
+            if (validationService.checkValidShortNotReq(status) && validationService.checkValidShort(firstName) && validationService.checkValidShort(lastName) &&
+                    validationService.checkValidTextNotReq(information)){
                 SaveChangeFromEditor(currentUser,status,firstName,lastName,information,birthDate,gender);
             }
         }

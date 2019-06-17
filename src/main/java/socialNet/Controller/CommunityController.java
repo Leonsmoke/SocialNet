@@ -51,10 +51,16 @@ public class CommunityController {
     }
 
     @GetMapping("/user/communities/create")
-    public String createCommunityPage(@AuthenticationPrincipal UserEntity currentUser) {
+    public String createCommunityPage(Model model,@AuthenticationPrincipal UserEntity currentUser) {
+        model.addAttribute("currentUser",currentUser);
         return CREATE_COMMUNITY_PAGE;
     }
-
+    @GetMapping("/community/search/getAll")
+    public String getAllCommunities(Model model,@AuthenticationPrincipal UserEntity currentUser) {
+        model = communityService.getAllCommunitiesFromSearch(model);
+        model.addAttribute("currentUser",currentUser);
+        return SEARCH_PAGE;
+    }
     @PostMapping("/user/communities/create")
     public String createNewCommunity(Model model, @AuthenticationPrincipal UserEntity currentUser, @RequestParam String name) {
         model.addAttribute("user",currentUser);

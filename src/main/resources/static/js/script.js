@@ -119,13 +119,6 @@ function sendCommentPost(param) {
     request.send(params);
 }
 
-/*function getAllComments(param) {
-var comment = '<div class="feed-list" th:each="post:${post'+$(param).parent().children('#feedCont').children('#fed-container').children('.feed-text').children('.wall-link').attr("id")+'}"><div class="feed-content" align="center" th:replace="~{user_element::commentElement(textPost=${post.text}, time=${post.time},wall_id=${post.wall_id},author_id=${post.author_id},author_fullname=${post.author_fullname}, avatar=${post.getAuthor_ava()}})}"></div> </div>';
-var mainElement = $(param).parent().parent();
-var newForm = document.createElement("div");
-newForm = comment;
-mainElement.append(newForm);
-}*/
 
 function commentBtn(id) {
     createCommentArea(id);
@@ -142,5 +135,17 @@ function workWithCommunityPage(){
         $('#joinCommunityBtn').remove();
     } else {
         $('#leaveCommunityBtn').remove();
+    }
+}
+
+function addAdminLink(role) {
+    if (role=="ADMIN"){
+        var menu = $('#topMenu');
+        var link = document.createElement("li");
+        var ref = document.createElement("a");
+        ref.href="/admin/panel";
+        ref.text="Admin's panel";
+        link.appendChild(ref);
+        menu.append(link);
     }
 }

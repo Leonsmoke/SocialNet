@@ -17,9 +17,9 @@
             </header>
             <main class="main" align="center">
                 <script th:inline="javascript">
-                    addAdminLink([[${currentUser.getRole()}]]);
+                    addAdminLink([[${user.getRole()}]]);
                 </script>
-                <h2 class="headline">Upload</h2>
+                <h2 class="headline" align="center">Upload</h2>
                 <div align="center" class="panel-primary">
                     <div class="panel-header">
                         <h4>Upload avatar (not bigger then 2mb)</h4>

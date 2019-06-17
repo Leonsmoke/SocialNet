@@ -25,6 +25,9 @@
                         <form th:action="'/user/search/getAll'" method="get">
                             <input type="submit" class="getAllUsers" value="Show all users"/>
                         </form>
+                        <form th:action="'/community/search/getAll'" method="get">
+                            <input type="submit" class="getAllUsers" value="Show all community"/>
+                        </form>
                     </div>
                     <div class="search-form">
                         <form th:action="'/user/search/doSearch'" method="post" >
@@ -46,6 +49,9 @@
                         <div class="search-user-list">
                             <ul th:each="user:${users}">
                                 <li th:replace="~{user_element::searchUser(firstName=${user.firstName},lastName=${user.lastName},id=${user.id})}"></li>
+                            </ul>
+                            <ul th:each="community:${communities}">
+                                <li th:replace="~{user_element::searchCommunity(name=${community.name},id=${community.id})}"></li>
                             </ul>
                         </div>
                     </div>

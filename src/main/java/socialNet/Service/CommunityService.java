@@ -2,6 +2,7 @@ package socialNet.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import socialNet.Entity.Comment;
 import socialNet.Entity.Community;
@@ -11,6 +12,7 @@ import socialNet.repos.CommunityRepo;
 import socialNet.repos.PostRepo;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class CommunityService {
@@ -44,6 +46,24 @@ public class CommunityService {
             communityRepo.save(community);
         }
 
+    }
+
+    public int deletePost(int post_id, int user_id){
+        Post post = postRepo.findPostByPostID(post_id);
+        Community community = communityRepo.findById(post.getCommunity_id());
+        if (user_id==post.getAuthor_id()){
+            community.deletePost(post);
+            postRepo.delete(post);
+            communityRepo.save(community);
+        }
+        return community.getId();
+    }
+
+    @Transactional
+    public Model getAllCommunitiesFromSearch(Model model){
+        List<Community> communities  = communityRepo.findAll();
+        model.addAttribute("communities",communities);
+        return model;
     }
 
     public int createCommunity(String name, UserEntity currentUser){

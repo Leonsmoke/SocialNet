@@ -71,6 +71,9 @@
 <li class="search-user-container" th:fragment="searchUser(firstName,lastName,id)">
     <a th:href= "'/user/'+${id}"  th:text="${firstName} + ' ' + ${lastName}"></a>
 </li>
+                <li class="search-user-container" th:fragment="searchCommunity(name,id)">
+                    <a th:href= "'/community/'+${id}"  th:text="${name}"></a>
+                </li>
 
                 <li class="search-user-container" th:fragment="adminUserList(firstName,lastName,id,active)">
                     <a th:text="${firstName} + ' ' + ${lastName}"></a>

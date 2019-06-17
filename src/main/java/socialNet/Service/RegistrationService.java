@@ -20,10 +20,14 @@ public class RegistrationService {
     public Model signIn(Model model, UserEntity user){
         UserEntity userFromDb=userRepo.findByUsername(user.getUsername());
         if(userFromDb!=null){
-            model.addAttribute("message","User already exist");
+            model.addAttribute("message","User with that username already exist");
             return model;
         }
-
+        userFromDb=userRepo.findByEmail(user.getEmail());
+        if (userFromDb!=null){
+            model.addAttribute("message","User with that email already exist");
+            return model;
+        }
         final UserEntity profile = userService.create(
                 user.getUsername(),
                 user.getFirstName(),
@@ -36,6 +40,7 @@ public class RegistrationService {
             return model;
         }
         mailService.send(user.getEmail(),"SlowPokeNet Team", GREETING);
+        model.addAttribute("message","SUCCESS!! Please return to Log in page");
         return model;
 
     }

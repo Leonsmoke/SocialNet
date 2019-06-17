@@ -41,6 +41,10 @@ public class Community implements Serializable {
         post.setCommunity_id(this.id);
     }
 
+    public void deletePost(Post post){
+        posts.remove(post);
+    }
+
     public int getAdmin_id() {
         return admin_id;
     }

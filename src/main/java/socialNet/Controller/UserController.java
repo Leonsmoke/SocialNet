@@ -8,9 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import socialNet.Entity.UserEntity;
+import socialNet.Service.CommunityService;
 import socialNet.Service.UserService;
-import socialNet.repos.PostRepo;
-import socialNet.repos.UserRepo;
 
 import static socialNet.constant.pages.*;
 
@@ -21,13 +20,10 @@ import static socialNet.constant.pages.*;
 public class UserController {
 
     @Autowired
-    private UserRepo userRepo;
-
-    @Autowired
-    private PostRepo postRepo;
-
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    CommunityService communityService;
 
     @GetMapping("")
     public String user(Model model, @AuthenticationPrincipal UserEntity user){
@@ -103,8 +99,14 @@ public class UserController {
     @PostMapping("/{id}/deletePost/{post_id}")
     public String deletePost(Model model,@AuthenticationPrincipal UserEntity currentUser,
                           @PathVariable("id") int id,@PathVariable("post_id") int post_id) {
-        userService.deletePost(id,post_id,currentUser.getId());
-        return "redirect:/user/"+id;
+        if (id>0){
+            userService.deletePost(id,post_id,currentUser.getId());
+            return "redirect:/user/"+id;
+        }else{
+
+            return "redirect:/community/"+communityService.deletePost(post_id,currentUser.getId());
+        }
+
     }
 
     @PostMapping("/feed/addComment")

@@ -48,6 +48,14 @@ public class CommunityService {
 
     }
 
+    public void deleteCommunity(int community_id,UserEntity user){
+        Community community = communityRepo.findById(community_id);
+        if (community.getAdmin_id()==user.getId() || user.getRole().contains("ADMIN")){
+            community.preDelete();
+            communityRepo.delete(community);
+        }
+    }
+
     public int deletePost(int post_id, int user_id){
         Post post = postRepo.findPostByPostID(post_id);
         Community community = communityRepo.findById(post.getCommunity_id());

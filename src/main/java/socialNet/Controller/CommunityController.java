@@ -80,6 +80,13 @@ public class CommunityController {
         return REDIRECT+COMMUNITY_LINK+"/"+community_id;
     }
 
+    @GetMapping("/community/{id}/delete")
+    public String deleteCommunity(Model model, @AuthenticationPrincipal UserEntity currentUser, @PathVariable ("id") int community_id) {
+        model.addAttribute("user",currentUser);
+        communityService.deleteCommunity(community_id,currentUser);
+        return REDIRECT+"/user/communities";
+    }
+
     @GetMapping("/community/{id}/leave")
     public String leaveCommunity(Model model, @AuthenticationPrincipal UserEntity currentUser, @PathVariable ("id") int community_id) {
         model.addAttribute("user",currentUser);

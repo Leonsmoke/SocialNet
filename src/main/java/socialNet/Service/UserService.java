@@ -224,6 +224,8 @@ public class UserService implements UserDetailsService {
     public Model searchRequest(Model model, String selectSearchType, String filter){
         List<UserEntity> Allusers = userRepo.findAll();
         List<UserEntity> goodResultUsers = new ArrayList<>();
+        List<Community> Allcommunities = communityRepo.findAll();
+        List<Community> goodResultCommunities = new ArrayList<>();
         if (validationService.checkValidShort(filter)){
             if (selectSearchType.equalsIgnoreCase("s1")){
                 for (UserEntity profile :Allusers
@@ -246,10 +248,18 @@ public class UserService implements UserDetailsService {
                         goodResultUsers.add(profile);
                     }
                 }
+            }else if (selectSearchType.equalsIgnoreCase("s4")){
+                for (Community comm:Allcommunities
+                ) {
+                    if (comm.getName().contains(filter)){
+                        goodResultCommunities.add(comm);
+                    }
+                }
             }
         }
 
         model.addAttribute("users",goodResultUsers);
+        model.addAttribute("communities",goodResultCommunities);
         return model;
     }
     @Transactional

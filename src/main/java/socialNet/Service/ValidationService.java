@@ -15,6 +15,19 @@ public class ValidationService {
         }
         return true;
     }
+
+    public boolean checkValidUserPass(String text){
+        if (text.contains(" ")||text.contains("!")){
+            return false;
+        }
+        return true;
+    }
+
+    public String getDefence(String text){
+        text.replace('c','с');
+        return text;
+    }
+
     public boolean checkValidTextNotReq(String text){
         if (text.length()>1999){
             return false;

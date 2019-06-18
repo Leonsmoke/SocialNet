@@ -156,6 +156,7 @@ public class UserEntity implements UserDetails, Serializable {
         this.role = role;
     }
 
+
     public Set<UserEntity> getIncomingFriend() {
         return incomingFriend;
     }

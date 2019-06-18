@@ -41,6 +41,18 @@ public class Community implements Serializable {
         post.setCommunity_id(this.id);
     }
 
+    public void preDelete(){
+        for (UserEntity user: members
+             ) {
+            user.leaveCommunity(this);
+            members.remove(user);
+        }
+        for (Post post: posts
+             ) {
+            posts.remove(post);
+        }
+    }
+
     public void deletePost(Post post){
         posts.remove(post);
     }

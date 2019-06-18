@@ -31,6 +31,9 @@
                     <form th:action="'/community/'+${community.getId()}+'/join'" th:classid="${isJoined}" method="get">
                         <input type="submit" class="joinCommunityBtn"  id = "joinCommunityBtn" value="Join to community"/>
                     </form>
+                    <form th:action="'/community/'+${community.getId()}+'/delete'" th:classid="${isJoined}" method="get">
+                        <input type="submit" class="joinCommunityBtn"  id = "deleteCommunityBtn" value="Delete Community"/>
+                    </form>
                     <form th:action="'/upload/community'+${community.getId()}" method="get" >
                         <input type="submit" class="updateCommAvatar"  id = "updateCommAvatar" value="Update avatar"/>
                     </form>
